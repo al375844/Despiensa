@@ -71,38 +71,30 @@ db.createCollection('recipes', {
     tiempo: 85,
     ingredientes: [
         {
-            ingrediente: ObjectId(),
+            ingrediente: ObjectId("6051f4dfb591fc0a91eaf1ac"),
+            cantidad: 300
+        },
+        {
+            ingrediente: ObjectId("6051f4dfb591fc0a91eaf1ad"),
             cantidad: 2
         },
         {
-            ingrediente: ObjectId(),
-            cantidad: 2
-        },
-        {
-            ingrediente: ObjectId(),
-            cantidad: 200
-        },
-        {
-            ingrediente: ObjectId(),
-            cantidad: 3
-        },
-        {
-            ingrediente: ObjectId(),
+            ingrediente: ObjectId("6051f4dfb591fc0a91eaf1ae"),
             cantidad: 200
         }
     ],
-    puntuaciones: {
+    puntuaciones: [
         {
-            usuario: ObjectId(),
+            usuario: ObjectId("6051dce1b591fc0a91eaf1a5"),
             puntuacion: 5,
             comentario: "Esta receta es perfecta, me encanta el resultado."
         },
         {
-            usuario: ObjectId(),
+            usuario: ObjectId("6051dce1b591fc0a91eaf1a5"),
             puntuacion: 1,
             comentario: "No entiendo el procedimiento, está muy mal redactado."
         }
-    },
+    ]
 
 }
 */
