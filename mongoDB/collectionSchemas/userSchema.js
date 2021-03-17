@@ -123,7 +123,7 @@ db.createCollection('users', {
     "fechaNacimientoUsuario": ISODate("1968-02-22"),
     "puntuacionUsuario": 0,
     "n_recetas": 0,
-    "plan": ObjectId("6051d19bb591fc0a91eaf192"),
+    "plan": ObjectId("6051ea8fb591fc0a91eaf1a7"),
     "despensa": [
         {
             "alimento": ObjectId("6051c12db591fc0a91eaf191"),
