@@ -20,6 +20,7 @@ db.createCollection( 'food', {
 /*
 {
     "nombre": "Leche",
+    "unidades": "bricks"
     "alergenos": [
         "betalactoglobulina",
         "alfalactoalbúmina"
