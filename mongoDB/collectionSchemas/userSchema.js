@@ -134,8 +134,12 @@ db.createCollection('users', {
     "plan": ObjectId("6051ea8fb591fc0a91eaf1a7"),
     "despensa": [
         {
-            "alimento": ObjectId("6051c12db591fc0a91eaf191"),
-            "cantidad": 2
+            "alimento": ObjectId("6051f4dfb591fc0a91eaf1ac"),
+            "cantidad": 800
+        },
+        {
+            "alimento": ObjectId("6051f4dfb591fc0a91eaf1ad"),
+            "cantidad": 12
         }
     ],
     "perfiles": [
@@ -158,12 +162,12 @@ db.createCollection('users', {
             "nombreLista": "CompraHabitual",
             "alimentos": [
                 {
-                    "alimento": ObjectId("6051d19bb591fc0a91eaf192"),
+                    "alimento": ObjectId("6051f4dfb591fc0a91eaf1a8"),
                     "cantidad": 3
                 },
                 {
-                    "alimento": ObjectId("6051d248b591fc0a91eaf193"),
-                    "cantidad": 4
+                    "alimento": ObjectId("6051f4dfb591fc0a91eaf1aa"),
+                    "cantidad": 200
                 }
             ]
         },
@@ -171,14 +175,14 @@ db.createCollection('users', {
             "nombreLista": "CompraTrabajo",
             "alimentos": [
                 {
-                    "alimento": ObjectId("6051d19bb591fc0a91eaf192"),
-                    "cantidad": 2
+                    "alimento": ObjectId("6051f4dfb591fc0a91eaf1ae"),
+                    "cantidad": 20
                 }
             ]
         }
     ],
     recetas: [
-        ObjectId()
+        ObjectId("6051f5f4b591fc0a91eaf1af")
     ]
 }
 
