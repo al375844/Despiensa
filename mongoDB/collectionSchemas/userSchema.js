@@ -2,7 +2,7 @@ db.createCollection('users', {
         validator: {
             $jsonSchema: {
                 bsonType: 'object',
-                required: ['nombreUsuario','apellidosUsuario','correo','password','fechaNacimientoUsuario','puntuacionUsuario', 'n_recetas', 'plan', 'despensa', 'perfiles'],
+                required: ['nombreUsuario','apellidosUsuario','correo','password','fechaNacimientoUsuario','puntuacionUsuario', 'n_recetas', 'plan', 'despensa', 'perfiles', 'listas', 'recetas'],
                 properties: {
                     nombreUsuario: {
                         bsonType: 'string',
@@ -59,7 +59,7 @@ db.createCollection('users', {
                         description: 'lista de perfiles de la cuenta',
                         items: {
                             bsonType: 'object',
-                            required: ['nombrePerfil','apellidosPerfil','fechaNacimientoPerfil','listas'],
+                            required: ['nombrePerfil','apellidosPerfil','fechaNacimientoPerfil'],
                             properties: {
                                 nombrePerfil: {
                                     bsonType: 'string',
@@ -72,40 +72,48 @@ db.createCollection('users', {
                                 fechaNacimientoPerfil: {
                                     bsonType: 'date',
                                     description: 'fecha de nacimiento del perfil'
+                                }
+                            }
+                        }
+                    },
+                    listas: {
+                        bsonType: 'array',
+                        description: 'todas las listas que tiene el usuario',
+                        items: {
+                            bsonType: 'object',
+                            required: ['nombreLista', 'alimentos'],
+                            properties: {
+                                nombreLista: {
+                                    bsonType: 'string',
+                                    description: 'nombre de la lista'
                                 },
-                                listas: {
+                                alimentos: {
                                     bsonType: 'array',
-                                    description: 'todas las listas que tiene cada perfil',
+                                    description: 'lista de alimentos de la lista',
                                     items: {
                                         bsonType: 'object',
-                                        required: ['nombreLista', 'alimentos'],
+                                        required: ['alimento', 'cantidad'],
                                         properties: {
-                                            nombreLista: {
-                                                bsonType: 'string',
-                                                description: 'nombre de la lista'
+                                            alimento: {
+                                                bsonType: 'objectId',
+                                                description: 'referencia al alimento'
                                             },
-                                            alimentos: {
-                                                bsonType: 'array',
-                                                description: 'lista de alimentos de la lista',
-                                                items: {
-                                                    bsonType: 'object',
-                                                    required: ['alimento', 'cantidad'],
-                                                    properties: {
-                                                        alimento: {
-                                                            bsonType: 'objectId',
-                                                            description: 'referencia al alimento'
-                                                        },
-                                                        cantidad: {
-                                                            bsonType: 'double',
-                                                            description: 'cantidad en la que tenemos el alimento'
-                                                        }
-                                                    }
-                                                }
+                                            cantidad: {
+                                                bsonType: 'double',
+                                                description: 'cantidad en la que tenemos el alimento'
                                             }
                                         }
                                     }
                                 }
                             }
+                        }
+                    },
+                    recetas: {
+                        bsonType: 'array',
+                        description: 'todas las recetas que ha subido el usuario',
+                        items: {
+                            bsonType: 'objectId',
+                            description: 'referencia a cada una de las recetas del usuario'
                         }
                     }
                 }
@@ -137,39 +145,40 @@ db.createCollection('users', {
             "fechaNacimientoPerfil": ISODate("1999-01-11"),
             "intolerancias": [
                 "Gluten"
-            ],
-            listas: [
-                {
-                    "nombreLista": "CompraHabitual",
-                    "alimentos": [
-                        {
-                            "alimento": ObjectId("6051d19bb591fc0a91eaf192"),
-                            "cantidad": 3
-                        },
-                        {
-                            "alimento": ObjectId("6051d248b591fc0a91eaf193"),
-                            "cantidad": 4
-                        }
-                    ]
-                }
             ]
         },
         {
             "nombrePerfil": "Maria",
             "apellidosPerfil": "Mas Gil",
             "fechaNacimientoPerfil": ISODate("1978-09-30"),
-            listas: [
+        }
+    ],
+    listas: [
+        {
+            "nombreLista": "CompraHabitual",
+            "alimentos": [
                 {
-                    "nombreLista": "CompraTrabajo",
-                    "alimentos": [
-                        {
-                            "alimento": ObjectId("6051d19bb591fc0a91eaf192"),
-                            "cantidad": 2
-                        }
-                    ]
+                    "alimento": ObjectId("6051d19bb591fc0a91eaf192"),
+                    "cantidad": 3
+                },
+                {
+                    "alimento": ObjectId("6051d248b591fc0a91eaf193"),
+                    "cantidad": 4
+                }
+            ]
+        },
+        {
+            "nombreLista": "CompraTrabajo",
+            "alimentos": [
+                {
+                    "alimento": ObjectId("6051d19bb591fc0a91eaf192"),
+                    "cantidad": 2
                 }
             ]
         }
+    ],
+    recetas: [
+        ObjectId()
     ]
 }
 
