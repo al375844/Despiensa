@@ -1,1 +1,11 @@
-{}
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Primera versión del backend.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alejandro, Ruben Nebot, Ruben Carmona, Sergio Calvo, José Gil, Néstor López",
+  "license": "ISC"
+}
