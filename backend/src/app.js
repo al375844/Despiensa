@@ -16,7 +16,7 @@ app.use('/users', usersRoutes);
 
 app.use('/home', (req, res, next) => {
     console.log('In another middleware.');
-    res.send('<h1>Hello from Despiensa!</h1>');
+    res.sendFile( path.join(__dirname, 'views', 'home.html') );
 });
 
 app.use((req,res,next) => {
