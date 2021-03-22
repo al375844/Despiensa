@@ -1,5 +1,5 @@
 //node core dependencies
-//const http = require('http');
+const path = require('path');
 
 //3rd party dependencies
 const express = require('express');
@@ -20,7 +20,7 @@ app.use('/home', (req, res, next) => {
 });
 
 app.use((req,res,next) => {
-    res.status(404).send('<h1>Page not found</h1>')
+    res.status(404).sendFile( path.join(__dirname, 'views', 'notFound.html') );
 })
 
 app.listen(3000);
