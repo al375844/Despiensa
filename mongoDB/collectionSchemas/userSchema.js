@@ -2,7 +2,7 @@ db.createCollection('users', {
         validator: {
             $jsonSchema: {
                 bsonType: 'object',
-                required: ['nombreUsuario','apellidosUsuario','correo','password','fechaNacimientoUsuario','puntuacionUsuario', 'n_recetas', 'plan', 'despensa', 'perfiles', 'listas', 'recetas'],
+                required: ['nombreUsuario','apellidosUsuario','correo','password','puntuacionUsuario', 'n_recetas', 'plan', 'despensa', 'perfiles', 'listas', 'recetas'],
                 properties: {
                     nombreUsuario: {
                         bsonType: 'string',
@@ -19,10 +19,6 @@ db.createCollection('users', {
                     password: {
                         bsonType: 'string',
                         description: 'contraseña del usuario'
-                    },
-                    fechaNacimientoUsuario: {
-                        bsonType: 'date',
-                        description: 'fecha de nacimiento del usuario'
                     },
                     puntuacionUsuario: {
                         bsonType: 'double',
@@ -128,7 +124,6 @@ db.createCollection('users', {
     "apellidosUsuario": "Peris Escrig",
     "correo": "ppescrig@gmail.com",
     "password": "35GD567d8rG6V",
-    "fechaNacimientoUsuario": ISODate("1968-02-22"),
     "puntuacionUsuario": 0,
     "n_recetas": 0,
     "plan": ObjectId("6051ea8fb591fc0a91eaf1a7"),
@@ -144,9 +139,9 @@ db.createCollection('users', {
     ],
     "perfiles": [
         {
-            "nombrePerfil": "Juan",
-            "apellidosPerfil": "Peris Mas",
-            "fechaNacimientoPerfil": ISODate("1999-01-11"),
+            "nombrePerfil": "Paco",
+            "apellidosPerfil": "Peris Escrig",
+            "fechaNacimientoPerfil": ISODate("1968-02-22"),
             "intolerancias": [
                 "Gluten"
             ]
