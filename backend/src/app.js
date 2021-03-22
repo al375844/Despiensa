@@ -12,11 +12,15 @@ const usersRoutes = require('../src/routes/usersRoutes');
 
 //app.use recibe un o varias funciones y las ejecuta para cada petición.
 
-app.use(usersRoutes);
+app.use('/users', usersRoutes);
 
-app.use('/', (req, res, next) => {
+app.use('/home', (req, res, next) => {
     console.log('In another middleware.');
     res.send('<h1>Hello from Despiensa!</h1>');
 });
+
+app.use((req,res,next) => {
+    res.status(404).send('<h1>Page not found</h1>')
+})
 
 app.listen(3000);
