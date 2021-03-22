@@ -2,8 +2,12 @@ db.createCollection('users', {
         validator: {
             $jsonSchema: {
                 bsonType: 'object',
-                required: ['nombreUsuario','apellidosUsuario','correo','password','puntuacionUsuario', 'n_recetas', 'plan', 'despensa', 'perfiles', 'listas', 'recetas'],
+                required: ['usuario','nombreUsuario','apellidosUsuario','correo','password','puntuacionUsuario', 'n_recetas', 'plan', 'despensa', 'perfiles', 'listas', 'recetas'],
                 properties: {
+                    usuario: {
+                        bsonType: 'string',
+                        description: 'nickname del usuario'
+                    },
                     nombreUsuario: {
                         bsonType: 'string',
                         description: 'nombre del usuario'
@@ -120,6 +124,7 @@ db.createCollection('users', {
 
 /*
 {
+    "usuario": "pacoElCocinas53",
     "nombreUsuario": "Paco",
     "apellidosUsuario": "Peris Escrig",
     "correo": "ppescrig@gmail.com",
