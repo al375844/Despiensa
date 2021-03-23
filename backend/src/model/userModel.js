@@ -59,7 +59,7 @@ class User {
                 ],
                 listas: [
                     {
-                        "nombre": "Lista de prueba",
+                        "nombreLista": "Lista de prueba",
                         "alimentos": [
                             {
                                 "alimento": nada._id,
