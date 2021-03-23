@@ -16,6 +16,8 @@ const usersRoutes = require('../src/routes/usersRoutes');
 
 app.use('/users', usersRoutes);
 
+app.use(express.static( path.join(rootDir, 'public') ));
+
 app.use('/home', (req, res, next) => {
     console.log('In another middleware.');
     res.sendFile( path.join(rootDir, 'views', 'home.html') );
