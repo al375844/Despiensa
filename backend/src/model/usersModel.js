@@ -1,4 +1,4 @@
-const mongoConnect = require('../utils/database');
+const getDB = require('../utils/database').getDB;
 
 class Users {
     constructor (usuario, nombreUsuario, apellidosUsuario, correo, password, puntuacionUsuario, n_recetas, plan, despensa, perfiles, listas, recetas) {
