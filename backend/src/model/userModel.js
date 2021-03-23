@@ -35,6 +35,30 @@ class User {
                 "puntuacionUsuario": 0,
                 "n_recetas": 0,
                 "plan": plan._id,
+                "perfiles": [
+                    {
+                        "nombrePerfil": this.nombreUsuario,
+                        "apellidosPerfil": this.apellidosUsuario,
+                        "fechaNacimientoPerfil": this.fechaNacimiento,
+                        "alergias": [
+                            null
+                        ],
+                        "intolerancias": [
+                            null
+                        ]
+                    }
+                ],
+                listas: [
+                    {
+                        "nombre": "Lista de prueba",
+                        "alimentos": [
+                            {
+                                "alimento": null,
+                                "cantidad": null
+                            }
+                        ]
+                    }
+                ],
                 "despensa": [{
                     "alimento": null,
                     "cantidad": null
