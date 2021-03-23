@@ -37,7 +37,7 @@ app.use((req,res,next) => {
 })
 
 //Ejecutamos la función exportada de database.js
-mongoConnect(client => {
+mongoConnect(() => {
     console.log(client);
     app.listen(3000); //Solo queremos que express se inicie si nos conectaoms a la base de datos con éxito.
 })
