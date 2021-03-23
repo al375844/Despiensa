@@ -1,5 +1,8 @@
 const usersController = {};
 
+const User = require('../model/userModel');
+
+
 usersController.newUser = async(req, res, next) => {
     const nombre = req.params.nombre;
     console.log("🚀 ~ file: usersController.js ~ line 5 ~ usersController.nuevoUsuario=async ~ nombre", nombre)
@@ -15,6 +18,13 @@ usersController.newUser = async(req, res, next) => {
     console.log("🚀 ~ file: usersController.js ~ line 15 ~ usersController.nuevoUsuario=async ~ alergias", alergias)
     const intolerancias = req.params.intolerancias;
     console.log("🚀 ~ file: usersController.js ~ line 17 ~ usersController.nuevoUsuario=async ~ intolerancias", intolerancias)
+    const usuario = req.params.usuario;
+    console.log("🚀 ~ file: usersController.js ~ line 22 ~ usersController.newUser=async ~ usuario", usuario)
+    const fechaNacimiento = req.params.fechaNacimiento;
+
+    let user = new User(usuario, nombre, apellidos, correo, password, planName, alergias, intolerancias, fechaNacimiento);
+    user.newUser();
+
     res.send({"id": 0, "error": "Ya Existente."});
 }
 

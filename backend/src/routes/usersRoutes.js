@@ -3,7 +3,7 @@ const usersController = require('../controller/usersController');
 
 const router = express.Router();
 
-router.post('/newUser/:usuario/:nombre/:apellidos/:correo/:password/:alergias/:intolerancias/:planName', usersController.newUser);
+router.post('/newUser/:usuario/:nombre/:apellidos/:correo/:password/:alergias/:intolerancias/:planName/:fechaNacimiento', usersController.newUser);
 
 router.put('/modifyUser/:usuario/:nombre/:apellidos/:correo', usersController.modifyUser);
 

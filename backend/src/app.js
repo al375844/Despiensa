@@ -5,7 +5,7 @@ const path = require('path');
 const express = require('express');
 
 //Exportamos nuestra conexión a MongoDB (que es una función)
-const mongoConnect = require('./utils/database')
+const mongoConnect = require('./utils/database').mongoConnect;
 
 //creamos una aplicación express y la guardamos en app (en express se ha guardado una función, que ejecutamos ahora)
 const app = express();
@@ -38,6 +38,5 @@ app.use((req,res,next) => {
 
 //Ejecutamos la función exportada de database.js
 mongoConnect(() => {
-    console.log(client);
     app.listen(3000); //Solo queremos que express se inicie si nos conectaoms a la base de datos con éxito.
 })
