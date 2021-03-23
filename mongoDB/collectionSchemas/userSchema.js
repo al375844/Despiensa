@@ -25,11 +25,11 @@ db.createCollection('users', {
                         description: 'contraseña del usuario'
                     },
                     puntuacionUsuario: {
-                        bsonType: 'double',
+                        bsonType: 'number',
                         description: 'puntuación media de las recetas subidas por el usuario'
                     },
                     n_recetas: {
-                        bsonType: 'double',
+                        bsonType: 'number',
                         description: 'número total de recetas subidas por el usuario'
                     },
                     plan: {
@@ -48,7 +48,7 @@ db.createCollection('users', {
                                     description: 'referencia al alimento'
                                 },
                                 cantidad: {
-                                    bsonType: 'double',
+                                    bsonType: 'number',
                                     description: 'cantidad en la que tenemos el alimento'
                                 }
                             }
@@ -99,7 +99,7 @@ db.createCollection('users', {
                                                 description: 'referencia al alimento'
                                             },
                                             cantidad: {
-                                                bsonType: 'double',
+                                                bsonType: 'number',
                                                 description: 'cantidad en la que tenemos el alimento'
                                             }
                                         }

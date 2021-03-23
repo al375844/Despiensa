@@ -25,7 +25,20 @@ class User {
         }
         const plan = await cursor.next();
 
-        db.collection('users2')
+        var ISOfechaNacimiento = new Date(this.fechaNacimiento);
+
+        let arrayDeAlergias;
+        arrayDeAlergias = this.alergias.split(',');
+        console.log(arrayDeAlergias);
+        let arrayDeIntolerancias;
+        arrayDeIntolerancias = this.intolerancias.split(',');
+        console.log(arrayDeIntolerancias);
+
+        const cursor2 = await db.collection('food')
+            .find({"nombre": "nada"});
+        const nada = await cursor2.next();
+
+        db.collection('users')
             .insertOne({
                 "usuario" : this.usuario,
                 "nombreUsuario" : this.nombreUsuario,
@@ -39,13 +52,9 @@ class User {
                     {
                         "nombrePerfil": this.nombreUsuario,
                         "apellidosPerfil": this.apellidosUsuario,
-                        "fechaNacimientoPerfil": this.fechaNacimiento,
-                        "alergias": [
-                            null
-                        ],
-                        "intolerancias": [
-                            null
-                        ]
+                        "fechaNacimientoPerfil": ISOfechaNacimiento,
+                        "alergias": arrayDeAlergias,
+                        "intolerancias": arrayDeIntolerancias
                     }
                 ],
                 listas: [
@@ -53,25 +62,25 @@ class User {
                         "nombre": "Lista de prueba",
                         "alimentos": [
                             {
-                                "alimento": null,
-                                "cantidad": null
+                                "alimento": nada._id,
+                                "cantidad": 0
                             }
                         ]
                     }
                 ],
                 "despensa": [{
-                    "alimento": null,
-                    "cantidad": null
+                    "alimento": nada._id,
+                    "cantidad": 0
                 }],
                 "recetas": [
-                    null
+                    nada._id
                 ]
             })
             .then(result => {
                 //console.log(result);
             })
             .catch(err => {
-                //console.log(err);
+                console.log(err);
             });
     }
 }
