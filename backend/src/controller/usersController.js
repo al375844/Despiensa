@@ -17,7 +17,7 @@ usersController.newUser = async(req, res, next) => {
 
     let user = new User(usuario, nombre, apellidos, correo, password, planName, alergias, intolerancias, fechaNacimiento);
 
-    const resultado = await user.newUser()
+    user.newUser()
         .catch(err => {
             res.send(
                 {

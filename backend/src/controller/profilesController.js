@@ -4,15 +4,32 @@ const Profile = require('../model/profileModel');
 
 
 profilesController.newProfile = async(req, res, next) => {
-    res.send(
-        {
-            "_id": "0",
-            "error": {
-                "type" : 0,
-                "message" : "No implementada"
-            }
-        }
-    );
+    const nombre = req.params.nombre;
+    const apellidos = req.params.apellidos;
+    const alergias = req.params.alergias;
+    const intolerancias = req.params.intolerancias;
+    const usuario = req.params.usuario;
+    const fechaNacimiento = req.params.fechaNacimiento;
+    console.log("🚀 ~ file: usersController.js ~ line 16 ~ usersController.newUser=async", usuario, nombre, apellidos, alergias, intolerancias, fechaNacimiento);
+
+    const profile = new Profile(usuario, nombre, apellidos, fechaNacimiento, alergias, intolerancias);
+
+    profile.newProfile()
+        .catch(err => {
+            res.send(
+                {
+                    "_id": "0",
+                    "error": {
+                        "type" : err[0],
+                        "message" : err[1]
+                    }
+                }
+            );
+        })
+        .then(result => {
+            res.send(result);
+        });
+
 }
 
 profilesController.modifyProfile = async(req, res, next) => {
