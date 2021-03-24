@@ -35,31 +35,7 @@ usersController.newUser = async(req, res, next) => {
 
 }
 
-usersController.newProfile = async(req, res, next) => {
-    res.send(
-        {
-            "_id": "0",
-            "error": {
-                "type" : 0,
-                "message" : "No implementada"
-            }
-        }
-    );
-}
-
 usersController.modifyUser = async(req, res, next) => {
-    res.send(
-        {
-            "_id": "0",
-            "error": {
-                "type" : 0,
-                "message" : "No implementada"
-            }
-        }
-    );
-}
-
-usersController.modifyProfile = async(req, res, next) => {
     res.send(
         {
             "_id": "0",
@@ -95,31 +71,7 @@ usersController.deleteUser = async(req, res, next) => {
     );
 }
 
-usersController.deleteProfile = async(req, res, next) => {
-    res.send(
-        {
-            "_id": "0",
-            "error": {
-                "type" : 0,
-                "message" : "No implementada"
-            }
-        }
-    );
-}
-
 usersController.getUser = async(req, res, next) => {
-    res.send(
-        {
-            "_id": "0",
-            "error": {
-                "type" : 0,
-                "message" : "No implementada"
-            }
-        }
-    );
-}
-
-usersController.getProfile = async(req, res, next) => {
     res.send(
         {
             "_id": "0",
