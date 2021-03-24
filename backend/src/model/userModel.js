@@ -90,10 +90,10 @@ class User {
                     case 11000:
                         throw [1, 'El usuario que se intenta introducir ya existe.']; //err.keyPattern
                     case 121:
-                        throw [5, 'El objeto que se intenta insertar no cumple con el esquema definido.']
+                        throw [4, 'El objeto que se intenta insertar no cumple con el esquema definido.']
                     default:
                         console.log(err.code);
-                        throw [4, 'Error desconocido en la inserción.'];
+                        throw [5, 'Error desconocido en la inserción.'];
                 }
             });
         
