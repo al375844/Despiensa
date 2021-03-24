@@ -27,7 +27,7 @@ profilesController.newProfile = async(req, res, next) => {
             );
         })
         .then(result => {
-            res.send(result);
+            res.send(result.perfiles);
         });
 
 }

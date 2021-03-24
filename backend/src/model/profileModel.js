@@ -56,7 +56,7 @@ class Profile {
                 }
             )
             .then((res) => {
-                console.log(res);
+                //console.log(res);
             })
             .catch((err) => {
                 console.log(err);
@@ -70,10 +70,7 @@ class Profile {
                             $elemMatch:
                             {
                                 "nombrePerfil": this.nombrePerfil,
-                                "apellidosPerfil": this.apellidosPerfil,
-                                "fechaNacimientoPerfil": ISOfechaNacimiento,
-                                "alergias": arrayDeAlergias,
-                                "intolerancias": arrayDeIntolerancias
+                                "apellidosPerfil": this.apellidosPerfil
                             }
                         }
                     }
