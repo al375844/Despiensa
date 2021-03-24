@@ -23,9 +23,23 @@ usersController.newUser = async(req, res, next) => {
     const fechaNacimiento = req.params.fechaNacimiento;
 
     let user = new User(usuario, nombre, apellidos, correo, password, planName, alergias, intolerancias, fechaNacimiento);
-    user.newUser();
 
-    res.send({"id": 0, "error": "Ya Existente."});
+    const resultado = await user.newUser()
+        .catch(err => {
+            res.send(
+                {
+                    "_id": "0",
+                    "error": {
+                        "type" : err[0],
+                        "message" : err[1]
+                    }
+                }
+            );
+        })
+        .then(result => {
+            res.send(result);
+        });
+
 }
 
 usersController.newProfile = async(req, res, next) => {
