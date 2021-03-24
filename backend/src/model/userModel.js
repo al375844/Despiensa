@@ -86,10 +86,18 @@ class User {
                 //console.log(result);
             })
             .catch(err => {
-                console.log(err);
-                throw [4, 'Error desconocido en la inserción'];
+                switch (err.code){
+                    case 11000:
+                        throw [1, 'El usuario que se intenta introducir ya existe.']; //err.keyPattern
+                    case 121:
+                        throw [5, 'El objeto que se intenta insertar no cumple con el esquema definido.']
+                    default:
+                        console.log(err.code);
+                        throw [4, 'Error desconocido en la inserción.'];
+                }
             });
         
+
         //Devolvemos una promesa con el objeto añadido
         return db.collection('users')
             .findOne({"usuario": this.usuario});
