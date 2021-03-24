@@ -4,13 +4,13 @@ const profilesController = require('../controller/profilesController');
 const router = express.Router();
 
 //'/profiles'
-router.put('/newPassword/:usuario/:nombre/:apellidos/:fechaNacimiento/:alergias/:intolerancias', profilesController.newProfile);
+router.put('/newProfile/:usuario/:nombre/:apellidos/:fechaNacimiento/:alergias/:intolerancias', profilesController.newProfile);
 
-router.put('/newPassword/:usuario/:nombre/:apellidos/:fechaNacimiento/:alergias/:intolerancias', profilesController.modifyProfile);
+router.put('/modifyProfile/:usuario/:nombre/:apellidos/:fechaNacimiento/:alergias/:intolerancias', profilesController.modifyProfile);
 
-router.put('/newPassword/:usuario/:nombreyApellidos', profilesController.deleteProfile);
+router.put('/deleteProfile/:usuario/:nombreyApellidos', profilesController.deleteProfile);
 
-router.get('/newPassword/:usuario/:nombreyApellidos', profilesController.getProfile);
+router.get('/getProfile/:usuario/:nombreyApellidos', profilesController.getProfile);
 
 
 module.exports = router;
