@@ -73,6 +73,9 @@ class Profile {
                                 "apellidosPerfil": this.apellidosPerfil
                             }
                         }
+                    },
+                    {
+                        "perfiles.$": 1
                     }
                 )
 
