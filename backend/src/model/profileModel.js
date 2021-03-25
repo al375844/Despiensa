@@ -98,6 +98,11 @@ class Profile {
 
     }
 
+    async modifyProfile(){
+
+        const db = getDB;
+
+    }
 
 }
 
