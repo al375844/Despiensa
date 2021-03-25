@@ -63,7 +63,7 @@ class Profile {
             });
 
             return db.collection('users')
-                .findOne(
+                .find(
                     {
                         perfiles:
                         {
@@ -73,11 +73,14 @@ class Profile {
                                 "apellidosPerfil": this.apellidosPerfil
                             }
                         }
-                    },
+                    }
+                )
+                .project(
                     {
                         "perfiles.$": 1
                     }
                 )
+                .toArray();
 
     }
 

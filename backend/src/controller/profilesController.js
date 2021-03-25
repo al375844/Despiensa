@@ -16,6 +16,7 @@ profilesController.newProfile = async(req, res, next) => {
 
     profile.newProfile()
         .catch(err => {
+            console.log(err);
             res.send(
                 {
                     "_id": "0",
@@ -27,7 +28,7 @@ profilesController.newProfile = async(req, res, next) => {
             );
         })
         .then(result => {
-            res.send(result.perfiles);
+            res.send(result[0]);
         });
 
 }
