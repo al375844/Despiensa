@@ -1,0 +1,1 @@
+db.users.createIndex({usuario: 1}, {unique: true});

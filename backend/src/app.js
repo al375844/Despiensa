@@ -14,13 +14,14 @@ const app = express();
 const rootDir = require('../src/utils/path');
 
 //rutas a usar
-const usersRoutes = require('../src/routes/usersRoutes');
-
+const usersRoutes = require('./routes/usersRoutes');
+const profilesRoutes = require('./routes/profilesRoutes')
 
 //app.use recibe un o varias funciones y las ejecuta para cada petición.
 
 //le proporcionamos a express las rutas que nosotros mismos creamos
 app.use('/users', usersRoutes);
+app.use('/profiles', profilesRoutes);
 
 //Servimos utilizando express, los archivos css de forma estática
 app.use(express.static( path.join(rootDir, 'public') ));
