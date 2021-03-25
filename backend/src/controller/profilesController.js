@@ -28,7 +28,21 @@ profilesController.newProfile = async(req, res, next) => {
             );
         })
         .then(result => {
-            res.send(result[0]);
+            if (result != undefined){
+                if(result.length == 0){
+                    res.send(
+                        {
+                            "_id": "0",
+                            "error": {
+                                "type" : 8,
+                                "message" : 'Este usuario ya cuenta con cuatro perfiles.'
+                            }
+                        }
+                    );
+                }else {
+                    res.send(result);
+                }
+            }
         });
 
 }

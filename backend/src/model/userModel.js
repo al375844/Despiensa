@@ -93,7 +93,7 @@ class User {
                         throw [4, 'El objeto que se intenta insertar no cumple con el esquema definido.']
                     default:
                         console.log(err.code);
-                        throw [5, 'Error desconocido en la inserción.'];
+                        throw [5, 'Error desconocido.'];
                 }
             });
         

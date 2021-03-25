@@ -5,6 +5,6 @@ Siempre devuelve _id, que puede ser o bien un id posible o bien 0.
                     |-> [2,'El plan indicado no existe.']
                     |-> [3, 'El formato de la fecha de nacimiento no es correcto.']
                     |-> [4, 'El objeto que se intenta insertar no cumple con el esquema definido.']
-                    |-> [5, 'Error desconocido en la inserción.']
+                    |-> [5, 'Error desconocido.']
     |-> Si _id es un valor distinto de 0: Todo ha ido bien.
             |-> En dicho caso, devuelve el objeto recien insertado en la base de datos.

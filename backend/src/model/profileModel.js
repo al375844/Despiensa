@@ -27,7 +27,27 @@ class Profile {
         let arrayDeAlergias = this.alergias.split(',');
         let arrayDeIntolerancias = this.intolerancias.split(',');
 
-        db.collection('users')
+        const resultado = await db.collection('users')
+            .findOne(
+                {
+                    perfiles:
+                    {
+                        $elemMatch:
+                        {
+                            "nombrePerfil": this.nombrePerfil
+                        }
+                    }
+                }
+            )
+            .catch(err => {
+                throw [5, 'Error desconocido.'];
+            });
+
+        if (resultado != null){
+            throw [7, 'Ya existe un perfil con el mismo nombre.'];
+        }
+
+        await db.collection('users')
             .updateOne(
                 {
                     "usuario" : this.usuario
@@ -46,20 +66,15 @@ class Profile {
                                     "intolerancias": arrayDeIntolerancias
                                 }
                             ],
-                            $sort:
-                            {
-                                "nombrePerfil": 1
-                            },
                             $slice: 4
                         }
                     }
                 }
             )
             .then((res) => {
-                //console.log(res);
-            })
-            .catch((err) => {
-                console.log(err);
+                if(res.matchedCount == 0){
+                    throw [9, 'El usuario al que se le intenta añadir un perfil no existe.'];
+                }
             });
 
             return db.collection('users')
@@ -69,8 +84,7 @@ class Profile {
                         {
                             $elemMatch:
                             {
-                                "nombrePerfil": this.nombrePerfil,
-                                "apellidosPerfil": this.apellidosPerfil
+                                "nombrePerfil": this.nombrePerfil
                             }
                         }
                     }
