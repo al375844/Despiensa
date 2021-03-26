@@ -42,7 +42,8 @@ usersController.modifyUser = async(req, res, next) => {
     const correo = req.params.correo;
     console.log("🚀 ~ file: usersController.js ~ line 43 ~ usersController.modifyUser=async ~ correo", usuario, nombre, apellidos, correo);
 
-    let user = new User
+    let user = new User(usuario, "0", "0", "0", "0", "0", "0", "0", "0");
+    user.instanciarPorUsuario();
 
 }
 

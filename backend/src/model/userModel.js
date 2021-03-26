@@ -11,14 +11,17 @@ class User {
         this.alergias = alergias;
         this.intolerancias = intolerancias;
         this.fechaNacimiento = fechaNacimiento; //type3
+
         console.log("Usuario instanciado.");
     }
 
-    constructor (usuario){
+    async instanciarPorUsuario(){
+        
         const db = getDB();
         const user = await db.collection('users')
-            .findOne({"usuario": usuario});
-        console.log('user');
+            .findOne({"usuario": this.usuario});
+        console.log(user);
+
     }
 
     async newUser(){
@@ -109,6 +112,7 @@ class User {
         return db.collection('users')
             .findOne({"usuario": this.usuario});
     }
+
 }
 
 module.exports = User;
