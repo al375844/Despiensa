@@ -36,15 +36,14 @@ usersController.newUser = async(req, res, next) => {
 }
 
 usersController.modifyUser = async(req, res, next) => {
-    res.send(
-        {
-            "_id": "0",
-            "error": {
-                "type" : 0,
-                "message" : "No implementada"
-            }
-        }
-    );
+    const usuario = req.params.usuario;
+    const nombre = req.params.nombre;
+    const apellidos = req.params.apellidos;
+    const correo = req.params.correo;
+    console.log("🚀 ~ file: usersController.js ~ line 43 ~ usersController.modifyUser=async ~ correo", usuario, nombre, apellidos, correo);
+
+    let user = new User
+
 }
 
 usersController.newPassword = async(req, res, next) => {

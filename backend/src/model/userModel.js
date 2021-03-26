@@ -14,6 +14,13 @@ class User {
         console.log("Usuario instanciado.");
     }
 
+    constructor (usuario){
+        const db = getDB();
+        const user = await db.collection('users')
+            .findOne({"usuario": usuario});
+        console.log('user');
+    }
+
     async newUser(){
 
         const db = getDB();
