@@ -7,3 +7,4 @@ throw [5, 'Error desconocido.'];
 throw [7, 'Ya existe un perfil con el mismo nombre.'];
 throw [8, 'Este usuario ya cuenta con 4 perfiles.'];
 throw [9, 'El usuario especificado no existe.'];
+throw [10, 'El usuario no existe o la contraseña vieja no se corresponde con la indicada.'];

@@ -105,15 +105,31 @@ usersController.newPassword = async(req, res, next) => {
 }
 
 usersController.deleteUser = async(req, res, next) => {
-    res.send(
-        {
-            "_id": "0",
-            "error": {
-                "type" : 0,
-                "message" : "No implementada"
-            }
-        }
-    );
+
+    const usuario = req.params.usuario;
+
+    let user = new User(usuario, "0", "0", "0", "0", "0", "0", "0", "0");
+    user.deleteUser()
+        .catch(err => {
+            console.log("Entramos en error.");
+            console.log(err);
+            res.send(
+                {
+                    "_id": "0",
+                    "error": {
+                        "type" : err[0],
+                        "message" : err[1]
+                    }
+                }
+            );
+        })
+        .then(result => {
+            console.log("Entramos en result.");
+            console.log(result);
+            res.send({
+                "_id": -1
+            });
+        });
 }
 
 usersController.getUser = async(req, res, next) => {

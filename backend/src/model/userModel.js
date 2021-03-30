@@ -171,6 +171,25 @@ class User {
 
     }
 
+    async deleteUser(){
+
+        const db = getDB();
+
+        db.collection('users')
+            .deleteOne(
+                {
+                    usuario: this.usuario
+                }
+            )
+            .then(result => {
+                if(result.deletedCount == 0){
+                    console.log("Lanzamos el error");
+                    throw [9, 'El usuario especificado no existe.'];
+                }
+            });
+
+    }
+
 }
 
 module.exports = User;
