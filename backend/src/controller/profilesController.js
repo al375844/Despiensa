@@ -50,6 +50,28 @@ profilesController.newProfile = async(req, res, next) => {
 }
 
 profilesController.modifyProfile = async(req, res, next) => {
+    
+    const usuario = req.params.usuario;
+    const nombreAntiguo = req.params.nombreAntiguo;
+    const nombreNuevo = req.params.nombreNuevo;
+    const apellidos = req.params.apellidos;
+    const fechaNacimiento = req.params.fechaNacimiento;
+    const alergias = req.params.alergias;
+    const intolerancias = req.params.intolerancias;
+    console.log("🚀 ~ file: profilesController.js ~ line 61 ~ profilesController.modifyProfile=async ~ intolerancias", usuario, nombreAntiguo, nombreNuevo, apellidos, fechaNacimiento, alergias, intolerancias);
+    
+    const profile = new Profile(usuario, nombreAntiguo);
+    profile.modifyProfile(nombreNuevo, apellidos, fechaNacimiento, alergias, intolerancias)
+        .then(result => {
+            console.log("result");
+            console.log(result);
+        })
+        .catch(err => {
+            console.log("error");
+            console.log(err);
+        });
+    
+    
     res.send(
         {
             "_id": "0",

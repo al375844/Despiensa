@@ -82,9 +82,11 @@ class Profile {
 
     }
 
-    async modifyProfile(){
+    async modifyProfile(nombreNuevo, apellidos, fechaNacimiento, alergias, intolerancias){
 
         const db = getDB;
+        db.collection('users')
+
 
     }
 

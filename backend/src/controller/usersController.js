@@ -4,6 +4,7 @@ const User = require('../model/userModel');
 
 
 usersController.newUser = async(req, res, next) => {
+    console.log("body", req.body);
     const nombre = req.params.nombre;
     const apellidos = req.params.apellidos;
     const correo = req.params.correo;
