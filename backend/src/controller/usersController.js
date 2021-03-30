@@ -49,6 +49,7 @@ usersController.modifyUser = async(req, res, next) => {
     user.modifyUser(usuarioNuevo, nombre, apellidos, correo)
         .catch(err => {
             console.log("Entramos en error");
+            console.log(err);
             res.send(
                 {
                     "_id": "0",
@@ -61,6 +62,7 @@ usersController.modifyUser = async(req, res, next) => {
         })
         .then(result => {
             console.log("Entramos en result");
+            console.log(result);
             res.send(result);
         });
         

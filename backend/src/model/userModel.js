@@ -106,8 +106,6 @@ class User {
 
     async modifyUser(usuarioNuevo, nombre, apellidos, correo){
 
-        var no = true;
-
         const db = getDB();
         await db.collection('users')
             .updateOne(
@@ -123,18 +121,12 @@ class User {
                     }
                 }
             )
-            .then(result => {
-                if(result.matchedCount == 0){
+            .then(res => {
+                if(res.matchedCount == 0){
                     console.log("Lanzamos el error");
                     throw [9, 'El usuario especificado no existe.'];
                 }
-            })
-            .catch(err => {
-                console.log(err);
             });
-        if (no){
-            throw [9, 'El usuario especificado no existe.'];
-        }
 
         return db.collection('users')
             .findOne({usuario: usuarioNuevo});
