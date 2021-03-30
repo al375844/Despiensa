@@ -15,15 +15,6 @@ class User {
         console.log("Usuario instanciado.");
     }
 
-    async instanciarPorUsuario(){
-        
-        const db = getDB();
-        const user = await db.collection('users')
-            .findOne({"usuario": this.usuario});
-        console.log(user);
-
-    }
-
     async newUser(){
 
         const db = getDB();
@@ -112,6 +103,44 @@ class User {
         return db.collection('users')
             .findOne({"usuario": this.usuario});
     }
+
+    async modifyUser(usuarioNuevo, nombre, apellidos, correo){
+
+        var no = true;
+
+        const db = getDB();
+        await db.collection('users')
+            .updateOne(
+                {
+                    usuario: this.usuario
+                }, 
+                {
+                    $set: {
+                        usuario: usuarioNuevo,
+                        nombreUsuario: nombre,
+                        apellidosUsuario: apellidos,
+                        correo: correo
+                    }
+                }
+            )
+            .then(result => {
+                if(result.matchedCount == 0){
+                    console.log("Lanzamos el error");
+                    throw [9, 'El usuario especificado no existe.'];
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        if (no){
+            throw [9, 'El usuario especificado no existe.'];
+        }
+
+        return db.collection('users')
+            .findOne({usuario: usuarioNuevo});
+        
+    }
+
 
 }
 

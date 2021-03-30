@@ -73,7 +73,7 @@ class Profile {
             )
             .then((res) => {
                 if(res.matchedCount == 0){
-                    throw [9, 'El usuario al que se le intenta añadir un perfil no existe.'];
+                    throw [9, 'El usuario especificado no existe.'];
                 }
             });
 

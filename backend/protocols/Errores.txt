@@ -1,0 +1,9 @@
+throw [0, 'No implementada']
+throw [1, 'El usuario que se intenta introducir ya existe.'];
+throw [2,'El plan indicado no existe.'];
+throw [3, 'El formato de la fecha de nacimiento no es correcto.'];
+throw [4, 'El objeto que se intenta insertar no cumple con el esquema definido.']
+throw [5, 'Error desconocido.'];
+throw [7, 'Ya existe un perfil con el mismo nombre.'];
+throw [8, 'Este usuario ya cuenta con 4 perfiles.'];
+throw [9, 'El usuario especificado no existe.'];

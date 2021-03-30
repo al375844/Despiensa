@@ -18,7 +18,37 @@ usersController.newUser = async(req, res, next) => {
     let user = new User(usuario, nombre, apellidos, correo, password, planName, alergias, intolerancias, fechaNacimiento);
 
     user.newUser()
+        .then(result => {
+            console.log("Entramos en result");
+            res.send(result);
+        })
         .catch(err => {
+            console.log("Entramos en error");
+            res.send(
+                {
+                    "_id": "0",
+                    "error": {
+                        "type" : err[0],
+                        "message" : err[1]
+                    }
+                }
+            );
+        });
+
+}
+
+usersController.modifyUser = async(req, res, next) => {
+    const usuarioViejo = req.params.usuarioViejo;
+    const usuarioNuevo = req.params.usuarioNuevo;
+    const nombre = req.params.nombre;
+    const apellidos = req.params.apellidos;
+    const correo = req.params.correo;
+    console.log("🚀 ~ file: usersController.js ~ line 43 ~ usersController.modifyUser=async ~ correo", usuarioViejo, usuarioNuevo, nombre, apellidos, correo);
+
+    let user = new User(usuarioViejo, "0", "0", "0", "0", "0", "0", "0", "0");
+    user.modifyUser(usuarioNuevo, nombre, apellidos, correo)
+        .catch(err => {
+            console.log("Entramos en error");
             res.send(
                 {
                     "_id": "0",
@@ -30,21 +60,10 @@ usersController.newUser = async(req, res, next) => {
             );
         })
         .then(result => {
+            console.log("Entramos en result");
             res.send(result);
         });
-
-}
-
-usersController.modifyUser = async(req, res, next) => {
-    const usuario = req.params.usuario;
-    const nombre = req.params.nombre;
-    const apellidos = req.params.apellidos;
-    const correo = req.params.correo;
-    console.log("🚀 ~ file: usersController.js ~ line 43 ~ usersController.modifyUser=async ~ correo", usuario, nombre, apellidos, correo);
-
-    let user = new User(usuario, "0", "0", "0", "0", "0", "0", "0", "0");
-    user.instanciarPorUsuario();
-
+        
 }
 
 usersController.newPassword = async(req, res, next) => {
