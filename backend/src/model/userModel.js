@@ -175,18 +175,21 @@ class User {
 
         const db = getDB();
 
-        db.collection('users')
+        return db.collection('users')
             .deleteOne(
                 {
                     usuario: this.usuario
                 }
-            )
-            .then(result => {
-                if(result.deletedCount == 0){
-                    console.log("Lanzamos el error");
-                    throw [9, 'El usuario especificado no existe.'];
-                }
-            });
+            );
+
+    }
+
+    async getUser(){
+
+        const db = getDB();
+
+        return db.collection('users')
+            .findOne({usuario: this.usuario})
 
     }
 

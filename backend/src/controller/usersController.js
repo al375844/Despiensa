@@ -82,7 +82,7 @@ usersController.newPassword = async(req, res, next) => {
     user.newPassword(newPassword)
         .catch(err => {
             console.log("Entramos en error.");
-            console.log("Error");
+            //console.log("Error");
             res.send(
                 {
                     "_id": "0",
@@ -95,7 +95,7 @@ usersController.newPassword = async(req, res, next) => {
         })
         .then(result => {
             console.log("Entramos en result.");
-            console.log(result);
+            //console.log(result);
             if(result != undefined){
                 res.send({
                     "_id": result._id
@@ -112,7 +112,7 @@ usersController.deleteUser = async(req, res, next) => {
     user.deleteUser()
         .catch(err => {
             console.log("Entramos en error.");
-            console.log(err);
+            //console.log(err);
             res.send(
                 {
                     "_id": "0",
@@ -125,23 +125,63 @@ usersController.deleteUser = async(req, res, next) => {
         })
         .then(result => {
             console.log("Entramos en result.");
-            console.log(result);
-            res.send({
-                "_id": -1
-            });
+            //console.log(result);
+            if(result.deletedCount == 0){
+                console.log("Lanzamos el error");
+                res.send(
+                    {
+                        "_id": "0",
+                        "error": {
+                            "type" : 9,
+                            "message" : 'El usuario especificado no existe.'
+                        }
+                    }
+                );
+            }else{
+                res.send({
+                    "_id": -1
+                });
+            }
         });
 }
 
 usersController.getUser = async(req, res, next) => {
-    res.send(
-        {
-            "_id": "0",
-            "error": {
-                "type" : 0,
-                "message" : "No implementada"
+    
+    const usuario = req.params.usuario;
+
+    let user = new User(usuario, "0", "0", "0", "0", "0", "0", "0", "0");
+    user.getUser()
+        .catch(err => {
+            console.log("Entramos en error.");
+            console.log(err);
+            res.send(
+                {
+                    "_id": "0",
+                    "error": {
+                        "type" : 5,
+                        "message" : 'Error desconocido.'
+                    }
+                }
+            );
+        })
+        .then(result => {
+            console.log("Entramos en result.");
+            console.log(result);
+            if(result == null){
+                res.send(
+                    {
+                        "_id": "0",
+                        "error": {
+                            "type" : 9,
+                            "message" : 'El usuario especificado no existe.'
+                        }
+                    }
+                );
+            }else{
+                res.send(result);
             }
-        }
-    );
+        });
+    
 }
 
 
