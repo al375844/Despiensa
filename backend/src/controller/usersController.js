@@ -19,11 +19,11 @@ usersController.newUser = async(req, res, next) => {
 
     user.newUser()
         .then(result => {
-            console.log("Entramos en result");
-            res.send(result);
+            res.send({
+                "_id": result._id
+            });
         })
         .catch(err => {
-            console.log("Entramos en error");
             res.send(
                 {
                     "_id": "0",
@@ -48,8 +48,8 @@ usersController.modifyUser = async(req, res, next) => {
     let user = new User(usuarioViejo, "0", "0", "0", "0", "0", "0", "0", "0");
     user.modifyUser(usuarioNuevo, nombre, apellidos, correo)
         .catch(err => {
-            console.log("Entramos en error");
-            console.log(err);
+            console.log("Entramos en error.");
+            console.log("Error");
             res.send(
                 {
                     "_id": "0",
@@ -61,14 +61,24 @@ usersController.modifyUser = async(req, res, next) => {
             );
         })
         .then(result => {
-            console.log("Entramos en result");
+            console.log("Entramos en result.");
             console.log(result);
-            res.send(result);
+            if(result != undefined){
+                res.send({
+                    "_id": result._id
+                });
+            }
         });
         
 }
 
 usersController.newPassword = async(req, res, next) => {
+    const usuario = req.params.usuario;
+    const oldPassword = req.params.oldPassword;
+    const newPassword = req.params.newPassword;
+    
+
+    
     res.send(
         {
             "_id": "0",

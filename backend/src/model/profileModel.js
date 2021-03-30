@@ -78,23 +78,7 @@ class Profile {
             });
 
             return db.collection('users')
-                .find(
-                    {
-                        perfiles:
-                        {
-                            $elemMatch:
-                            {
-                                "nombrePerfil": this.nombrePerfil
-                            }
-                        }
-                    }
-                )
-                .project(
-                    {
-                        "perfiles.$": 1
-                    }
-                )
-                .toArray();
+                .findOne({"usuario": this.usuario});
 
     }
 

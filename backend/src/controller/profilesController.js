@@ -40,7 +40,9 @@ profilesController.newProfile = async(req, res, next) => {
                         }
                     );
                 }else {
-                    res.send(result);
+                    res.send({
+                        "_id": result._id
+                    });
                 }
             }
         });

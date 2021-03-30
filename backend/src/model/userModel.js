@@ -107,7 +107,7 @@ class User {
     async modifyUser(usuarioNuevo, nombre, apellidos, correo){
 
         const db = getDB();
-        await db.collection('users')
+        const resultado = await db.collection('users')
             .updateOne(
                 {
                     usuario: this.usuario
@@ -121,12 +121,22 @@ class User {
                     }
                 }
             )
-            .then(res => {
-                if(res.matchedCount == 0){
-                    console.log("Lanzamos el error");
-                    throw [9, 'El usuario especificado no existe.'];
+            .catch(err => {
+                switch (err.code){
+                    case 11000:
+                        throw [1, 'El usuario que se intenta introducir ya existe.']; //err.keyPattern
+                    case 121:
+                        throw [4, 'El objeto que se intenta insertar no cumple con el esquema definido.']
+                    default:
+                        console.log(err.code);
+                        throw [5, 'Error desconocido.'];
                 }
             });
+
+        if(resultado.matchedCount == 0){
+            console.log("Lanzamos el error");
+            throw [9, 'El usuario especificado no existe.'];
+        }
 
         return db.collection('users')
             .findOne({usuario: usuarioNuevo});
