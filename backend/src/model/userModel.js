@@ -143,6 +143,33 @@ class User {
         
     }
 
+    async newPassword(newPassword){
+
+        const db = getDB();
+
+        await db.collection('users')
+            .updateOne(
+                {
+                    usuario: this.usuario,
+                    password: this.password
+                },
+                {
+                    $set: {
+                        password: newPassword
+                    }
+                }
+            )
+            .then(result => {
+                if(result.modifiedCount == 0){
+                    console.log("Lanzamos el error");
+                    throw [10, 'El usuario no existe o la contraseña vieja no se corresponde con la indicada.'];
+                }
+            });
+
+        return db.collection('users')
+            .findOne({usuario: this.usuario});
+
+    }
 
 }
 

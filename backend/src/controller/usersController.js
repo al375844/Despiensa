@@ -76,18 +76,32 @@ usersController.newPassword = async(req, res, next) => {
     const usuario = req.params.usuario;
     const oldPassword = req.params.oldPassword;
     const newPassword = req.params.newPassword;
+    console.log("🚀 ~ file: usersController.js ~ line 79 ~ usersController.newPassword=async ", usuario, oldPassword,newPassword)
     
-
-    
-    res.send(
-        {
-            "_id": "0",
-            "error": {
-                "type" : 0,
-                "message" : "No implementada"
+    let user = new User(usuario, "0", "0", "0", oldPassword, "0", "0", "0", "0");
+    user.newPassword(newPassword)
+        .catch(err => {
+            console.log("Entramos en error.");
+            console.log("Error");
+            res.send(
+                {
+                    "_id": "0",
+                    "error": {
+                        "type" : err[0],
+                        "message" : err[1]
+                    }
+                }
+            );
+        })
+        .then(result => {
+            console.log("Entramos en result.");
+            console.log(result);
+            if(result != undefined){
+                res.send({
+                    "_id": result._id
+                });
             }
-        }
-    );
+        });
 }
 
 usersController.deleteUser = async(req, res, next) => {
