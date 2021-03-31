@@ -1,8 +1,10 @@
-import React from 'react';
-import {Text, Button} from 'react-native';
-import {Input, Form, Container, Item, Header, Footer, Content} from 'react-native-elements';
+import React, {Component} from 'react';
+import {Button, Text} from 'react-native';
+import {Container, Content, Footer, Form, Header, Input, Item} from 'native-base';
+//Input, Header, Footer, Content, Form, Container, Item
 
-export default class App extends React.Component {
+
+export default class App extends Component {
     constructor(props) {
         super(props);
         this.state = {

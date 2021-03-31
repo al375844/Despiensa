@@ -1,7 +1,7 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {Text, View} from 'react-native';
 import {createAppContainer} from 'react-navigation';
-import {creatStackNavigator} from 'react-navigation-stack';
+import {createStackNavigator} from 'react-navigation-stack';
 
 import RegisterScreen from './user/Register'
 
@@ -15,7 +15,7 @@ class HomeScreens extends React.Component {
     }
 }
 
-const AppNavigator = creatStackNavigator({
+const AppNavigator = createStackNavigator({
     Home: {
         screen: HomeScreens
     },

@@ -10,11 +10,15 @@
   "author": "Alejandro, Ruben Nebot, Ruben Carmona, Sergio Calvo, José Gil, Néstor López",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "react-navigation": "^4.4.4"
   },
   "dependencies": {
     "express": "^4.17.1",
     "mongodb": "^3.6.5",
-    "react-native": "^0.64.0"
+    "native-base": "^2.15.2",
+    "react-native": "^0.64.0",
+    "react-native-elements": "^3.3.2",
+    "react-navigation-stack": "^2.10.4"
   }
 }
