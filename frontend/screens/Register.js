@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
-import {Button, Text} from 'react-native';
-import {Container, Content, Footer, Form, Header, Input, Item} from 'native-base';
-import { AppLoading } from "expo/build/removed.web";
+import {Container, Content, Footer, Form, Header, Input, Item, Button, Text} from 'native-base';
+import { AsyncStorage } from 'react-native'
+import * as Font from 'expo-font';
+import {Ionicons} from '@expo/vector-icons';
+import { AppLoading } from "expo/build/removed.web"; // miarar porque da error
 
 export default class App extends Component {
     constructor(props) {
@@ -20,7 +22,7 @@ export default class App extends Component {
         };
     }
 
-    Register = () => {
+    /*Register = () => {
         const {usuario}= this.state;
         const {nombre} = this.state;
         const {apellidos} = this.state;
@@ -51,12 +53,21 @@ export default class App extends Component {
         }).then((respuesta) => respuesta.json())
             .then((responseJson) => {alert(responseJson)})
             .catch((error) => {console.log(error)})
+    }*/
+
+    async componentDidMount() {
+        await Font.loadAsync({
+            Roboto: require('native-base/Fonts/Roboto.ttf'),
+            Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
+            ...Ionicons.font,
+        });
+        this.setState({isReady: true});
     }
 
     render() {
-        if (!this.state.isReady){
+       /* if (!this.state.isReady){
             return <AppLoading />
-        }
+        }*/
 
         return (
             <Container>
@@ -64,7 +75,7 @@ export default class App extends Component {
                 <Content padder>
                     <Form>
                         <Item>
-                            <Input placeholder="Usuario" onChageText={usuario => this.setState({usuario})} />
+                            <Input placeholder="Username" onChageText={usuario => this.setState({usuario})} />
                         </Item>
                         <Item>
                             <Input placeholder="Nombre" onChageText={nombre => this.setState({nombre})} />
@@ -76,7 +87,7 @@ export default class App extends Component {
                             <Input placeholder="Correo" onChageText={correo => this.setState({correo})} />
                         </Item>
                         <Item>
-                            <Input placeholder="Contraseña" onChageText={password => this.setState({password})} />
+                            <Input placeholder="Password" onChageText={password => this.setState({password})} />
                         </Item>
                         <Item>
                             <Input placeholder="Alergias" onChageText={alergias => this.setState({alergias})} />
@@ -85,12 +96,13 @@ export default class App extends Component {
                             <Input placeholder="Intolerancias" onChageText={intolerancias => this.setState({intolerancias})} />
                         </Item>
                         <Item>
-                            <Input placeholder="PlanName" onChageText={planName => this.setState({planName})} />
+                            <Input placeholder="PlanName" onChageText={planName => this.setState({planName})} disabled />
                         </Item>
                         <Item>
                             <Input placeholder="Fecha Nacimiento" onChageText={fechaNacimiento => this.setState({fechaNacimiento})} />
                         </Item>
-                        <Button onPress={this.Register}>
+                        <Text></Text>
+                        <Button full warning color={"#C66012"} /*onPress={this.Register}*/ >
                             <Text>Registrar</Text>
                         </Button>
                     </Form>
