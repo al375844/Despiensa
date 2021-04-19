@@ -3,7 +3,7 @@ const getDB = require('../utils/database').getDB;
 class User {
     constructor (usuario, nombreUsuario, apellidosUsuario, correo, password, plan, alergias, intolerancias, fechaNacimiento) {
         this.usuario = usuario; //type1
-        this.nombreUsuario = nombreUsuario; 
+        this.nombreUsuario = nombreUsuario;
         this.apellidosUsuario = apellidosUsuario;
         this.correo = correo;
         this.password = password;
@@ -36,7 +36,7 @@ class User {
             throw [3, 'El formato de la fecha de nacimiento no es correcto.'];
         }
         var ISOfechaNacimiento = new Date(this.fechaNacimiento);
-        
+
         let arrayDeAlergias = this.alergias.split(',');
         let arrayDeIntolerancias = this.intolerancias.split(',');
 
@@ -97,7 +97,7 @@ class User {
                         throw [5, 'Error desconocido.'];
                 }
             });
-        
+
 
         //Devolvemos una promesa con el objeto añadido
         return db.collection('users')
@@ -111,7 +111,7 @@ class User {
             .updateOne(
                 {
                     usuario: this.usuario
-                }, 
+                },
                 {
                     $set: {
                         usuario: usuarioNuevo,
@@ -140,7 +140,7 @@ class User {
 
         return db.collection('users')
             .findOne({usuario: usuarioNuevo});
-        
+
     }
 
     async newPassword(newPassword){

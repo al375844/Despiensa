@@ -22,7 +22,10 @@ export default class App extends Component {
         };
     }
 
-    /*Register = () => {
+    //url = new URL('http://192.168.0.24:3000/users/newUser/');
+
+
+    Register = () => {
         const {usuario}= this.state;
         const {nombre} = this.state;
         const {apellidos} = this.state;
@@ -33,7 +36,12 @@ export default class App extends Component {
         const {planName} = this.state;
         const {fechaNacimiento} = this.state;
 
-        fetch('/users/newUser/:usuario/:nombre/:apellidos/:correo/:password/:alergias/:intolerancias/:planName/:fechaNacimiento',{
+        //const params = {usuario, nombre, apellidos, correo, password, alergias, intolerancias, planName, fechaNacimiento};
+        //Object.keys(params).forEach(key => this.url.searchParams.append(key, params[key]));
+        //console.log(params);
+        console.log(usuario, nombre, apellidos, correo, password, alergias, intolerancias, planName, fechaNacimiento);
+
+        fetch(`http://192.168.0.24:3000/users/newUser/${this.state.usuario}/${this.state.nombre}/${this.state.apellidos}/${this.state.correo}/${this.state.password}/${this.state.alergias}/${this.state.intolerancias}/${this.state.planName}/${this.state.fechaNacimiento}`,{
             method: 'POST',
             headers:{
                 'Accept' : 'application/json',
@@ -50,10 +58,10 @@ export default class App extends Component {
                 planName:planName,
                 fechaNacimiento:fechaNacimiento
             })
-        }).then((respuesta) => respuesta.json())
-            .then((responseJson) => {alert(responseJson)})
-            .catch((error) => {console.log(error)})
-    }*/
+        }).then(respuesta => respuesta.json())
+            .then(responseJson => {alert(responseJson)})
+            .catch(error => {console.log(error)})
+    }
 
     async componentDidMount() {
         await Font.loadAsync({
@@ -75,34 +83,34 @@ export default class App extends Component {
                 <Content padder>
                     <Form>
                         <Item>
-                            <Input placeholder="Username" onChageText={usuario => this.setState({usuario})} />
+                            <Input placeholder="Username" onChangeText={usuario => this.setState({usuario})} />
                         </Item>
                         <Item>
-                            <Input placeholder="Nombre" onChageText={nombre => this.setState({nombre})} />
+                            <Input placeholder="Nombre" onChangeText={nombre => this.setState({nombre})} />
                         </Item>
                         <Item>
-                            <Input placeholder="Apellidos" onChageText={apellidos => this.setState({apellidos})} />
+                            <Input placeholder="Apellidos" onChangeText={apellidos => this.setState({apellidos})} />
                         </Item>
                         <Item>
-                            <Input placeholder="Correo" onChageText={correo => this.setState({correo})} />
+                            <Input placeholder="Correo" onChangeText={correo => this.setState({correo})} />
                         </Item>
                         <Item>
-                            <Input placeholder="Password" onChageText={password => this.setState({password})} />
+                            <Input placeholder="Password" onChangeText={password => this.setState({password})} />
                         </Item>
                         <Item>
-                            <Input placeholder="Alergias" onChageText={alergias => this.setState({alergias})} />
+                            <Input placeholder="Alergias" onChangeText={alergias => this.setState({alergias})} />
                         </Item>
                         <Item>
-                            <Input placeholder="Intolerancias" onChageText={intolerancias => this.setState({intolerancias})} />
+                            <Input placeholder="Intolerancias" onChangeText={intolerancias => this.setState({intolerancias})} />
                         </Item>
                         <Item>
-                            <Input placeholder="PlanName" onChageText={planName => this.setState({planName})} disabled />
+                            <Input placeholder="PlanName" onChangeText={planName => this.setState({planName})} />
                         </Item>
                         <Item>
-                            <Input placeholder="Fecha Nacimiento" onChageText={fechaNacimiento => this.setState({fechaNacimiento})} />
+                            <Input placeholder="Fecha Nacimiento" onChangeText={fechaNacimiento => this.setState({fechaNacimiento})} />
                         </Item>
                         <Text></Text>
-                        <Button full warning color={"#C66012"} /*onPress={this.Register}*/ >
+                        <Button full warning color={"#C66012"} onPress={() => {this.Register()}} >
                             <Text>Registrar</Text>
                         </Button>
                     </Form>
