@@ -41,7 +41,7 @@ export default class App extends Component {
         //console.log(params);
         console.log(usuario, nombre, apellidos, correo, password, alergias, intolerancias, planName, fechaNacimiento);
 
-        fetch(`http://192.168.0.24:3000/users/newUser/${this.state.usuario}/${this.state.nombre}/${this.state.apellidos}/${this.state.correo}/${this.state.password}/${this.state.alergias}/${this.state.intolerancias}/${this.state.planName}/${this.state.fechaNacimiento}`,{
+        fetch(`http://150.128.167.168:3000/users/newUser/${this.state.usuario}/${this.state.nombre}/${this.state.apellidos}/${this.state.correo}/${this.state.password}/${this.state.alergias}/${this.state.intolerancias}/${this.state.planName}/${this.state.fechaNacimiento}`,{
             method: 'POST',
             headers:{
                 'Accept' : 'application/json',
