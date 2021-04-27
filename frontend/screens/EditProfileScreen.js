@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, TextInput, Button } from 'react-native';
 
 class EditProfileScrren extends Component {
-
     constructor() {
         super();
         this.state = {
@@ -45,6 +44,9 @@ class EditProfileScrren extends Component {
     renderEditProfile = (user) => {
         return(
             <View style={styles.view}>
+                <View style={styles.title}>
+                    <Text>Edit Profile</Text>
+                </View>
                 <View>
                     <Text>Nombre</Text>
                     <TextInput 
@@ -110,7 +112,15 @@ const styles = StyleSheet.create({
         padding: '10%'
     },
 
+    title: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: 20,
+        marginBottom: 20
+    },
+
     button: {
+        marginTop: 10
     }
 });
 
