@@ -37,16 +37,10 @@ export default class App extends Component {
         const {planName} = this.state;
         const {fechaNacimiento} = this.state;
 
-        //const params = {usuario, nombre, apellidos, correo, password, alergias, intolerancias, planName, fechaNacimiento};
-        //Object.keys(params).forEach(key => this.url.searchParams.append(key, params[key]));
-        //console.log(params);
         console.log(`http://150.128.172.133:3000/users/newUser/${this.state.usuario}/${this.state.nombre}/${this.state.apellidos}/${this.state.correo}/${this.state.password}/${this.state.alergias}/${this.state.intolerancias}/${this.state.planName}/${this.state.fechaNacimiento}`)
 
         console.log(usuario, nombre, apellidos, correo, password, alergias, intolerancias, planName, fechaNacimiento);
         const url = `http://150.128.172.133:3000/users/newUser/${this.state.usuario}/${this.state.nombre}/${this.state.apellidos}/${this.state.correo}/${this.state.password}/${this.state.alergias}/${this.state.intolerancias}/${this.state.planName}/${this.state.fechaNacimiento}`;
-     /*   axios.post(url)
-            .then(res => {console.log(res)})
-            .catch(error => console.log(error));*/
 
         fetch(url,{
             method: 'POST',
@@ -66,7 +60,16 @@ export default class App extends Component {
                 fechaNacimiento:fechaNacimiento
             })
         }).then(respuesta => respuesta.json())
-            .then(responseJson => {alert("Usuario creado")})
+            .then(responseJson => {
+                if (responseJson._id === 0) {
+                    alert(responseJson.error.message);
+                }
+                else {
+                    alert("Usuario creado");
+                    this.props.navigation.navigate('Login');
+                }
+                }
+                    )
             .catch(error => {console.log(error)})
     }
 
@@ -111,7 +114,7 @@ export default class App extends Component {
                             <Input placeholder="Intolerancias" onChangeText={intolerancias => this.setState({intolerancias})} />
                         </Item>
                         <Item>
-                            <Input placeholder="PlanName" onChangeText={planName => this.setState({planName})} />
+                            <Input placeholder="PlanName" onChangeText={planName => this.setState({planName})} value={"Gratuito"}/>
                         </Item>
                         <Item>
                             <Input placeholder="Fecha Nacimiento {mm/dd/aaaa}" onChangeText={fechaNacimiento => this.setState({fechaNacimiento})} />

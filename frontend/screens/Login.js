@@ -11,18 +11,13 @@ export default class App extends React.Component{
             isReady: false,
             user: null,
             usuario:'',
-            password:'',
-            passwordBack:''
+            password:''
         };
     }
 
     Login = () => {
         const {usuario} = this.state;
-        console.log(usuario)
         const {password} = this.state;
-        console.log(password)
-        let passwordBack;
-        let respuesta;
 
         fetch(`http://150.128.172.133:3000/users/getUser/${this.state.usuario}`, {
             method: 'GET',
@@ -32,10 +27,12 @@ export default class App extends React.Component{
             }
         }).then(respuesta => respuesta.json())
             .then(user => {
-                this.setState({
-                    user: user,
-                    passwordBack: user.password,
-                })
+                if (user.password === password){
+                    //redirect profile
+                }
+                else {
+                    alert("Contraseña incorrecta");
+                }
             })
             .catch(error => {console.log(error)})
 
