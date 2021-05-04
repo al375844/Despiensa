@@ -4,12 +4,12 @@ const Profile = require('../model/profileModel');
 
 
 profilesController.newProfile = async(req, res, next) => {
-    const nombre = req.params.nombre;
-    const apellidos = req.params.apellidos;
-    const alergias = req.params.alergias;
-    const intolerancias = req.params.intolerancias;
-    const usuario = req.params.usuario;
-    const fechaNacimiento = req.params.fechaNacimiento;
+    const nombre = req.body.nombre;
+    const apellidos = req.body.apellidos;
+    const alergias = req.body.alergias;
+    const intolerancias = req.body.intolerancias;
+    const usuario = req.body.usuario;
+    const fechaNacimiento = req.body.fechaNacimiento;
     console.log("🚀 ~ file: usersController.js ~ line 16 ~ usersController.newUser=async", usuario, nombre, apellidos, alergias, intolerancias, fechaNacimiento);
 
     const profile = new Profile(usuario, nombre, apellidos, fechaNacimiento, alergias, intolerancias);
