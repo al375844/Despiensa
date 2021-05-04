@@ -54,10 +54,11 @@ usersController.modifyUser = async(req, res, next) => {
     const nombre = req.body.nombre;
     const apellidos = req.body.apellidos;
     const correo = req.body.correo;
+    const password = req.body.password;
     console.log("🚀 ~ file: usersController.js ~ line 43 ~ usersController.modifyUser=async ~ correo", usuarioViejo, usuarioNuevo, nombre, apellidos, correo);
 
     let user = new User(usuarioViejo, "0", "0", "0", "0", "0", "0", "0", "0");
-    user.modifyUser(usuarioNuevo, nombre, apellidos, correo)
+    user.modifyUser(usuarioNuevo, nombre, apellidos, correo, password)
         .catch(err => {
             console.log("Entramos en error.");
             console.log("Error");
