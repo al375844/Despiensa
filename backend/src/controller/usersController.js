@@ -5,16 +5,26 @@ const User = require('../model/userModel');
 
 usersController.newUser = async(req, res, next) => {
     console.log("body", req.body);
-    const nombre = req.params.nombre;
-    const apellidos = req.params.apellidos;
-    const correo = req.params.correo;
-    const password = req.params.password;
-    const planName = req.params.planName;
-    const alergias = req.params.alergias;
-    const intolerancias = req.params.intolerancias;
-    const usuario = req.params.usuario;
-    const fechaNacimiento = req.params.fechaNacimiento;
-    console.log("🚀 ~ file: usersController.js ~ line 16 ~ usersController.newUser=async", usuario, nombre, apellidos, correo, password, planName, alergias, intolerancias, fechaNacimiento)
+    // const nombre = req.params.nombre;
+    // const apellidos = req.params.apellidos;
+    // const correo = req.params.correo;
+    // const password = req.params.password;
+    // const planName = req.params.planName;
+    // const alergias = req.params.alergias;
+    // const intolerancias = req.params.intolerancias;
+    // const usuario = req.params.usuario;
+    // const fechaNacimiento = req.params.fechaNacimiento;
+    // console.log("🚀 ~ file: usersController.js ~ line 16 ~ usersController.newUser=async", usuario, nombre, apellidos, correo, password, planName, alergias, intolerancias, fechaNacimiento)
+
+    const nombre = req.body.nombre;
+    const apellidos = req.body.apellidos;
+    const correo = req.body.correo;
+    const password = req.body.password;
+    const planName = req.body.planName;
+    const alergias = req.body.alergias;
+    const intolerancias = req.body.intolerancias;
+    const usuario = req.body.usuario;
+    const fechaNacimiento = req.body.fechaNacimiento
 
     let user = new User(usuario, nombre, apellidos, correo, password, planName, alergias, intolerancias, fechaNacimiento);
 
