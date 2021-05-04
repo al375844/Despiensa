@@ -172,14 +172,15 @@ class User {
 
     }
 
-    async deleteUser(){
+    async deleteUser(password){
 
         const db = getDB();
 
         return db.collection('users')
             .deleteOne(
                 {
-                    usuario: this.usuario
+                    usuario: this.usuario,
+                    password: password
                 }
             );
 

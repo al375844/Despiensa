@@ -119,9 +119,10 @@ usersController.newPassword = async(req, res, next) => {
 usersController.deleteUser = async(req, res, next) => {
 
     const usuario = req.params.usuario;
+    const password = req.body.password;
 
     let user = new User(usuario, "0", "0", "0", "0", "0", "0", "0", "0");
-    user.deleteUser()
+    user.deleteUser(password)
         .catch(err => {
             console.log("Entramos en error.");
             //console.log(err);
