@@ -40,7 +40,7 @@ export default class App extends Component {
         console.log(`http://150.128.172.133:3000/users/newUser/${this.state.usuario}/${this.state.nombre}/${this.state.apellidos}/${this.state.correo}/${this.state.password}/${this.state.alergias}/${this.state.intolerancias}/${this.state.planName}/${this.state.fechaNacimiento}`)
 
         console.log(usuario, nombre, apellidos, correo, password, alergias, intolerancias, planName, fechaNacimiento);
-        const url = `http://150.128.172.133:3000/users/newUser/${this.state.usuario}/${this.state.nombre}/${this.state.apellidos}/${this.state.correo}/${this.state.password}/${this.state.alergias}/${this.state.intolerancias}/${this.state.planName}/${this.state.fechaNacimiento}`;
+        const url = `http://150.128.169.21:3000/users/newUser/${this.state.usuario}/${this.state.nombre}/${this.state.apellidos}/${this.state.correo}/${this.state.password}/${this.state.alergias}/${this.state.intolerancias}/${this.state.planName}/${this.state.fechaNacimiento}`;
 
         fetch(url,{
             method: 'POST',

@@ -6,6 +6,8 @@ import {createStackNavigator} from 'react-navigation-stack';
 import RegisterScreen from './screens/Register';
 import HomeScreen from './screens/Home';
 import LoginScreen from './screens/Login';
+import ProfileScreen from "./screens/Profile";
+import EditProfileScreen from "./screens/EditProfileScreen"
 
 class HomeScreens extends React.Component {
   render() {
@@ -26,6 +28,12 @@ const AppNavigator = createStackNavigator({
   },
   Register: {
     screen: RegisterScreen
+  },
+  Profile: {
+    screen: ProfileScreen
+  },
+  Edit: {
+    screen: EditProfileScreen
   }
 });
 

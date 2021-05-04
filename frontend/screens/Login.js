@@ -19,7 +19,7 @@ export default class App extends React.Component{
         const {usuario} = this.state;
         const {password} = this.state;
 
-        fetch(`http://150.128.172.133:3000/users/getUser/${this.state.usuario}`, {
+        fetch(`http://150.128.169.21:3000/users/getUser/${this.state.usuario}`, {
             method: 'GET',
             headers:{
                 'Accept' : 'application/json',
@@ -28,7 +28,7 @@ export default class App extends React.Component{
         }).then(respuesta => respuesta.json())
             .then(user => {
                 if (user.password === password){
-                    //redirect profile
+                    this.props.navigation.navigate('Profile', {usuario: this.state.usuario });
                 }
                 else {
                     alert("Contraseña incorrecta");
