@@ -15,7 +15,10 @@ const rootDir = require('../src/utils/path');
 
 //rutas a usar
 const usersRoutes = require('./routes/usersRoutes');
-const profilesRoutes = require('./routes/profilesRoutes')
+const profilesRoutes = require('./routes/profilesRoutes');
+const bodyParser = require('body-parser');
+
+app.use(express.json());
 
 //app.use recibe un o varias funciones y las ejecuta para cada petición.
 
