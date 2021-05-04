@@ -104,13 +104,14 @@ class User {
             .findOne({"usuario": this.usuario});
     }
 
-    async modifyUser(usuarioNuevo, nombre, apellidos, correo){
+    async modifyUser(usuarioNuevo, nombre, apellidos, correo, password){
 
         const db = getDB();
         const resultado = await db.collection('users')
             .updateOne(
                 {
-                    usuario: this.usuario
+                    usuario: this.usuario,
+                    password: password
                 }, 
                 {
                     $set: {
