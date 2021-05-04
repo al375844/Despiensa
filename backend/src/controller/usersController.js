@@ -85,8 +85,8 @@ usersController.modifyUser = async(req, res, next) => {
 
 usersController.newPassword = async(req, res, next) => {
     const usuario = req.params.usuario;
-    const oldPassword = req.params.oldPassword;
-    const newPassword = req.params.newPassword;
+    const oldPassword = req.body.oldPassword;
+    const newPassword = req.body.newPassword;
     console.log("🚀 ~ file: usersController.js ~ line 79 ~ usersController.newPassword=async ", usuario, oldPassword,newPassword)
     
     let user = new User(usuario, "0", "0", "0", oldPassword, "0", "0", "0", "0");
