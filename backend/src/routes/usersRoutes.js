@@ -6,7 +6,7 @@ const router = express.Router();
 //'/users'
 router.post('/newUser', usersController.newUser);
 
-router.put('/modifyUser/:usuarioViejo/:usuarioNuevo/:nombre/:apellidos/:correo', usersController.modifyUser);
+router.put('/modifyUser/:usuarioViejo', usersController.modifyUser);
 
 router.put('/newPassword/:usuario/:oldPassword/:newPassword', usersController.newPassword);
 
