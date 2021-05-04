@@ -186,12 +186,17 @@ class User {
 
     }
 
-    async getUser(){
+    async getUser(password){
 
         const db = getDB();
 
         return db.collection('users')
-            .findOne({usuario: this.usuario})
+            .findOne(
+                {
+                    usuario: this.usuario,
+                    password: password
+                }
+                )
 
     }
 
