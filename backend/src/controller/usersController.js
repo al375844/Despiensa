@@ -50,10 +50,10 @@ usersController.newUser = async(req, res, next) => {
 
 usersController.modifyUser = async(req, res, next) => {
     const usuarioViejo = req.params.usuarioViejo;
-    const usuarioNuevo = req.params.usuarioNuevo;
-    const nombre = req.params.nombre;
-    const apellidos = req.params.apellidos;
-    const correo = req.params.correo;
+    const usuarioNuevo = req.body.usuarioNuevo;
+    const nombre = req.body.nombre;
+    const apellidos = req.body.apellidos;
+    const correo = req.body.correo;
     console.log("🚀 ~ file: usersController.js ~ line 43 ~ usersController.modifyUser=async ~ correo", usuarioViejo, usuarioNuevo, nombre, apellidos, correo);
 
     let user = new User(usuarioViejo, "0", "0", "0", "0", "0", "0", "0", "0");
