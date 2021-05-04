@@ -8,7 +8,7 @@ router.post('/newUser', usersController.newUser);
 
 router.put('/modifyUser/:usuarioViejo', usersController.modifyUser);
 
-router.put('/newPassword/:usuario/:oldPassword/:newPassword', usersController.newPassword);
+router.put('/newPassword/:usuario', usersController.newPassword);
 
 router.delete('/deleteUser/:usuario', usersController.deleteUser);
 
