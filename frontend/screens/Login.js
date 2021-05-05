@@ -28,7 +28,7 @@ export default class App extends React.Component{
         }).then(respuesta => respuesta.json())
             .then(user => {
                 if (user.password === password){
-                    this.props.navigation.navigate('Profile', {usuario: this.state.usuario });
+                    this.props.navigation.navigate('Profile', {usuario: this.state.usuario, password:this.state.password });
                 }
                 else {
                     alert("Contraseña incorrecta");

@@ -34,13 +34,13 @@ export default class App extends Component {
         const {password} = this.state;
         const {alergias} = this.state;
         const {intolerancias} = this.state;
-        const {planName} = this.state;
+        const planName = "Gratuito";
         const {fechaNacimiento} = this.state;
 
-        console.log(`http://150.128.172.133:3000/users/newUser/${this.state.usuario}/${this.state.nombre}/${this.state.apellidos}/${this.state.correo}/${this.state.password}/${this.state.alergias}/${this.state.intolerancias}/${this.state.planName}/${this.state.fechaNacimiento}`)
+        console.log(`http://150.128.172.133:3000/users/newUser/${this.state.usuario}/${this.state.nombre}/${this.state.apellidos}/${this.state.correo}/${this.state.password}/${this.state.alergias}/${this.state.intolerancias}/${planName}/${this.state.fechaNacimiento}`)
 
         console.log(usuario, nombre, apellidos, correo, password, alergias, intolerancias, planName, fechaNacimiento);
-        const url = `http://150.128.169.21:3000/users/newUser/${this.state.usuario}/${this.state.nombre}/${this.state.apellidos}/${this.state.correo}/${this.state.password}/${this.state.alergias}/${this.state.intolerancias}/${this.state.planName}/${this.state.fechaNacimiento}`;
+        const url = `http://150.128.169.21:3000/users/newUser/${this.state.usuario}/${this.state.nombre}/${this.state.apellidos}/${this.state.correo}/${this.state.password}/${this.state.alergias}/${this.state.intolerancias}/${planName}/${this.state.fechaNacimiento}`;
 
         fetch(url,{
             method: 'POST',
@@ -68,8 +68,7 @@ export default class App extends Component {
                     alert("Usuario creado");
                     this.props.navigation.navigate('Login');
                 }
-                }
-                    )
+                })
             .catch(error => {console.log(error)})
     }
 
@@ -113,9 +112,9 @@ export default class App extends Component {
                         <Item>
                             <Input placeholder="Intolerancias" onChangeText={intolerancias => this.setState({intolerancias})} />
                         </Item>
-                        <Item>
-                            <Input placeholder="PlanName" onChangeText={planName => this.setState({planName})} value={"Gratuito"}/>
-                        </Item>
+                        {/*<Item>
+                            <Input placeholder="PlanName" value={"Gratuito"} disabled/>
+                        </Item>*/}
                         <Item>
                             <Input placeholder="Fecha Nacimiento {mm/dd/aaaa}" onChangeText={fechaNacimiento => this.setState({fechaNacimiento})} />
                         </Item>

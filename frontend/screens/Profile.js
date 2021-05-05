@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, SafeAreaView, StyleSheet, TextInput, ScrollView, Button} from 'react-native';
+import {View, SafeAreaView, StyleSheet, TextInput, ScrollView, Button, Alert} from 'react-native';
 import {
     Avatar,
     Title,
@@ -15,6 +15,7 @@ export default class App extends Component {
         super(props);
         this.state = {
             usuarioLogeado: props.navigation.state.params.usuario,
+            passwordUsuario:props.navigation.state.params.password,
             user: null,
             usuario: '',
             nombreUsuario:'',
@@ -62,11 +63,6 @@ export default class App extends Component {
             .catch(error => {console.log(error)});
     }
 
-    alPresionar = () => {
-        console.log("hola")
-        this.props.navigation.navigate('Edit', {usuario: this.state.usuario });
-    }
-
     renderProfileScreen = (user) => {
         return (
             <SafeAreaView style={StyleSheet.container}>
@@ -84,8 +80,17 @@ export default class App extends Component {
                             }]}>{user.nombreUsuario} {user.apellidosUsuario}</Title>
                             <Caption style={StyleSheet.caption}>{user.correo}</Caption>
                         </View>
-                        <View>
-                            <Button title='Editar' onPress={() => {this.alPresionar()}}></Button>
+                        <View style={[StyleSheet.row, {
+                            marginLeft: 25,
+                            marginTop: 10
+                        }]}>
+                            <Button color={"#52b788"} title='Editar' onPress={() => {this.props.navigation.navigate('Edit', {usuario: this.state.usuario })}}></Button>
+                        </View>
+                        <View style={[StyleSheet.row, {
+                            marginLeft: 15,
+                            marginTop: 10
+                        }]}>
+                            <Button color={"#d00000"} title='Borrar' onPress={() => this.confirmDeleteUsuario()}></Button>
                         </View>
                     </View>
                 </View>
@@ -150,6 +155,33 @@ export default class App extends Component {
                 <Text>Loading profile...</Text>
             </View>
         );
+    }
+
+    confirmDeleteUsuario() {
+        Alert.alert(
+            '¿Seguro que quiere borrar?',
+            'Una vez realizada la acción no podra volver atras.',
+            [
+                {
+                    text: 'Cancelar', onPress: () => console.log('Borrado cancelado'), style: 'cancel',
+                },
+                {
+                    text: 'Aceptar', onPress: () => {this.deleteUsuario(); console.log('Borrando')}
+                }
+            ]
+        );
+    }
+
+    deleteUsuario = () => {
+        fetch(`http://150.128.169.21:3000/users/deleteUser/${this.state.usuarioLogeado}`, {
+            method: 'DELETE',
+            headers:{
+                'Accept' : 'application/json',
+                'Content-type' : 'application/json'
+            }
+        }).then(response => response.json())
+            .then(this.props.navigation.navigate('Home'))
+            .catch(error => {console.log(error)});
     }
 
     getPerfiles = (user) => {
