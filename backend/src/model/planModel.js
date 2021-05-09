@@ -43,7 +43,7 @@ class Plan {
             .then(result => {
                 if(result.modifiedCount == 0){
                     console.log("Lanzamos el error");
-                    throw [10, 'El usuario no existe o la contraseña vieja no se corresponde con la indicada.'];
+                    throw [10, 'El plan del usuario ya es el que se intenta introducir.'];
                 }
             });
 
