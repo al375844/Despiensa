@@ -47,8 +47,8 @@ class Plan {
                 }
             });
 
-        return db.collection('users')
-            .findOne({usuario: this.usuario});
+        return await db.collection('users')
+            .findOne({usuario: usuario});
 
     }
 
