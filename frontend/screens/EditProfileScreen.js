@@ -66,10 +66,10 @@ export default class App extends Component{
                 </View>
                 <View>
                     <Text>Plan</Text>
-                    <Button style={styles.button} title='Cambiar plan' onPress={this.cambiarPlan()}></Button>
                     <TextInput
                         placeholder={user.plan}
                         editable={false}></TextInput>
+                    <Button style={styles.button} title='Cambiar plan' onPress={() => {this.changePlan()}}></Button>
                 </View>
                 <View>
                     <Button style={styles.button} title='Guardar' onPress={this.updateProfile}></Button>
@@ -84,6 +84,10 @@ export default class App extends Component{
                 <Text>Loading profile...</Text>
             </View>
         );
+    }
+
+    changePlan = () => {
+        this.props.navigation.navigate('ChangePlan', {usuario: this.state.usuario, plan:this.state.plan});
     }
 
     updateProfile = () => {
