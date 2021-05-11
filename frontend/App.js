@@ -8,6 +8,7 @@ import HomeScreen from './screens/Home';
 import LoginScreen from './screens/Login';
 import ProfileScreen from "./screens/Profile";
 import EditProfileScreen from "./screens/EditProfileScreen"
+import ChangePlanScreen from "./screens/ChangePlan"
 
 class HomeScreens extends React.Component {
   render() {
@@ -34,6 +35,9 @@ const AppNavigator = createStackNavigator({
   },
   Edit: {
     screen: EditProfileScreen
+  },
+  ChangePlan: {
+    screen: ChangePlanScreen
   }
 });
 
