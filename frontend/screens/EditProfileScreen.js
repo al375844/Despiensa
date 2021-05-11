@@ -66,6 +66,7 @@ export default class App extends Component{
                 </View>
                 <View>
                     <Text>Plan</Text>
+                    <Button style={styles.button} title='Cambiar plan' onPress={this.cambiarPlan()}></Button>
                     <TextInput
                         placeholder={user.plan}
                         editable={false}></TextInput>
