@@ -12,7 +12,7 @@ export default class App extends Component{
             nombreUsuario:'',
             apellidosUsuario:'',
             correo:'',
-            password:'',
+            passwordUsuario: props.navigation.state.params.password,
             plan:'',
         }
     }
@@ -22,7 +22,7 @@ export default class App extends Component{
     }
 
     getUser = () => {
-        fetch(`http://150.128.169.21:3000/users/getUser/${this.state.usuarioLogeado}`, {
+        fetch(`http://150.128.169.21:3000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
             method: 'GET',
             headers:{
                 'Accept' : 'application/json',
@@ -64,12 +64,14 @@ export default class App extends Component{
                         placeholder={user.correo}
                         onChangeText={correo => this.setState({correo: correo})}></TextInput>
                 </View>
-                <View>
+                <View style={[StyleSheet.row, {
+                    marginBottom: 20
+                }]}>
                     <Text>Plan</Text>
                     <TextInput
                         placeholder={user.plan}
                         editable={false}></TextInput>
-                    <Button style={styles.button} title='Cambiar plan' onPress={() => {this.changePlan()}}></Button>
+                    <Button style={styles.button} color={"#C66012"} title='Cambiar plan' onPress={() => {this.changePlan()}}></Button>
                 </View>
                 <View>
                     <Button style={styles.button} title='Guardar' onPress={this.updateProfile}></Button>
