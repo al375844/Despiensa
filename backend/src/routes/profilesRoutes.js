@@ -4,7 +4,7 @@ const profilesController = require('../controller/profilesController');
 const router = express.Router();
 
 //'/profiles'
-router.put('/newProfile/:usuario/:nombre/:apellidos/:fechaNacimiento/:alergias/:intolerancias', profilesController.newProfile);
+router.put('/newProfile', profilesController.newProfile);
 
 router.put('/modifyProfile/:usuario/:nombreAntiguo/:nombreNuevo/:apellidos/:fechaNacimiento/:alergias/:intolerancias', profilesController.modifyProfile);
 

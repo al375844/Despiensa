@@ -5,16 +5,26 @@ const User = require('../model/userModel');
 
 usersController.newUser = async(req, res, next) => {
     console.log("body", req.body);
-    const nombre = req.params.nombre;
-    const apellidos = req.params.apellidos;
-    const correo = req.params.correo;
-    const password = req.params.password;
-    const planName = req.params.planName;
-    const alergias = req.params.alergias;
-    const intolerancias = req.params.intolerancias;
-    const usuario = req.params.usuario;
-    const fechaNacimiento = req.params.fechaNacimiento;
-    console.log("🚀 ~ file: usersController.js ~ line 16 ~ usersController.newUser=async", usuario, nombre, apellidos, correo, password, planName, alergias, intolerancias, fechaNacimiento)
+    // const nombre = req.params.nombre;
+    // const apellidos = req.params.apellidos;
+    // const correo = req.params.correo;
+    // const password = req.params.password;
+    // const planName = req.params.planName;
+    // const alergias = req.params.alergias;
+    // const intolerancias = req.params.intolerancias;
+    // const usuario = req.params.usuario;
+    // const fechaNacimiento = req.params.fechaNacimiento;
+    // console.log("🚀 ~ file: usersController.js ~ line 16 ~ usersController.newUser=async", usuario, nombre, apellidos, correo, password, planName, alergias, intolerancias, fechaNacimiento)
+
+    const nombre = req.body.nombre;
+    const apellidos = req.body.apellidos;
+    const correo = req.body.correo;
+    const password = req.body.password;
+    const planName = req.body.planName;
+    const alergias = req.body.alergias;
+    const intolerancias = req.body.intolerancias;
+    const usuario = req.body.usuario;
+    const fechaNacimiento = req.body.fechaNacimiento
 
     let user = new User(usuario, nombre, apellidos, correo, password, planName, alergias, intolerancias, fechaNacimiento);
 
@@ -40,14 +50,15 @@ usersController.newUser = async(req, res, next) => {
 
 usersController.modifyUser = async(req, res, next) => {
     const usuarioViejo = req.params.usuarioViejo;
-    const usuarioNuevo = req.params.usuarioNuevo;
-    const nombre = req.params.nombre;
-    const apellidos = req.params.apellidos;
-    const correo = req.params.correo;
-    console.log("🚀 ~ file: usersController.js ~ line 43 ~ usersController.modifyUser=async ~ correo", usuarioViejo, usuarioNuevo, nombre, apellidos, correo);
+    const usuarioNuevo = req.body.usuarioNuevo;
+    const nombre = req.body.nombre;
+    const apellidos = req.body.apellidos;
+    const correo = req.body.correo;
+    const password = req.body.password;
+    console.log(usuarioViejo, usuarioNuevo, nombre, apellidos, correo, password);
 
     let user = new User(usuarioViejo, "0", "0", "0", "0", "0", "0", "0", "0");
-    user.modifyUser(usuarioNuevo, nombre, apellidos, correo)
+    user.modifyUser(usuarioNuevo, nombre, apellidos, correo, password)
         .catch(err => {
             console.log("Entramos en error.");
             console.log("Error");
@@ -75,8 +86,8 @@ usersController.modifyUser = async(req, res, next) => {
 
 usersController.newPassword = async(req, res, next) => {
     const usuario = req.params.usuario;
-    const oldPassword = req.params.oldPassword;
-    const newPassword = req.params.newPassword;
+    const oldPassword = req.body.oldPassword;
+    const newPassword = req.body.newPassword;
     console.log("🚀 ~ file: usersController.js ~ line 79 ~ usersController.newPassword=async ", usuario, oldPassword,newPassword)
     
     let user = new User(usuario, "0", "0", "0", oldPassword, "0", "0", "0", "0");
@@ -108,9 +119,10 @@ usersController.newPassword = async(req, res, next) => {
 usersController.deleteUser = async(req, res, next) => {
 
     const usuario = req.params.usuario;
+    const password = req.body.password;
 
     let user = new User(usuario, "0", "0", "0", "0", "0", "0", "0", "0");
-    user.deleteUser()
+    user.deleteUser(password)
         .catch(err => {
             console.log("Entramos en error.");
             //console.log(err);
@@ -149,9 +161,10 @@ usersController.deleteUser = async(req, res, next) => {
 usersController.getUser = async(req, res, next) => {
     
     const usuario = req.params.usuario;
+    const password = req.body.password;
 
     let user = new User(usuario, "0", "0", "0", "0", "0", "0", "0", "0");
-    user.getUser()
+    user.getUser(password)
         .catch(err => {
             console.log("Entramos en error.");
             console.log(err);
