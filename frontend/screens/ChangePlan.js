@@ -1,5 +1,6 @@
 import React, {Component} from "react";
-import {StyleSheet, Text, View} from "react-native";
+import RNPickerSelect from "react-native-picker-select";
+import {Button, StyleSheet, Text, TextInput, View} from "react-native";
 
 export default class App extends Component{
 
@@ -7,6 +8,7 @@ export default class App extends Component{
         super(props);
         this.state = {
             usuarioLogeado: props.navigation.state.params.usuario,
+            actualPlan: props.navigation.state.params.actualPlan,
             savedPlans: null,
             plan: null,
         }
@@ -14,10 +16,13 @@ export default class App extends Component{
 
     componentDidMount () {
         this.getPlans();
+        this.setState({
+            plan: this.state.actualPlan
+        })
     }
 
     getPlans = () => {
-        fetch(`http://150.128.169.21:3000/plans/getPlans`, {
+        fetch(`http://192.168.1.55:3000/plans/getPlans`, {
             method: 'GET',
             headers:{
                 'Accept' : 'application/json',
@@ -32,6 +37,44 @@ export default class App extends Component{
             .catch(error => {console.log(error)});
     }
 
+    renderChangePlan = (savedPlans) => {
+        const plan = this.state.plan;
+
+        return(
+            <View style={styles.view}>
+                <View>
+                    <Text>Elige un plan</Text>
+                    <RNPickerSelect
+                        value={plan}
+                        onValueChange={(value) => this.setState({plan: value})}
+                        items={this.state.savedPlans.map(obj => (
+                            {
+                                key: obj._id,
+                                label: obj.name,
+                                value: obj._id,
+                            }
+                        ))}
+                    />
+                </View>
+                <View>
+                    <Button style={styles.button} title='Cambiar plan' onPress={this.updatePlan}></Button>
+                </View>
+            </View>
+        );
+    }
+
+    render() {
+        const savedPlans = this.state.savedPlans;
+        return(
+            <View>
+                {/* Comprobamos que user no sea null */}
+                {savedPlans ?
+                    this.renderChangePlan(savedPlans) :
+                    this.renderLoading}
+            </View>
+        );
+    }
+
     renderLoading = () => {
         return(
             <View>
@@ -41,7 +84,7 @@ export default class App extends Component{
     }
 
     updatePlan = () => {
-        const url = `http://150.128.169.21:3000/plans/modifyPlan/${this.state.usuarioLogeado}`;
+        const url = `http://192.168.1.55:3000/plans/modifyPlan/${this.state.usuarioLogeado}`;
         fetch(url, {
             method: 'PUT'
         }).then(respuesta => respuesta.json())
