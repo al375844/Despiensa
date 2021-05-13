@@ -4,12 +4,14 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import Header from './components/Header';
 import EditProfileScreen from './screens/EditProfileScreen';
+import CreateProfilesScreen from './screens/CreateProfilesScreen';
 
 export default function App() {
   return (
     <View style={styles.container}>
       <Header title='Despiensa'></Header>
-      <EditProfileScreen></EditProfileScreen>
+      {/* <EditProfileScreen></EditProfileScreen> */}
+      <CreateProfilesScreen></CreateProfilesScreen>
     </View>
   );
 }
