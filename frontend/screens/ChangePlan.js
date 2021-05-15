@@ -22,7 +22,7 @@ export default class App extends Component {
     }
 
     getPlans = () => {
-        fetch(`http://150.128.169.21:3000/plans/getPlans`, {
+        fetch(`http://192.168.1.110:19000/plans/getPlans`, {
             method: 'GET',
             headers:{
                 'Accept' : 'application/json',
@@ -86,7 +86,7 @@ export default class App extends Component {
     }
 
     updatePlan = () => {
-        const url = `http://150.128.169.21:3000/plans/modifyPlan/${this.state.usuarioLogeado}`;
+        const url = `http://192.168.1.110:19000/plans/modifyPlan/${this.state.usuarioLogeado}`;
         fetch(url, {
             method: 'PUT'
         }).then(respuesta => respuesta.json())

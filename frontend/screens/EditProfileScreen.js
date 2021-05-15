@@ -22,7 +22,7 @@ export default class App extends Component{
     }
 
     getUser = () => {
-        fetch(`http://150.128.169.21:3000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
+        fetch(`http://192.168.1.110:19000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
             method: 'GET',
             headers:{
                 'Accept' : 'application/json',
@@ -93,7 +93,7 @@ export default class App extends Component{
     }
 
     updateProfile = () => {
-        const url = `http://150.128.169.21:3000/users/modifyUser/${this.state.usuario}/${this.state.usuario}/${this.state.nombreUsuario}/${this.state.apellidosUsuario}/${this.state.correo}`;
+        const url = `http://192.168.1.110:19000/users/modifyUser/${this.state.usuario}/${this.state.usuario}/${this.state.nombreUsuario}/${this.state.apellidosUsuario}/${this.state.correo}`;
         fetch(url, {
             method: 'PUT'
         }).then(respuesta => respuesta.json()).then(msj => console.log(msj));
