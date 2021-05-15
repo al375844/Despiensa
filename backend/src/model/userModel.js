@@ -104,13 +104,14 @@ class User {
             .findOne({"usuario": this.usuario});
     }
 
-    async modifyUser(usuarioNuevo, nombre, apellidos, correo){
+    async modifyUser(usuarioNuevo, nombre, apellidos, correo, password){
 
         const db = getDB();
         const resultado = await db.collection('users')
             .updateOne(
                 {
-                    usuario: this.usuario
+                    usuario: this.usuario,
+                    password: password
                 },
                 {
                     $set: {
@@ -171,26 +172,34 @@ class User {
 
     }
 
-    async deleteUser(){
+    async deleteUser(password){
 
         const db = getDB();
 
         return db.collection('users')
             .deleteOne(
                 {
-                    usuario: this.usuario
+                    usuario: this.usuario,
+                    password: password
                 }
             );
 
     }
 
-    async getUser(){
+    async getUser(password){
 
         const db = getDB();
-
+        console.log(this.usuario)
+        console.log(password)
         return db.collection('users')
-            .findOne({usuario: this.usuario})
-
+            .findOne(
+                {
+                    usuario: this.usuario,
+                    password: password
+                }
+                ).then( user => {
+                    return user;
+            })
     }
 
 }

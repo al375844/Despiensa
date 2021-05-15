@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import {Container, Content, Footer, Form, Header, Input, Item, Button, Text} from 'native-base';
-import { AsyncStorage } from 'react-native'
+import { AsyncStorage } from 'react-native';
+import {NetworkInfo} from 'react-native-network-info';
 import * as Font from 'expo-font';
 import {Ionicons} from '@expo/vector-icons';
+import axios from 'axios';
 import { AppLoading } from "expo/build/removed.web"; // miarar porque da error
 
 export default class App extends Component {
@@ -18,13 +20,12 @@ export default class App extends Component {
             alergias:'',
             intolerancias:'',
             planName:'',
-            fechaNacimiento:''
+            fechaNacimiento:'',
+            ip:''
         };
     }
 
     //url = new URL('http://192.168.0.24:3000/users/newUser/');
-
-
     Register = () => {
         const {usuario}= this.state;
         const {nombre} = this.state;
@@ -33,19 +34,19 @@ export default class App extends Component {
         const {password} = this.state;
         const {alergias} = this.state;
         const {intolerancias} = this.state;
-        const {planName} = this.state;
+        const planName = "Gratuito";
         const {fechaNacimiento} = this.state;
 
-        //const params = {usuario, nombre, apellidos, correo, password, alergias, intolerancias, planName, fechaNacimiento};
-        //Object.keys(params).forEach(key => this.url.searchParams.append(key, params[key]));
-        //console.log(params);
-        console.log(usuario, nombre, apellidos, correo, password, alergias, intolerancias, planName, fechaNacimiento);
+        console.log(`http://192.168.1.110:3000/users/newUser/${this.state.usuario}/${this.state.nombre}/${this.state.apellidos}/${this.state.correo}/${this.state.password}/${this.state.alergias}/${this.state.intolerancias}/${planName}/${this.state.fechaNacimiento}`)
 
-        fetch(`http://150.128.167.168:3000/users/newUser/${this.state.usuario}/${this.state.nombre}/${this.state.apellidos}/${this.state.correo}/${this.state.password}/${this.state.alergias}/${this.state.intolerancias}/${this.state.planName}/${this.state.fechaNacimiento}`,{
+        console.log(usuario, nombre, apellidos, correo, password, alergias, intolerancias, planName, fechaNacimiento);
+        const url = `http://192.168.1.110:3000/users/newUser`;
+
+        fetch(url,{
             method: 'POST',
             headers:{
                 'Accept' : 'application/json',
-                'Content-type' : 'application/json'
+                'Content-Type' : 'application/json'
             },
             body:JSON.stringify({
                 usuario:usuario,
@@ -59,7 +60,15 @@ export default class App extends Component {
                 fechaNacimiento:fechaNacimiento
             })
         }).then(respuesta => respuesta.json())
-            .then(responseJson => {alert(responseJson)})
+            .then(responseJson => {
+                if (responseJson._id === 0) {
+                    alert(responseJson.error.message);
+                }
+                else {
+                    alert("Usuario creado");
+                    this.props.navigation.navigate('Login');
+                }
+                })
             .catch(error => {console.log(error)})
     }
 
@@ -103,11 +112,11 @@ export default class App extends Component {
                         <Item>
                             <Input placeholder="Intolerancias" onChangeText={intolerancias => this.setState({intolerancias})} />
                         </Item>
+                        {/*<Item>
+                            <Input placeholder="PlanName" value={"Gratuito"} disabled/>
+                        </Item>*/}
                         <Item>
-                            <Input placeholder="PlanName" onChangeText={planName => this.setState({planName})} />
-                        </Item>
-                        <Item>
-                            <Input placeholder="Fecha Nacimiento" onChangeText={fechaNacimiento => this.setState({fechaNacimiento})} />
+                            <Input placeholder="Fecha Nacimiento {mm/dd/aaaa}" onChangeText={fechaNacimiento => this.setState({fechaNacimiento})} />
                         </Item>
                         <Text></Text>
                         <Button full warning color={"#C66012"} onPress={() => {this.Register()}} >

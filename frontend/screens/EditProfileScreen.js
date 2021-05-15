@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, TextInput, Button } from 'react-native';
 
-class EditProfileScrren extends Component {
-    constructor() {
-        super();
+export default class App extends Component{
+
+    constructor(props) {
+        super(props);
         this.state = {
+            usuarioLogeado: props.navigation.state.params.usuario,
             user: null,
             usuario: '',
             nombreUsuario:'',
             apellidosUsuario:'',
             correo:'',
-            password:'',
+            passwordUsuario: props.navigation.state.params.password,
             plan:'',
         }
     }
@@ -20,56 +22,56 @@ class EditProfileScrren extends Component {
     }
 
     getUser = () => {
-        fetch('http://192.168.0.24:3000/users/getUser/pacoelcocinas24', {
+        fetch(`http://192.168.1.110:3000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
             method: 'GET',
             headers:{
                 'Accept' : 'application/json',
                 'Content-type' : 'application/json'
             }
-            }).then(response => response.json())
-                .then(user => {
-                        this.setState({
-                            user: user,
-                            usuario: user.usuario,
-                            nombreUsuario: user.nombreUsuario,
-                            apellidosUsuario: user.apellidosUsuario,
-                            correo: user.correo,
-                            password: user.password,
-                            plan: user.plan
-                        })
-                    })
-                    .catch(error => {console.log(error)});
+        }).then(response => response.json())
+            .then(user => {
+                this.setState({
+                    user: user,
+                    usuario: user.usuario,
+                    nombreUsuario: user.nombreUsuario,
+                    apellidosUsuario: user.apellidosUsuario,
+                    correo: user.correo,
+                    password: user.password,
+                    plan: user.plan
+                })
+            })
+            .catch(error => {console.log(error)});
     }
 
     renderEditProfile = (user) => {
         return(
             <View style={styles.view}>
-                <View style={styles.title}>
-                    <Text>Edit Profile</Text>
-                </View>
                 <View>
                     <Text>Nombre</Text>
-                    <TextInput 
-                    placeholder={user.nombreUsuario}
-                    onChangeText={nombre => this.setState({nombreUsuario: nombre})}></TextInput>
+                    <TextInput
+                        placeholder={user.nombreUsuario}
+                        onChangeText={nombre => this.setState({nombreUsuario: nombre})}></TextInput>
                 </View>
                 <View>
                     <Text>Apellidos</Text>
-                    <TextInput 
-                    placeholder={user.apellidosUsuario}
-                    onChangeText={apellidos => this.setState({apellidosUsuario: apellidos})}></TextInput>
+                    <TextInput
+                        placeholder={user.apellidosUsuario}
+                        onChangeText={apellidos => this.setState({apellidosUsuario: apellidos})}></TextInput>
                 </View>
                 <View>
                     <Text>Correo</Text>
-                    <TextInput 
-                    placeholder={user.correo}
-                    onChangeText={correo => this.setState({correo: correo})}></TextInput>
+                    <TextInput
+                        placeholder={user.correo}
+                        onChangeText={correo => this.setState({correo: correo})}></TextInput>
                 </View>
-                <View>
+                <View style={[StyleSheet.row, {
+                    marginBottom: 20
+                }]}>
                     <Text>Plan</Text>
                     <TextInput
-                    placeholder={user.plan}
-                    editable={false}></TextInput>
+                        placeholder={user.plan}
+                        editable={false}></TextInput>
+                    <Button style={styles.button} color={"#C66012"} title='Cambiar plan' onPress={() => {this.changePlan()}}></Button>
                 </View>
                 <View>
                     <Button style={styles.button} title='Guardar' onPress={this.updateProfile}></Button>
@@ -86,8 +88,12 @@ class EditProfileScrren extends Component {
         );
     }
 
+    changePlan = () => {
+        this.props.navigation.navigate('ChangePlan', {usuario: this.state.usuario, plan:this.state.plan});
+    }
+
     updateProfile = () => {
-        const url = `http://192.168.0.24:3000/users/modifyUser/${this.state.usuario}/${this.state.usuario}/${this.state.nombreUsuario}/${this.state.apellidosUsuario}/${this.state.correo}`;
+        const url = `http://192.168.1.110:3000/users/modifyUser/${this.state.usuario}/${this.state.usuario}/${this.state.nombreUsuario}/${this.state.apellidosUsuario}/${this.state.correo}`;
         fetch(url, {
             method: 'PUT'
         }).then(respuesta => respuesta.json()).then(msj => console.log(msj));
@@ -97,10 +103,10 @@ class EditProfileScrren extends Component {
         const user = this.state.user;
         return(
             <View>
-            {/* Comprobamos que user no sea null */}
-            {user ? 
-            this.renderEditProfile(user) :
-            this.renderLoading}
+                {/* Comprobamos que user no sea null */}
+                {user ?
+                    this.renderEditProfile(user) :
+                    this.renderLoading}
             </View>
         );
     }
@@ -112,16 +118,6 @@ const styles = StyleSheet.create({
         padding: '10%'
     },
 
-    title: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: 20,
-        marginBottom: 20
-    },
-
     button: {
-        marginTop: 10
     }
 });
-
-export default EditProfileScrren;
