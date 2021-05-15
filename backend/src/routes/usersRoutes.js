@@ -12,7 +12,7 @@ router.put('/newPassword/:usuario', usersController.newPassword);
 
 router.delete('/deleteUser/:usuario', usersController.deleteUser);
 
-router.get('/getUser/:usuario', usersController.getUser);
+router.get('/getUser/:usuario/:password', usersController.getUser);
 
 
 module.exports = router;

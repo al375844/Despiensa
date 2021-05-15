@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import RNPickerSelect from "react-native-picker-select";
 import {Button, StyleSheet, Text, TextInput, View} from "react-native";
 
-export default class App extends Component{
+export default class App extends Component {
 
     constructor(props) {
         super(props);
@@ -22,7 +22,7 @@ export default class App extends Component{
     }
 
     getPlans = () => {
-        fetch(`http://192.168.1.55:3000/plans/getPlans`, {
+        fetch(`http://150.128.169.21:3000/plans/getPlans`, {
             method: 'GET',
             headers:{
                 'Accept' : 'application/json',
@@ -42,7 +42,9 @@ export default class App extends Component{
 
         return(
             <View style={styles.view}>
-                <View>
+                <View style={[StyleSheet.row, {
+                    marginBottom: 20
+                }]}>
                     <Text>Elige un plan</Text>
                     <RNPickerSelect
                         value={plan}
@@ -50,7 +52,7 @@ export default class App extends Component{
                         items={this.state.savedPlans.map(obj => (
                             {
                                 key: obj._id,
-                                label: obj.name,
+                                label: obj.nombre,
                                 value: obj._id,
                             }
                         ))}
@@ -84,7 +86,7 @@ export default class App extends Component{
     }
 
     updatePlan = () => {
-        const url = `http://192.168.1.55:3000/plans/modifyPlan/${this.state.usuarioLogeado}`;
+        const url = `http://150.128.169.21:3000/plans/modifyPlan/${this.state.usuarioLogeado}`;
         fetch(url, {
             method: 'PUT'
         }).then(respuesta => respuesta.json())

@@ -36,8 +36,9 @@ export default class App extends Component {
     }
 
     getUser = () => {
+        const passwordUsuario = this.state.passwordUsuario;
         console.log(this.state.usuarioLogeado);
-        fetch(`http://150.128.169.21:3000/users/getUser/${this.state.usuarioLogeado}`, {
+        fetch(`http://150.128.169.21:3000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
             method: 'GET',
             headers:{
                 'Accept' : 'application/json',
@@ -84,7 +85,7 @@ export default class App extends Component {
                             marginLeft: 25,
                             marginTop: 10
                         }]}>
-                            <Button color={"#52b788"} title='Editar' onPress={() => {this.props.navigation.navigate('Edit', {usuario: this.state.usuario })}}></Button>
+                            <Button color={"#52b788"} title='Editar' onPress={() => {this.props.navigation.navigate('Edit', {usuario: this.state.usuario, password : this.state.passwordUsuario })}}></Button>
                         </View>
                         <View style={[StyleSheet.row, {
                             marginLeft: 15,
@@ -173,12 +174,16 @@ export default class App extends Component {
     }
 
     deleteUsuario = () => {
+        const passwordUsuario = this.state.passwordUsuario;
         fetch(`http://150.128.169.21:3000/users/deleteUser/${this.state.usuarioLogeado}`, {
             method: 'DELETE',
             headers:{
                 'Accept' : 'application/json',
                 'Content-type' : 'application/json'
-            }
+            },
+            body:JSON.stringify({
+                password:passwordUsuario
+            })
         }).then(response => response.json())
             .then(this.props.navigation.navigate('Home'))
             .catch(error => {console.log(error)});
