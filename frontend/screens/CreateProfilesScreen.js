@@ -13,6 +13,19 @@ class CreateProfilesScreen extends Component {
             textInputDisableStatus: true
         }
     }
+    
+    //====================================
+    //FUNCIONES
+    //====================================
+    createProfiles = () => {
+        const numProfiles = this.state.profilesData.length
+        for(let i=0; i<numProfiles; i++) {
+            const profile = this.state.profilesData[i];
+            const url = `http://192.168.0.24:3000/users/${profile.nombre}/${profile.apellidos}`;
+            console.log('Dentro For');
+            console.log(url);
+        }
+    }
 
     getProfilesData(profile) {
         this.setState({profilesData: this.state.profilesData.concat(profile)});
@@ -32,10 +45,9 @@ class CreateProfilesScreen extends Component {
         }
     }
 
-    if(confirmed) {
-        console.log("Suuuuuu");
-    };
-
+    //====================================
+    //RENDER PART
+    //====================================
     render() {
         return(
             <ScrollView>
@@ -53,7 +65,7 @@ class CreateProfilesScreen extends Component {
                 </View>
                 <View style={styles.btn}>
                     {this.state.confirmed ?
-                        <Button title='Crear perfiles' onPress={() => console.log(this.state.profilesData)}></Button> : <Text></Text>}
+                        <Button title='Crear perfiles' onPress={this.createProfiles}></Button> : <Text></Text>}
                 </View>
             </View>
             </TouchableWithoutFeedback>
@@ -62,6 +74,9 @@ class CreateProfilesScreen extends Component {
     }
 }
 
+//====================================
+// STYLES
+//====================================
 const styles = StyleSheet.create({
     view: {
         padding: '10%'
