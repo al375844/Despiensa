@@ -1,23 +1,32 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {Text, View} from 'react-native';
+import {createAppContainer} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
 
-import Header from './components/Header';
-import EditProfileScreen from './screens/EditProfileScreen';
-import CreateProfilesScreen from './screens/CreateProfilesScreen';
+import RegisterScreen from './screens/Register';
+import HomeScreen from './screens/Home';
+import LoginScreen from './screens/Login';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Header title='Despiensa'></Header>
-      {/* <EditProfileScreen></EditProfileScreen> */}
-      <CreateProfilesScreen></CreateProfilesScreen>
-    </View>
-  );
+class HomeScreens extends React.Component {
+  render() {
+    return (
+        <View style={{flex: 1, alignItems: 'center', justifyContent: ' center'}}>
+          <Text>Despiensa</Text>
+        </View>
+    );
+  }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
+const AppNavigator = createStackNavigator({
+  Home: {
+    screen: HomeScreen
   },
+  Login: {
+    screen: LoginScreen
+  },
+  Register: {
+    screen: RegisterScreen
+  }
 });
+
+export default createAppContainer(AppNavigator);
