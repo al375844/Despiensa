@@ -3,26 +3,23 @@ import RNPickerSelect from "react-native-picker-select";
 import {Button, StyleSheet, Text, TextInput, View} from "react-native";
 
 export default class App extends Component {
-
     constructor(props) {
         super(props);
+
         this.state = {
             usuarioLogeado: props.navigation.state.params.usuario,
             actualPlan: props.navigation.state.params.actualPlan,
-            savedPlans: null,
-            plan: null,
+            savedPlans: undefined,
+            planName: undefined,
         }
     }
 
     componentDidMount () {
         this.getPlans();
-        this.setState({
-            plan: this.state.actualPlan
-        })
     }
 
     getPlans = () => {
-        fetch(`http://192.168.1.110:19000/plans/getPlans`, {
+        fetch(`http://192.168.1.110:3000/plans/getPlans`, {
             method: 'GET',
             headers:{
                 'Accept' : 'application/json',
@@ -34,32 +31,41 @@ export default class App extends Component {
                     savedPlans: plans,
                 })
             })
-            .catch(error => {console.log(error)});
+            .catch(error => {console.log(error); console.log('Peto al obtener planes')});
     }
 
-    renderChangePlan = (savedPlans) => {
-        const plan = this.state.plan;
+    renderChangePlan = () => {
+
+        const items = this.state.savedPlans.map(obj => (
+            {
+                label: obj.nombre,
+                value: obj.nombre,
+            }
+        ));
+
+        console.log('Termino con items');
+        console.log(items);
+
 
         return(
             <View style={styles.view}>
-                <View style={[StyleSheet.row, {
-                    marginBottom: 20
-                }]}>
-                    <Text>Elige un plan</Text>
+                <View style={styles.container}>
                     <RNPickerSelect
-                        value={plan}
-                        onValueChange={(value) => this.setState({plan: value})}
-                        items={this.state.savedPlans.map(obj => (
-                            {
-                                key: obj._id,
-                                label: obj.nombre,
-                                value: obj._id,
-                            }
-                        ))}
-                    />
+                        placeholder={{
+                            label: 'Selecciona un plan...',
+                            value: null,
+                        }}
+                        onValueChange={(value) => {this.setState({
+                            planName: value,
+                        });}}
+                        items={items}
+                        value={this.state.planName}
+                    ></RNPickerSelect>
                 </View>
-                <View>
-                    <Button style={styles.button} title='Cambiar plan' onPress={this.updatePlan}></Button>
+                <View style={[StyleSheet.row, {
+                    marginTop: 40
+                }]}>
+                    <Button style={styles.button} title='Cambiar plan' ></Button>
                 </View>
             </View>
         );
@@ -69,10 +75,10 @@ export default class App extends Component {
         const savedPlans = this.state.savedPlans;
         return(
             <View>
-                {/* Comprobamos que user no sea null */}
+                {/* Comprobamos que savedPlans no sea null */}
                 {savedPlans ?
-                    this.renderChangePlan(savedPlans) :
-                    this.renderLoading}
+                    this.renderChangePlan() :
+                    this.renderLoading()}
             </View>
         );
     }
@@ -86,11 +92,11 @@ export default class App extends Component {
     }
 
     updatePlan = () => {
-        const url = `http://192.168.1.110:19000/plans/modifyPlan/${this.state.usuarioLogeado}`;
+        const url = `http://192.168.1.110:3000/plans/modifyPlan/${this.state.usuarioLogeado}`;
         fetch(url, {
             method: 'PUT'
         }).then(respuesta => respuesta.json())
-            .then(msj => console.log(msj));
+            .then(msj => {console.log(msj); console.log('Peto al intentar cambiar plan');});
     }
 
 };
