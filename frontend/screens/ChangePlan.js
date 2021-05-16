@@ -8,6 +8,7 @@ export default class App extends Component {
 
         this.state = {
             usuarioLogeado: props.navigation.state.params.usuario,
+            passwordUsuario: props.navigation.state.params.passwordUsuario,
             actualPlan: props.navigation.state.params.actualPlan,
             savedPlans: undefined,
             planName: undefined,
@@ -94,11 +95,32 @@ export default class App extends Component {
     }
 
     updatePlan = () => {
+        const planName = this.state.planName;
+        const password = this.state.passwordUsuario;
         const url = `http://192.168.1.110:3000/plans/modifyPlan/${this.state.usuarioLogeado}`;
+
         fetch(url, {
-            method: 'PUT'
+            method: 'PUT',
+            headers:{
+                'Accept' : 'application/json',
+                'Content-Type' : 'application/json'
+            },
+            body:JSON.stringify({
+                planName:planName,
+                password:password,
+
+            })
         }).then(respuesta => respuesta.json())
-            .then(msj => {console.log(msj); console.log('Peto al intentar cambiar plan');});
+            .then(responseJson => {
+                if (responseJson._id === 0) {
+                    alert(responseJson.error.message);
+                }
+                else {
+                    alert("Plan cambiado");
+                    this.props.navigation.navigate('Edit', {usuario: this.state.usuarioLogeado, password:this.state.passwordUsuario});
+                }
+            })
+            .catch(error => {console.log(error)})
     }
 
 };

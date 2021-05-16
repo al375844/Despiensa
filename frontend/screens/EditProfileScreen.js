@@ -89,7 +89,7 @@ export default class App extends Component{
     }
 
     changePlan = () => {
-        this.props.navigation.navigate('ChangePlan', {usuario: this.state.usuario, plan:this.state.plan});
+        this.props.navigation.navigate('ChangePlan', {usuario: this.state.usuario, plan:this.state.plan, passwordUsuario:this.state.passwordUsuario});
     }
 
     updateProfile = () => {
