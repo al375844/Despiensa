@@ -97,17 +97,28 @@ export default class App extends Component {
         return user.recetas.map(data => {
             return <View>
                 <Text>{data}</Text>
-                <View style={[StyleSheet.row, {
-                    marginLeft: 25,
-                    marginTop: 10
-                }]}>
-                    <Button color={"#52b788"} title='Editar' onPress={() => {this.props.navigation.navigate('Edit', {usuario: this.state.usuario, password : this.state.passwordUsuario })}}></Button>
-                </View>
-                <View style={[StyleSheet.row, {
-                    marginLeft: 15,
-                    marginTop: 10
-                }]}>
-                    <Button color={"#d00000"} title='Borrar' onPress={() => this.confirmDelete()}></Button>
+                <View style = {{flexDirection: 'row'}}>
+                    <View style={[StyleSheet.row, {
+                        marginLeft: 25,
+                        marginTop: 10,
+                        alignItems: 'center'
+                    }]}>
+                        <Button color={"#0099ff"} title='Crear' onPress={() => {this.props.navigation.navigate('Edit', {usuario: this.state.usuario, password : this.state.passwordUsuario })}}></Button>
+                    </View>
+                    <View style={[StyleSheet.row, {
+                        marginLeft: 25,
+                        marginTop: 10,
+                        alignItems: 'center'
+                    }]}>
+                        <Button color={"#52b788"} title='Editar' onPress={() => {this.props.navigation.navigate('Edit', {usuario: this.state.usuario, password : this.state.passwordUsuario })}}></Button>
+                    </View>
+                    <View style={[StyleSheet.row, {
+                        marginLeft: 25,
+                        marginTop: 10,
+                        alignItems: 'center'
+                    }]}>
+                        <Button color={"#d00000"} title='Borrar' onPress={() => this.confirmDeleteUsuario()}></Button>
+                    </View>
                 </View>
             </View>
         })

@@ -46,7 +46,7 @@ export default class App extends Component {
                         marginTop: 20,
                         marginLeft: 15
                     }]}>
-                        <Text style={{fontWeight: "bold"}}>Perfiles</Text>
+                        <Text style={{fontWeight: "bold", marginBottom: 10}}>Perfiles</Text>
                         <Text>{this.getPerfiles(user)}</Text>
                     </View>
                 </View>
@@ -95,26 +95,39 @@ export default class App extends Component {
 
     getPerfiles = (user) => {
         return user.perfiles.map(data => {
-            return <ScrollView style={{marginBottom: 5}}>
-                <View style={{marginLeft: 10, marginTop: 5, backgroundColor: "#99ccff"}}>
-                    <Text>{data.nombrePerfil} {data.apellidosPerfil}</Text>
-                    <Text>{data.fechaNacimientoPerfil}</Text>
-                    <Text style={{fontWeight: "bold", marginTop: 5}}>Alergias</Text>
-                    <Text>{this.getAlergias(data.alergias)}</Text>
-                    <Text style={{fontWeight: "bold", marginTop: 5}}>Intolerancias</Text>
-                    <Text>{this.getIntolerancias(data.intolerancias)}</Text>
+            return <ScrollView>
+                <View style={{marginLeft: 10, backgroundColor: "#DCDCDC", borderColor: "#000000", borderWidth: 2}}>
+                    <View style={{margin: 10}}>
+                        <Text>{data.nombrePerfil} {data.apellidosPerfil}</Text>
+                        <Text>{data.fechaNacimientoPerfil}</Text>
+                        <Text style={{fontWeight: "bold", marginTop: 5}}>Alergias</Text>
+                        <Text>{this.getAlergias(data.alergias)}</Text>
+                        <Text style={{fontWeight: "bold", marginTop: 5}}>Intolerancias</Text>
+                        <Text>{this.getIntolerancias(data.intolerancias)}</Text>
+                    </View>
                 </View>
-                <View style={[StyleSheet.row, {
-                    marginLeft: 25,
-                    marginTop: 10
-                }]}>
-                    <Button color={"#52b788"} title='Editar' onPress={() => {this.props.navigation.navigate('Edit', {usuario: this.state.usuario, password : this.state.passwordUsuario })}}></Button>
-                </View>
-                <View style={[StyleSheet.row, {
-                    marginLeft: 15,
-                    marginTop: 10
-                }]}>
-                    <Button color={"#d00000"} title='Borrar' onPress={() => this.confirmDeleteUsuario()}></Button>
+                <View style = {{flexDirection: 'row'}}>
+                    <View style={[StyleSheet.row, {
+                        marginLeft: 25,
+                        marginTop: 10,
+                        alignItems: 'center'
+                    }]}>
+                        <Button color={"#0099ff"} title='Crear' onPress={() => {this.props.navigation.navigate('Edit', {usuario: this.state.usuario, password : this.state.passwordUsuario })}}></Button>
+                    </View>
+                    <View style={[StyleSheet.row, {
+                        marginLeft: 25,
+                        marginTop: 10,
+                        alignItems: 'center'
+                    }]}>
+                        <Button color={"#52b788"} title='Editar' onPress={() => {this.props.navigation.navigate('Edit', {usuario: this.state.usuario, password : this.state.passwordUsuario })}}></Button>
+                    </View>
+                    <View style={[StyleSheet.row, {
+                        marginLeft: 25,
+                        marginTop: 10,
+                        alignItems: 'center'
+                    }]}>
+                        <Button color={"#d00000"} title='Borrar' onPress={() => this.confirmDeleteUsuario()}></Button>
+                    </View>
                 </View>
             </ScrollView>
         })

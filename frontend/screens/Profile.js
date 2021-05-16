@@ -145,34 +145,6 @@ export default class App extends Component {
                     }]}>
                         <Button color={"#0099ff"} title='Recetas' onPress={() => {this.props.navigation.navigate('Recetas', {usuario: this.state.usuario, password : this.state.passwordUsuario })}}></Button>
                     </View>
-                    {/*<View style={[StyleSheet.row, {
-                        marginTop: 20,
-                        marginLeft: 15
-                    }]}>
-                        <Text style={{fontWeight: "bold"}}>Perfiles</Text>
-                        <Text>{this.getPerfiles(user)}</Text>
-                    </View>
-                    <View style={[StyleSheet.row, {
-                        marginTop: 20,
-                        marginLeft: 15
-                    }]}>
-                        <Text style={{fontWeight: "bold"}}>Listas</Text>
-                        <Text>{this.getListas(user)}</Text>
-                    </View>
-                    <View style={[StyleSheet.row, {
-                        marginTop: 20,
-                        marginLeft: 15
-                    }]}>
-                        <Text style={{fontWeight: "bold"}}>Despensa</Text>
-                        <Text>{this.getDespensa(user)}</Text>
-                    </View>
-                    <View style={[StyleSheet.row, {
-                        marginTop: 20,
-                        marginLeft: 15
-                    }]}>
-                        <Text style={{fontWeight: "bold"}}>Recetas</Text>
-                        <Text>{this.getRecetas(user)}</Text>
-                    </View>*/}
                 </View>
             </SafeAreaView>
         );

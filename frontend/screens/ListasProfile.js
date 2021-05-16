@@ -95,23 +95,36 @@ export default class App extends Component {
 
     getListas = (user) => {
         return user.listas.map(data => {
-            return <ScrollView style={{marginBottom: 5}}>
-                <View style={{marginLeft: 10, marginTop: 5, backgroundColor: "#99ccff"}}>
-                    <Text>{data.nombreLista}</Text>
-                    <Text style={{fontWeight: "bold", marginTop: 5}}>Alimentos</Text>
-                    <Text>{this.getAlimentos(data.alimentos)}</Text>
+            return <ScrollView>
+                <View style={{marginLeft: 10, backgroundColor: "#DCDCDC", borderColor: "#000000", borderWidth: 2}}>
+                    <View style={{margin: 10}}>
+                        <Text>{data.nombreLista}</Text>
+                        <Text style={{fontWeight: "bold", marginTop: 5}}>Alimentos</Text>
+                        <Text>{this.getAlimentos(data.alimentos)}</Text>
+                    </View>
                 </View>
-                <View style={[StyleSheet.row, {
-                    marginLeft: 25,
-                    marginTop: 10
-                }]}>
-                    <Button color={"#52b788"} title='Editar' onPress={() => {this.props.navigation.navigate('Edit', {usuario: this.state.usuario, password : this.state.passwordUsuario })}}></Button>
-                </View>
-                <View style={[StyleSheet.row, {
-                    marginLeft: 15,
-                    marginTop: 10
-                }]}>
-                    <Button color={"#d00000"} title='Borrar' onPress={() => this.confirmDelete()}></Button>
+                <View style = {{flexDirection: 'row'}}>
+                    <View style={[StyleSheet.row, {
+                        marginLeft: 25,
+                        marginTop: 10,
+                        alignItems: 'center'
+                    }]}>
+                        <Button color={"#0099ff"} title='Crear' onPress={() => {this.props.navigation.navigate('Edit', {usuario: this.state.usuario, password : this.state.passwordUsuario })}}></Button>
+                    </View>
+                    <View style={[StyleSheet.row, {
+                        marginLeft: 25,
+                        marginTop: 10,
+                        alignItems: 'center'
+                    }]}>
+                        <Button color={"#52b788"} title='Editar' onPress={() => {this.props.navigation.navigate('Edit', {usuario: this.state.usuario, password : this.state.passwordUsuario })}}></Button>
+                    </View>
+                    <View style={[StyleSheet.row, {
+                        marginLeft: 25,
+                        marginTop: 10,
+                        alignItems: 'center'
+                    }]}>
+                        <Button color={"#d00000"} title='Borrar' onPress={() => this.confirmDeleteUsuario()}></Button>
+                    </View>
                 </View>
             </ScrollView>
         })
