@@ -14,4 +14,6 @@ router.put('/addFood/:usuario/:nombreLista', listsController.addFood);
 
 router.put('/deleteFood/:usuario/:nombreLista', listsController.deleteFood);
 
-router.put('/buyFood/:usuario/:nombreLista', listsController.buyFood)
+router.put('/buyFood/:usuario/:nombreLista', listsController.buyFood);
+
+module.exports = router;
