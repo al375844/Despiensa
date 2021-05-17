@@ -22,7 +22,7 @@ export default class App extends Component {
     getUser = () => {
         const passwordUsuario = this.state.passwordUsuario;
         console.log(this.state.usuarioLogeado);
-        fetch(`http://192.168.1.199:3000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
+        fetch(`http://192.168.1.55:3000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
             method: 'GET',
             headers:{
                 'Accept' : 'application/json',
@@ -62,7 +62,7 @@ export default class App extends Component {
         );
     }
 
-    confirmDeleteFriend() {
+    confirmDeleteFriend(nombrePerfil) {
         Alert.alert(
             '¿Seguro que quiere borrar?',
             'Una vez realizada la acción no podra volver atras.',
@@ -71,25 +71,25 @@ export default class App extends Component {
                     text: 'Cancelar', onPress: () => console.log('Borrado cancelado'), style: 'cancel',
                 },
                 {
-                    text: 'Aceptar', onPress: () => {this.deleteUsuario(); console.log('Borrando')}
+                    text: 'Aceptar', onPress: () => {this.deleteFriend(nombrePerfil); console.log('Borrando')}
                 }
             ]
         );
     }
 
-    deleteFriend = () => {
+    deleteFriend = (nombrePerfil) => {
         const passwordUsuario = this.state.passwordUsuario;
-        fetch(`http://192.168.1.199:3000/users/deleteUser/${this.state.usuarioLogeado}`, {
+        const url = `http://192.168.1.55:3000/profiles/deleteProfile/${this.state.usuarioLogeado}/${nombrePerfil}`;
+
+        console.log(url);
+        fetch(url, {
             method: 'DELETE',
             headers:{
                 'Accept' : 'application/json',
                 'Content-type' : 'application/json'
-            },
-            body:JSON.stringify({
-                password:passwordUsuario
-            })
+            }
         }).then(response => response.json())
-            .then(this.props.navigation.navigate('Home'))
+            .then(this.props.navigation.navigate('Profile', {usuario: this.state.usuarioLogeado, password:this.state.passwordUsuario }))
             .catch(error => {console.log(error)});
     }
 
@@ -112,7 +112,7 @@ export default class App extends Component {
                         marginTop: 10,
                         alignItems: 'center'
                     }]}>
-                        <Button color={"#0099ff"} title='Crear' onPress={() => {this.props.navigation.navigate('Edit', {usuario: this.state.usuario, password : this.state.passwordUsuario })}}></Button>
+                        <Button color={"#0099ff"} title='Crear' onPress={() => {this.props.navigation.navigate('CreateProfile', {usuario: this.state.usuarioLogeado, password : this.state.passwordUsuario })}}></Button>
                     </View>
                     <View style={[StyleSheet.row, {
                         marginLeft: 25,
@@ -126,7 +126,7 @@ export default class App extends Component {
                         marginTop: 10,
                         alignItems: 'center'
                     }]}>
-                        <Button color={"#d00000"} title='Borrar' onPress={() => this.confirmDeleteUsuario()}></Button>
+                        <Button color={"#d00000"} title='Borrar' onPress={() => this.confirmDeleteFriend(data.nombrePerfil)}></Button>
                     </View>
                 </View>
             </ScrollView>
