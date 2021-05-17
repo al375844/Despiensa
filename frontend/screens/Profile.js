@@ -38,7 +38,7 @@ export default class App extends Component {
     getUser = () => {
         const passwordUsuario = this.state.passwordUsuario;
         console.log(this.state.usuarioLogeado);
-        fetch(`http://150.128.169.21:3000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
+        fetch(`http://192.168.1.199:3000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
             method: 'GET',
             headers:{
                 'Accept' : 'application/json',
@@ -118,32 +118,32 @@ export default class App extends Component {
                         <Text>{user.n_recetas}</Text>
                     </View>
                     <View style={[StyleSheet.row, {
-                        marginTop: 20,
-                        marginLeft: 15
+                        marginLeft: 25,
+                        marginRight: 25,
+                        marginTop: 10
                     }]}>
-                        <Text style={{fontWeight: "bold"}}>Perfiles</Text>
-                        <Text>{this.getPerfiles(user)}</Text>
+                        <Button color={"#0099ff"} title='Perfiles' onPress={() => {this.props.navigation.navigate('Friends', {usuario: this.state.usuario, password : this.state.passwordUsuario })}}></Button>
                     </View>
                     <View style={[StyleSheet.row, {
-                        marginTop: 20,
-                        marginLeft: 15
+                        marginLeft: 25,
+                        marginRight: 25,
+                        marginTop: 10
                     }]}>
-                        <Text style={{fontWeight: "bold"}}>Listas</Text>
-                        <Text>{this.getListas(user)}</Text>
+                        <Button color={"#0099ff"} title='Listas' onPress={() => {this.props.navigation.navigate('Listas', {usuario: this.state.usuario, password : this.state.passwordUsuario })}}></Button>
                     </View>
                     <View style={[StyleSheet.row, {
-                        marginTop: 20,
-                        marginLeft: 15
+                        marginLeft: 25,
+                        marginRight: 25,
+                        marginTop: 10
                     }]}>
-                        <Text style={{fontWeight: "bold"}}>Despensa</Text>
-                        <Text>{this.getDespensa(user)}</Text>
+                        <Button color={"#0099ff"} title='Despensa' onPress={() => {this.props.navigation.navigate('Despensa', {usuario: this.state.usuario, password : this.state.passwordUsuario })}}></Button>
                     </View>
                     <View style={[StyleSheet.row, {
-                        marginTop: 20,
-                        marginLeft: 15
+                        marginLeft: 25,
+                        marginRight: 25,
+                        marginTop: 10
                     }]}>
-                        <Text style={{fontWeight: "bold"}}>Recetas</Text>
-                        <Text>{this.getRecetas(user)}</Text>
+                        <Button color={"#0099ff"} title='Recetas' onPress={() => {this.props.navigation.navigate('Recetas', {usuario: this.state.usuario, password : this.state.passwordUsuario })}}></Button>
                     </View>
                 </View>
             </SafeAreaView>
@@ -175,7 +175,7 @@ export default class App extends Component {
 
     deleteUsuario = () => {
         const passwordUsuario = this.state.passwordUsuario;
-        fetch(`http://150.128.169.21:3000/users/deleteUser/${this.state.usuarioLogeado}`, {
+        fetch(`http://192.168.1.199:3000/users/deleteUser/${this.state.usuarioLogeado}`, {
             method: 'DELETE',
             headers:{
                 'Accept' : 'application/json',
