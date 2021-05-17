@@ -58,7 +58,7 @@ export default class App extends React.Component{
                             <Input placeholder={"Username"} onChangeText={usuario => this.setState({usuario})}/>
                         </Item>
                         <Item>
-                            <Input placeholder={"Password"} onChangeText={password => this.setState({password})}/>
+                            <Input placeholder={"Password"} secureTextEntry={true} onChangeText={password => this.setState({password})}/>
                         </Item>
                         <Text></Text>
                         <Button full warning onPress={this.Login}>

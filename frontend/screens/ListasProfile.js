@@ -62,7 +62,7 @@ export default class App extends Component {
         );
     }
 
-    confirmDelete() {
+    confirmDeleteList(nombreLista) {
         Alert.alert(
             '¿Seguro que quiere borrar?',
             'Una vez realizada la acción no podra volver atras.',
@@ -71,25 +71,24 @@ export default class App extends Component {
                     text: 'Cancelar', onPress: () => console.log('Borrado cancelado'), style: 'cancel',
                 },
                 {
-                    text: 'Aceptar', onPress: () => {this.delete(); console.log('Borrando')}
+                    text: 'Aceptar', onPress: () => {this.deleteList(nombreLista); console.log('Borrando')}
                 }
             ]
         );
     }
 
-    delete = () => {
+    deleteList = (nombreLista) => {
         const passwordUsuario = this.state.passwordUsuario;
-        fetch(`http://192.168.1.55:3000/users/deleteUser/${this.state.usuarioLogeado}`, {
+        const url = `http://192.168.1.55:3000/lists/deleteList/${this.state.usuarioLogeado}/${nombreLista}`;
+
+        fetch(url, {
             method: 'DELETE',
             headers:{
                 'Accept' : 'application/json',
                 'Content-type' : 'application/json'
-            },
-            body:JSON.stringify({
-                password:passwordUsuario
-            })
+            }
         }).then(response => response.json())
-            .then(this.props.navigation.navigate('Home'))
+            .then(this.props.navigation.navigate('Profile', {usuario: this.state.usuarioLogeado, password:this.state.passwordUsuario}))
             .catch(error => {console.log(error)});
     }
 
@@ -123,7 +122,7 @@ export default class App extends Component {
                         marginTop: 10,
                         alignItems: 'center'
                     }]}>
-                        <Button color={"#d00000"} title='Borrar' onPress={() => this.confirmDeleteUsuario()}></Button>
+                        <Button color={"#d00000"} title='Borrar' onPress={() => this.confirmDeleteList(data.nombreLista)}></Button>
                     </View>
                 </View>
             </ScrollView>

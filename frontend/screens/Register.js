@@ -104,7 +104,7 @@ export default class App extends Component {
                             <Input placeholder="Correo" onChangeText={correo => this.setState({correo})} />
                         </Item>
                         <Item>
-                            <Input placeholder="Password" onChangeText={password => this.setState({password})} />
+                            <Input placeholder="Password" secureTextEntry={true} onChangeText={password => this.setState({password})} />
                         </Item>
                         <Item>
                             <Input placeholder="Alergias" onChangeText={alergias => this.setState({alergias})} />

@@ -79,17 +79,17 @@ export default class App extends Component {
 
     deleteFriend = (nombrePerfil) => {
         const passwordUsuario = this.state.passwordUsuario;
-        fetch(`http://192.168.1.55:3000/users/deleteProfile/${this.state.usuarioLogeado}/${nombrePerfil}`, {
+        const url = `http://192.168.1.55:3000/profiles/deleteProfile/${this.state.usuarioLogeado}/${nombrePerfil}`;
+
+        console.log(url);
+        fetch(url, {
             method: 'DELETE',
             headers:{
                 'Accept' : 'application/json',
                 'Content-type' : 'application/json'
-            },
-            body:JSON.stringify({
-                password:passwordUsuario
-            })
+            }
         }).then(response => response.json())
-            .then(this.props.navigation.navigate('Home'))
+            .then(this.props.navigation.navigate('Profile', {usuario: this.state.usuarioLogeado, password:this.state.passwordUsuario }))
             .catch(error => {console.log(error)});
     }
 

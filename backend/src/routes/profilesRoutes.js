@@ -8,9 +8,9 @@ router.put('/newProfile', profilesController.newProfile);
 
 router.put('/modifyProfile/:usuario/:nombreAntiguo/:nombreNuevo/:apellidos/:fechaNacimiento/:alergias/:intolerancias', profilesController.modifyProfile);
 
-router.put('/deleteProfile/:usuario/:nombre', profilesController.deleteProfile);
+router.put('/deleteProfile/:usuario/:nombrePerfil', profilesController.deleteProfile);
 
-router.get('/getProfile/:usuario/:nombre', profilesController.getProfile);
+router.get('/getProfile/:usuario/:nombrePerfil', profilesController.getProfile);
 
 
 module.exports = router;
