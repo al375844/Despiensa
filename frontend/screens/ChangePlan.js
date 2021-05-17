@@ -16,11 +16,14 @@ export default class App extends Component {
     }
 
     componentDidMount () {
-        this.getPlans();
+        setTimeout(() => {
+            this.getPlans();
+        }, 3000);
+
     }
 
     getPlans = () => {
-        fetch(`http://192.168.1.110:3000/plans/getPlans`, {
+        fetch(`http://150.128.169.21:3000/plans/getPlans`, {
             method: 'GET',
             headers:{
                 'Accept' : 'application/json',
@@ -45,10 +48,7 @@ export default class App extends Component {
 
         const width_proportion = '100%';
 
-        const {savedPlans} = this.state;
-        setTimeout(() => {
-            this.setPlan(savedPlans[0].nombre);
-        }, 1000);
+        console.log(this.state.planName);
 
         return(
             <View style={styles.view}>
@@ -58,7 +58,7 @@ export default class App extends Component {
                         style={{ height: 20, width: width_proportion }}
                         onValueChange={(itemValue) => this.setPlan(itemValue)}
                     >
-                        {savedPlans.map(obj =>
+                        {this.state.savedPlans.map(obj =>
                             {
                                 return (<Picker.Item label={obj.nombre} value={obj.nombre}/>)
                             }
@@ -96,8 +96,9 @@ export default class App extends Component {
 
     updatePlan = () => {
         const planName = this.state.planName;
+        console.log(planName)
         const password = this.state.passwordUsuario;
-        const url = `http://192.168.1.110:3000/plans/modifyPlan/${this.state.usuarioLogeado}`;
+        const url = `http://150.128.169.21:3000/plans/modifyPlan/${this.state.usuarioLogeado}`;
 
         fetch(url, {
             method: 'PUT',
