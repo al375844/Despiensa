@@ -35,17 +35,31 @@ listsController.newList = async(req, res, next) => {
 listsController.deleteList = async(req, res, next) => {
     
     const usuario = req.params.usuario;
+    console.log(usuario)
     const nombreLista = req.params.nombreLista;
+    console.log(nombreLista);
 
-    res.send(
-        {
-            "_id": "0",
-            "error": {
-                "type" : 0,
-                "message" : "No implementada"
-            }
-        }
-    );
+    const lista = new List(nombreLista);
+    lista.deleteList(usuario)
+        .catch(err => {
+            console.log("Entramos en error.");
+            console.log("Error");
+            res.send(
+                {
+                    "_id": "0",
+                    "error": {
+                        "type" : err[0],
+                        "message" : err[1]
+                    }
+                }
+            );
+        })
+        .then(result => {
+            res.send({
+                "nombreLista": nombreLista
+            });
+        });
+
 }
 
 listsController.updateList = async(req, res, next) => {
