@@ -1,28 +1,26 @@
 import React, {Component} from "react";
-import RNPickerSelect from "react-native-picker-select";
+import {Picker} from '@react-native-picker/picker';
 import {Button, StyleSheet, Text, TextInput, View} from "react-native";
 
 export default class App extends Component {
-
     constructor(props) {
         super(props);
+
         this.state = {
             usuarioLogeado: props.navigation.state.params.usuario,
+            passwordUsuario: props.navigation.state.params.passwordUsuario,
             actualPlan: props.navigation.state.params.actualPlan,
-            savedPlans: null,
-            plan: null,
+            savedPlans: undefined,
+            planName: undefined,
         }
     }
 
     componentDidMount () {
         this.getPlans();
-        this.setState({
-            plan: this.state.actualPlan
-        })
     }
 
     getPlans = () => {
-        fetch(`http://150.128.169.21:3000/plans/getPlans`, {
+        fetch(`http://192.168.1.110:3000/plans/getPlans`, {
             method: 'GET',
             headers:{
                 'Accept' : 'application/json',
@@ -37,29 +35,40 @@ export default class App extends Component {
             .catch(error => {console.log(error)});
     }
 
-    renderChangePlan = (savedPlans) => {
-        const plan = this.state.plan;
+    setPlan = (plan) => {
+        this.setState({
+            planName: plan
+        })
+    }
+
+    renderChangePlan = () => {
+
+        const width_proportion = '100%';
+
+        const {savedPlans} = this.state;
+        setTimeout(() => {
+            this.setPlan(savedPlans[0].nombre);
+        }, 1000);
 
         return(
             <View style={styles.view}>
-                <View style={[StyleSheet.row, {
-                    marginBottom: 20
-                }]}>
-                    <Text>Elige un plan</Text>
-                    <RNPickerSelect
-                        value={plan}
-                        onValueChange={(value) => this.setState({plan: value})}
-                        items={this.state.savedPlans.map(obj => (
+                <View style={styles.container}>
+                    <Picker
+                        selectedValue={this.state.planName}
+                        style={{ height: 20, width: width_proportion }}
+                        onValueChange={(itemValue) => this.setPlan(itemValue)}
+                    >
+                        {savedPlans.map(obj =>
                             {
-                                key: obj._id,
-                                label: obj.nombre,
-                                value: obj._id,
+                                return (<Picker.Item label={obj.nombre} value={obj.nombre}/>)
                             }
-                        ))}
-                    />
+                        )}
+                    </Picker>
                 </View>
-                <View>
-                    <Button style={styles.button} title='Cambiar plan' onPress={this.updatePlan}></Button>
+                <View style={[StyleSheet.row, {
+                    marginTop: 40
+                }]}>
+                    <Button style={styles.button} title='Cambiar plan' onPress={() => {this.updatePlan()}}></Button>
                 </View>
             </View>
         );
@@ -69,10 +78,10 @@ export default class App extends Component {
         const savedPlans = this.state.savedPlans;
         return(
             <View>
-                {/* Comprobamos que user no sea null */}
+                {/* Comprobamos que savedPlans no sea null */}
                 {savedPlans ?
-                    this.renderChangePlan(savedPlans) :
-                    this.renderLoading}
+                    this.renderChangePlan() :
+                    this.renderLoading()}
             </View>
         );
     }
@@ -86,11 +95,32 @@ export default class App extends Component {
     }
 
     updatePlan = () => {
-        const url = `http://150.128.169.21:3000/plans/modifyPlan/${this.state.usuarioLogeado}`;
+        const planName = this.state.planName;
+        const password = this.state.passwordUsuario;
+        const url = `http://192.168.1.110:3000/plans/modifyPlan/${this.state.usuarioLogeado}`;
+
         fetch(url, {
-            method: 'PUT'
+            method: 'PUT',
+            headers:{
+                'Accept' : 'application/json',
+                'Content-Type' : 'application/json'
+            },
+            body:JSON.stringify({
+                planName:planName,
+                password:password,
+
+            })
         }).then(respuesta => respuesta.json())
-            .then(msj => console.log(msj));
+            .then(responseJson => {
+                if (responseJson._id === 0) {
+                    alert(responseJson.error.message);
+                }
+                else {
+                    alert("Plan cambiado");
+                    this.props.navigation.navigate('Edit', {usuario: this.state.usuarioLogeado, password:this.state.passwordUsuario});
+                }
+            })
+            .catch(error => {console.log(error)})
     }
 
 };
