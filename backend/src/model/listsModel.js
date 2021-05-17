@@ -40,6 +40,28 @@ class List {
             );
     }
 
+    async deleteList(usuario){
+
+        const db = getDB();
+
+        await db.collection('users')
+            .updateOne(
+                {
+                    "usuario" : usuario
+                },
+                {
+                    $pull:
+                    {
+                        listas:
+                        {
+                            nombreLista: this.nombreLista
+                        }
+                    }
+                }
+            );
+
+    }
+
 }
 
 module.exports = List;
