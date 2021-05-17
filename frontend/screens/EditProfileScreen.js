@@ -22,7 +22,7 @@ export default class App extends Component{
     }
 
     getUser = () => {
-        fetch(`http://150.128.169.21:3000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
+        fetch(`http://192.168.1.55:3000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
             method: 'GET',
             headers:{
                 'Accept' : 'application/json',
@@ -89,11 +89,11 @@ export default class App extends Component{
     }
 
     changePlan = () => {
-        this.props.navigation.navigate('ChangePlan', {usuario: this.state.usuario, plan:this.state.plan});
+        this.props.navigation.navigate('ChangePlan', {usuario: this.state.usuario, password: this.state.passwordUsuario, plan:this.state.plan});
     }
 
     updateProfile = () => {
-        const url = `http://150.128.169.21:3000/users/modifyUser/${this.state.usuarioLogeado}`;
+        const url = `http://192.168.1.55:3000/users/modifyUser/${this.state.usuarioLogeado}`;
         fetch(url, {
             method: 'PUT',
             headers:{
