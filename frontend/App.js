@@ -13,6 +13,7 @@ import FriendsProfile from "./screens/FriendsProfile"
 import DespensaProfile from "./screens/DespensaProfile"
 import ListasProfile from "./screens/ListasProfile"
 import RecetasProfile from "./screens/RecetasProfile"
+import CreateProfilesScreen from "./screens/CreateProfilesScreen";
 
 
 class HomeScreens extends React.Component {
@@ -56,6 +57,9 @@ const AppNavigator = createStackNavigator({
   Listas: {
     screen: ListasProfile
   },
+  CreateProfile: {
+    screen: CreateProfilesScreen
+  }
 });
 
 export default createAppContainer(AppNavigator);
