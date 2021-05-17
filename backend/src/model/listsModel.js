@@ -5,7 +5,7 @@ class List {
         this.nombreLista = nombreLista;
     }
 
-    newList(usuario){
+    async newList(usuario){
 
         const db = getDB();
 

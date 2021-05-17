@@ -5,7 +5,9 @@ const List = require('../model/listsModel');
 listsController.newList = async(req, res, next) => {
     
     const usuario = req.params.usuario;
+    console.log(usuario)
     const nombreLista = req.params.nombreLista;
+    console.log(nombreLista);
 
     const lista = new List(nombreLista);
     lista.newList(usuario)
@@ -23,13 +25,9 @@ listsController.newList = async(req, res, next) => {
             );
         })
         .then(result => {
-            console.log("Entramos en result.");
-            console.log(result);
-            if(result != undefined){
-                res.send({
-                    "_id": result._id
-                });
-            }
+            res.send({
+                "nombreLista": nombreLista
+            });
         });
 
 }
@@ -37,7 +35,7 @@ listsController.newList = async(req, res, next) => {
 listsController.deleteList = async(req, res, next) => {
     
     const usuario = req.params.usuario;
-    const usuario = req.params.nombreLista;
+    const nombreLista = req.params.nombreLista;
 
     res.send(
         {
@@ -53,7 +51,7 @@ listsController.deleteList = async(req, res, next) => {
 listsController.updateList = async(req, res, next) => {
     
     const usuario = req.params.usuario;
-    const usuario = req.params.nombreLista;
+    const nombreLista = req.params.nombreLista;
 
     res.send(
         {
@@ -69,7 +67,7 @@ listsController.updateList = async(req, res, next) => {
 listsController.addFood = async(req, res, next) => {
     
     const usuario = req.params.usuario;
-    const usuario = req.params.nombreLista;
+    const nombreLista = req.params.nombreLista;
 
     res.send(
         {
@@ -85,7 +83,7 @@ listsController.addFood = async(req, res, next) => {
 listsController.deleteFood = async(req, res, next) => {
     
     const usuario = req.params.usuario;
-    const usuario = req.params.nombreLista;
+    const nombreLista = req.params.nombreLista;
 
     res.send(
         {
@@ -101,7 +99,7 @@ listsController.deleteFood = async(req, res, next) => {
 listsController.buyFood = async(req, res, next) => {
     
     const usuario = req.params.usuario;
-    const usuario = req.params.nombreLista;
+    const nombreLista = req.params.nombreLista;
 
     res.send(
         {
