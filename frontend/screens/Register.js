@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {Container, Content, Footer, Form, Header, Input, Item, Button, Text} from 'native-base';
 import { AsyncStorage } from 'react-native';
-import {NetworkInfo} from 'react-native-network-info';
+//import {NetworkInfo} from 'react-native-network-info';
 import * as Font from 'expo-font';
 import {Ionicons} from '@expo/vector-icons';
-import axios from 'axios';
+//import axios from 'axios';
 import { AppLoading } from "expo/build/removed.web"; // miarar porque da error
 
 export default class App extends Component {
@@ -37,10 +37,10 @@ export default class App extends Component {
         const planName = "Gratuito";
         const {fechaNacimiento} = this.state;
 
-        console.log(`http://192.168.1.110:3000/users/newUser/${this.state.usuario}/${this.state.nombre}/${this.state.apellidos}/${this.state.correo}/${this.state.password}/${this.state.alergias}/${this.state.intolerancias}/${planName}/${this.state.fechaNacimiento}`)
+        console.log(`http://192.168.0.24:3000/users/newUser/${this.state.usuario}/${this.state.nombre}/${this.state.apellidos}/${this.state.correo}/${this.state.password}/${this.state.alergias}/${this.state.intolerancias}/${planName}/${this.state.fechaNacimiento}`)
 
         console.log(usuario, nombre, apellidos, correo, password, alergias, intolerancias, planName, fechaNacimiento);
-        const url = `http://192.168.1.110:3000/users/newUser`;
+        const url = `http://192.168.0.24:3000/users/newUser`;
 
         fetch(url,{
             method: 'POST',

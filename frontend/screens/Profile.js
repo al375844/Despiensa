@@ -38,7 +38,7 @@ export default class App extends Component {
     getUser = () => {
         const passwordUsuario = this.state.passwordUsuario;
         console.log(this.state.usuarioLogeado);
-        fetch(`http://192.168.1.110:3000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
+        fetch(`http://192.168.0.24:3000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
             method: 'GET',
             headers:{
                 'Accept' : 'application/json',
@@ -66,6 +66,7 @@ export default class App extends Component {
 
     renderProfileScreen = (user) => {
         return (
+            <ScrollView>
             <SafeAreaView style={StyleSheet.container}>
                 <View style={StyleSheet.userInterfaceStyle}>
                     <View style={{flexDirection: 'row',marginTop: 15, marginLeft: 5}}>
@@ -145,8 +146,14 @@ export default class App extends Component {
                         <Text style={{fontWeight: "bold"}}>Recetas</Text>
                         <Text>{this.getRecetas(user)}</Text>
                     </View>
+                    <View style={[StyleSheet.row, {
+                        margin: 20
+                    }]}>
+                        <Button title='Añadir perfil' onPress={() => {this.props.navigation.navigate('CreateProfiles', {usuario: this.state.usuarioLogeado, password:this.state.passwordUsuario})}}></Button>
+                    </View>
                 </View>
             </SafeAreaView>
+            </ScrollView>
         );
     };
 
@@ -175,7 +182,7 @@ export default class App extends Component {
 
     deleteUsuario = () => {
         const passwordUsuario = this.state.passwordUsuario;
-        fetch(`http://192.168.1.110:3000/users/deleteUser/${this.state.usuarioLogeado}`, {
+        fetch(`http://192.168.0.24:3000/users/deleteUser/${this.state.usuarioLogeado}`, {
             method: 'DELETE',
             headers:{
                 'Accept' : 'application/json',

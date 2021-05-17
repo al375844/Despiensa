@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import RNPickerSelect from "react-native-picker-select";
+//import RNPickerSelect from "react-native-picker-select";
 import {Button, StyleSheet, Text, TextInput, View} from "react-native";
 
 export default class App extends Component {
@@ -19,7 +19,7 @@ export default class App extends Component {
     }
 
     getPlans = () => {
-        fetch(`http://192.168.1.110:3000/plans/getPlans`, {
+        fetch(`http://192.168.0.24:3000/plans/getPlans`, {
             method: 'GET',
             headers:{
                 'Accept' : 'application/json',
@@ -92,7 +92,7 @@ export default class App extends Component {
     }
 
     updatePlan = () => {
-        const url = `http://192.168.1.110:3000/plans/modifyPlan/${this.state.usuarioLogeado}`;
+        const url = `http://192.168.0.24:3000/plans/modifyPlan/${this.state.usuarioLogeado}`;
         fetch(url, {
             method: 'PUT'
         }).then(respuesta => respuesta.json())

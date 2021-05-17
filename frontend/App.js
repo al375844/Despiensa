@@ -9,6 +9,7 @@ import LoginScreen from './screens/Login';
 import ProfileScreen from "./screens/Profile";
 import EditProfileScreen from "./screens/EditProfileScreen"
 import ChangePlanScreen from "./screens/ChangePlan"
+import CreateProfilesScreen from "./screens/CreateProfilesScreen"
 
 class HomeScreens extends React.Component {
   render() {
@@ -38,6 +39,9 @@ const AppNavigator = createStackNavigator({
   },
   ChangePlan: {
     screen: ChangePlanScreen
+  },
+  CreateProfiles: {
+    screen: CreateProfilesScreen
   }
 });
 

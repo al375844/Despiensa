@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, TextInput, Button } from 'react-native';
 
 export default class App extends Component{
-
     constructor(props) {
         super(props);
         this.state = {
@@ -22,7 +21,7 @@ export default class App extends Component{
     }
 
     getUser = () => {
-        fetch(`http://192.168.1.110:3000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
+        fetch(`http://192.168.0.24:3000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
             method: 'GET',
             headers:{
                 'Accept' : 'application/json',
@@ -93,9 +92,16 @@ export default class App extends Component{
     }
 
     updateProfile = () => {
-        const url = `http://192.168.1.110:3000/users/modifyUser/${this.state.usuario}/${this.state.usuario}/${this.state.nombreUsuario}/${this.state.apellidosUsuario}/${this.state.correo}`;
+        const url = `http://192.168.0.24:3000/users/modifyUser/${this.state.usuario}`;
         fetch(url, {
-            method: 'PUT'
+            method: 'PUT',
+            body: JSON.stringify({
+                usuarioNuevo: this.state.usuario,
+                nombre: this.state.nombreUsuario,
+                apellidos: this.state.apellidosUsuario,
+                correo: this.state.correo,
+                password: this.state.password
+            })
         }).then(respuesta => respuesta.json()).then(msj => console.log(msj));
     }
 
