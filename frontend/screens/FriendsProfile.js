@@ -22,7 +22,7 @@ export default class App extends Component {
     getUser = () => {
         const passwordUsuario = this.state.passwordUsuario;
         console.log(this.state.usuarioLogeado);
-        fetch(`http://192.168.1.55:3000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
+        fetch(`http://192.168.1.199:3000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
             method: 'GET',
             headers:{
                 'Accept' : 'application/json',
@@ -42,12 +42,18 @@ export default class App extends Component {
         return (
             <SafeAreaView style={StyleSheet.container}>
                 <View style={StyleSheet.userInterfaceStyle}>
-                    <View style={[StyleSheet.row, {
-                        marginTop: 20,
-                        marginLeft: 15
-                    }]}>
-                        <Text style={{fontWeight: "bold", marginBottom: 10}}>Perfiles</Text>
-                        <Text>{this.getPerfiles(user)}</Text>
+                    <View style={{flexDirection: 'column', marginTop: 15, marginBottom: 20, marginLeft:10, marginRight:10}}>
+                        <View style={{flexDirection: 'row', marginBottom: 10, width: '100%'}}>
+                            <View style={{flexDirection: 'column', width: '50%'}}>
+                                <Text style={{fontWeight: "bold", marginBottom: 10}}>Lista de Perfiles</Text>
+                            </View>
+                            <View style={{flexDirection: 'column', width: '50%'}}>
+                                <Button color={"#0099ff"} title='Crear' onPress={() => {this.props.navigation.navigate('CreateProfile', {usuario: this.state.usuarioLogeado, password : this.state.passwordUsuario })}}></Button>
+                            </View>
+                        </View>
+                        <View style={{flexDirection: 'row', backgroundColor: "#DCDCDC", borderColor: "#000000", borderWidth: 2}}>
+                            <View>{this.getPerfiles(user)}</View>
+                        </View>
                     </View>
                 </View>
             </SafeAreaView>
@@ -79,7 +85,7 @@ export default class App extends Component {
 
     deleteFriend = (nombrePerfil) => {
         const passwordUsuario = this.state.passwordUsuario;
-        const url = `http://192.168.1.55:3000/profiles/deleteProfile/${this.state.usuarioLogeado}/${nombrePerfil}`;
+        const url = `http://192.168.1.199:3000/profiles/deleteProfile/${this.state.usuarioLogeado}/${nombrePerfil}`;
 
         console.log(url);
         fetch(url, {
@@ -95,8 +101,8 @@ export default class App extends Component {
 
     getPerfiles = (user) => {
         return user.perfiles.map(data => {
-            return <ScrollView>
-                <View style={{marginLeft: 10, backgroundColor: "#DCDCDC", borderColor: "#000000", borderWidth: 2}}>
+            return <View style={{flexDirection: 'row'}}>
+                <View style={{flexDirection: 'column', marginLeft: 5, marginBottom: 10}}>
                     <View style={{margin: 10}}>
                         <Text>{data.nombrePerfil} {data.apellidosPerfil}</Text>
                         <Text>{data.fechaNacimientoPerfil}</Text>
@@ -106,30 +112,17 @@ export default class App extends Component {
                         <Text>{this.getIntolerancias(data.intolerancias)}</Text>
                     </View>
                 </View>
-                <View style = {{flexDirection: 'row'}}>
-                    <View style={[StyleSheet.row, {
-                        marginLeft: 25,
-                        marginTop: 10,
-                        alignItems: 'center'
-                    }]}>
-                        <Button color={"#0099ff"} title='Crear' onPress={() => {this.props.navigation.navigate('CreateProfile', {usuario: this.state.usuarioLogeado, password : this.state.passwordUsuario })}}></Button>
-                    </View>
-                    <View style={[StyleSheet.row, {
-                        marginLeft: 25,
-                        marginTop: 10,
-                        alignItems: 'center'
-                    }]}>
-                        <Button color={"#52b788"} title='Editar' onPress={() => {this.props.navigation.navigate('Edit', {usuario: this.state.usuario, password : this.state.passwordUsuario })}}></Button>
-                    </View>
-                    <View style={[StyleSheet.row, {
-                        marginLeft: 25,
-                        marginTop: 10,
-                        alignItems: 'center'
-                    }]}>
-                        <Button color={"#d00000"} title='Borrar' onPress={() => this.confirmDeleteFriend(data.nombrePerfil)}></Button>
+                <View style = {{flexDirection: 'column', marginLeft: 60}}>
+                    <View style = {{flexDirection: 'row'}}>
+                        <View style={{flexDirection: 'column', marginTop: 10}}>
+                            <Button color={"#52b788"} title='Editar' onPress={() => {this.props.navigation.navigate('Edit', {usuario: this.state.usuario, password : this.state.passwordUsuario })}}></Button>
+                        </View>
+                        <View style={{flexDirection: 'column', marginLeft: 25, marginTop: 10}}>
+                            <Button color={"#d00000"} title='Borrar' onPress={() => this.confirmDeleteFriend(data.nombrePerfil)}></Button>
+                        </View>
                     </View>
                 </View>
-            </ScrollView>
+            </View>
         })
     }
 
