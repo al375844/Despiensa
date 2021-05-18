@@ -22,7 +22,7 @@ export default class App extends Component {
     getUser = () => {
         const passwordUsuario = this.state.passwordUsuario;
         console.log(this.state.usuarioLogeado);
-        fetch(`http://192.168.1.55:3000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
+        fetch(`http://192.168.1.40:3000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
             method: 'GET',
             headers:{
                 'Accept' : 'application/json',
@@ -79,11 +79,11 @@ export default class App extends Component {
 
     deleteFriend = (nombrePerfil) => {
         const passwordUsuario = this.state.passwordUsuario;
-        const url = `http://192.168.1.55:3000/profiles/deleteProfile/${this.state.usuarioLogeado}/${nombrePerfil}`;
+        const url = `http://192.168.1.40:3000/profiles/deleteProfile/${this.state.usuarioLogeado}/${nombrePerfil}`;
 
         console.log(url);
         fetch(url, {
-            method: 'DELETE',
+            method: 'PUT',
             headers:{
                 'Accept' : 'application/json',
                 'Content-type' : 'application/json'

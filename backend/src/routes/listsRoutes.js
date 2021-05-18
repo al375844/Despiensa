@@ -6,11 +6,11 @@ const router = express.Router();
 //'lists'
 router.put('/newList/:usuario/:nombreLista', listsController.newList);
 
-router.put('/deleteList/:usuario/:nombreLista', listsController.deleteList);
+router.put('/deleteList/:usuario', listsController.deleteList);
 
-router.put('/updateList/:usuario/:nombreLista', listsController.updateList);
+router.put('/updateList/:usuario', listsController.updateList);
 
-router.put('/addFood/:usuario/:nombreLista', listsController.addFood);
+router.put('/addFood/:usuario', listsController.addFood);
 
 router.put('/deleteFood/:usuario/:nombreLista', listsController.deleteFood);
 

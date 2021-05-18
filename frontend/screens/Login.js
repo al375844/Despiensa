@@ -19,7 +19,7 @@ export default class App extends React.Component{
         const {usuario} = this.state;
         const {password} = this.state;
 
-        fetch(`http://192.168.1.55:3000/users/getUser/${this.state.usuario}/${this.state.password}`, {
+        fetch(`http://192.168.1.40:3000/users/getUser/${this.state.usuario}/${this.state.password}`, {
             method: 'GET',
             headers:{
                 'Accept' : 'application/json',
