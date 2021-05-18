@@ -93,17 +93,31 @@ listsController.updateList = async(req, res, next) => {
 listsController.addFood = async(req, res, next) => {
     
     const usuario = req.params.usuario;
-    const nombreLista = req.params.nombreLista;
+    const nombreLista = req.body.nombreLista;
+    const nombreAlimento = req.body.nombreAlimento;
+    const cantidad = req.body.cantidad;
 
-    res.send(
-        {
-            "_id": "0",
-            "error": {
-                "type" : 0,
-                "message" : "No implementada"
-            }
-        }
-    );
+    const lista = new List(nombreLista)
+    lista.addFood(usuario, nombreAlimento, cantidad)
+        .catch(err => {
+            console.log("Entramos en error.");
+            console.log("Error");
+            res.send(
+                {
+                    "_id": "0",
+                    "error": {
+                        "type" : err[0],
+                        "message" : err[1]
+                    }
+                }
+            );
+        })
+        .then(result => {
+            res.send({
+                "nuevoNombreLista": nuevoNombreLista
+            });
+        });
+
 }
 
 listsController.deleteFood = async(req, res, next) => {
