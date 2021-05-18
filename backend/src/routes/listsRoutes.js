@@ -8,7 +8,7 @@ router.put('/newList/:usuario/:nombreLista', listsController.newList);
 
 router.put('/deleteList/:usuario/:nombreLista', listsController.deleteList);
 
-router.put('/updateList/:usuario/:nombreLista', listsController.updateList);
+router.put('/updateList/:usuario/:viejoNombreLista', listsController.updateList);
 
 router.put('/addFood/:usuario/:nombreLista', listsController.addFood);
 
