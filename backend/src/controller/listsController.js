@@ -65,7 +65,7 @@ listsController.deleteList = async(req, res, next) => {
 listsController.updateList = async(req, res, next) => {
     
     const usuario = req.params.usuario;
-    const viejoNombreLista = req.params.viejoNombreLista;
+    const viejoNombreLista = req.body.viejoNombreLista;
     const nuevoNombreLista = req.body.nuevoNombreLista;
 
     const lista = new List(viejoNombreLista);
@@ -85,7 +85,7 @@ listsController.updateList = async(req, res, next) => {
         })
         .then(result => {
             res.send({
-                "nombreLista": nombreLista
+                "nuevoNombreLista": nuevoNombreLista
             });
         });
 }
