@@ -65,7 +65,7 @@ class List {
     async updateList(usuario, nombreNuevoLista){
 
         const db = getDB();
-
+        
         await db.collection('users')
             .updateOne(
                 {
@@ -82,6 +82,41 @@ class List {
                     [
                         {
                             "item.nombreLista": this.nombreLista
+                        }
+                    ]
+                }
+            )
+
+    }
+
+    async addFood(usuario, nombreAlimento, cantidad){
+
+        const db = getDB();
+
+        const cursor = await db.collection('food')
+            .find({"nombre": nombreAlimento});
+        const alimento = await cursor.next();
+
+        await db.collection('users')
+            .updateOne(
+                {
+                    "usuario": usuario
+                },
+                {
+                    $addToSet:
+                    {
+                        "listas.$[list].alimentos":
+                        {
+                            "alimento": alimento._id,
+                            "cantidad": cantidad
+                        }
+                    }
+                },
+                {
+                    arrayFilters:
+                    [
+                        {
+                            "list.nombreLista": this.nombreLista
                         }
                     ]
                 }
