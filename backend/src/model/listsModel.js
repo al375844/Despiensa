@@ -62,6 +62,33 @@ class List {
 
     }
 
+    async updateList(usuario, nombreNuevoLista){
+
+        const db = getDB();
+
+        await db.collection('users')
+            .updateOne(
+                {
+                    "usuario": usuario
+                },
+                {
+                    $set:
+                    {
+                        "listas.$[item].nombreLista": nombreNuevoLista
+                    }
+                },
+                {
+                    arrayFilters:
+                    [
+                        {
+                            "item.nombreLista": this.nombreLista
+                        }
+                    ]
+                }
+            )
+
+    }
+
 }
 
 module.exports = List;
