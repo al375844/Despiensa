@@ -108,7 +108,7 @@ class List {
                         "listas.$[list].alimentos":
                         {
                             "alimento": alimento._id,
-                            "cantidad": cantidad
+                            "cantidad": parseInt(cantidad)
                         }
                     }
                 },
@@ -121,6 +121,9 @@ class List {
                     ]
                 }
             )
+            .catch(err => {
+                console.log(err);
+            })
 
     }
 

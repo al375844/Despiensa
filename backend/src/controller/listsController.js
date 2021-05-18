@@ -25,9 +25,11 @@ listsController.newList = async(req, res, next) => {
             );
         })
         .then(result => {
-            res.send({
-                "nombreLista": nombreLista
-            });
+            if(result != undefined){
+                res.send({
+                    "nombreLista": nombreLista
+                });
+            }
         });
 
 }
@@ -55,9 +57,11 @@ listsController.deleteList = async(req, res, next) => {
             );
         })
         .then(result => {
-            res.send({
-                "nombreLista": nombreLista
-            });
+            if(result != undefined){
+                res.send({
+                    "nombreLista": nombreLista
+                });
+            }
         });
 
 }
@@ -84,9 +88,11 @@ listsController.updateList = async(req, res, next) => {
             );
         })
         .then(result => {
-            res.send({
-                "nuevoNombreLista": nuevoNombreLista
-            });
+            if(result != undefined){
+                res.send({
+                    "nuevoNombreLista": nuevoNombreLista
+                });
+            }
         });
 }
 
@@ -106,15 +112,17 @@ listsController.addFood = async(req, res, next) => {
                 {
                     "_id": "0",
                     "error": {
-                        "type" : err[0],
-                        "message" : err[1]
+                        "type" : 10,
+                        "message" : 'Error desconocido'
                     }
                 }
             );
         })
         .then(result => {
+            console.log("Entramos en result");
+            console.log(result);
             res.send({
-                "nuevoNombreLista": nuevoNombreLista
+                "nombreLista": nombreLista
             });
         });
 
