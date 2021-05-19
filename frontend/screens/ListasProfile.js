@@ -45,12 +45,18 @@ export default class App extends Component {
         return (
             <SafeAreaView style={StyleSheet.container}>
                 <View style={StyleSheet.userInterfaceStyle}>
-                    <View style={[StyleSheet.row, {
-                        marginTop: 20,
-                        marginLeft: 15
-                    }]}>
-                        <Text style={{fontWeight: "bold"}}>Listas</Text>
-                        <Text>{this.getListas(user)}</Text>
+                    <View style={{flexDirection: 'column', marginTop: 15, marginBottom: 20, marginLeft:10, marginRight:10}}>
+                        <View style={{flexDirection: 'row', marginBottom: 10, width: '100%'}}>
+                            <View style={{flexDirection: 'column', width: '50%'}}>
+                                <Text style={{fontWeight: "bold", marginBottom: 10}}>Listas de la compra</Text>
+                            </View>
+                            <View style={{flexDirection: 'column', width: '50%'}}>
+                                <Button color={"#0099ff"} title='Crear' onPress={() => this.setState({showCreate: true})}></Button>
+                            </View>
+                        </View>
+                        <View style={{flexDirection: 'row', backgroundColor: "#DCDCDC", borderColor: "#000000", borderWidth: 2, paddingBottom: 10}}>
+                            <View>{this.getListas(user)}</View>
+                        </View>
                     </View>
                 </View>
             </SafeAreaView>
@@ -117,11 +123,13 @@ export default class App extends Component {
             .catch(error => {console.log(error)});
     }
 
+    //{borderColor: "#000000", borderWidth: 2, marginTop: 15}
 
     getListas = (user) => {
         return user.listas.map(data => {
-            return <ScrollView>
-                <View style={{marginLeft: 10, backgroundColor: "#DCDCDC", borderColor: "#000000", borderWidth: 2, marginTop: 15}}>
+            return <View style={{flexDirection: 'column'}}>
+
+                <View style={{flexDirection: 'row', marginLeft: 10}}>
                     <View style={{margin: 10}}>
                         <Text>{data.nombreLista}</Text>
                         <Text style={{fontWeight: "bold", marginTop: 5}}>Alimentos</Text>
@@ -133,13 +141,13 @@ export default class App extends Component {
                         cancelText={"Cancelar"}
                         onCancel={()=>{this.setState({showEdit: false})}}
                         cancelStyle={[StyleSheet.row, {
-                            backgroundColor: "#ff3451",
+                            backgroundColor: "#d00000",
                         }]}
 
-                        submitText={"Añadir"}
+                        submitText={"Cambiar"}
                         onSubmit={(text)=>{this.confirmEditList(text, data.nombreLista)}}
                         submitStyle={[StyleSheet.row, {
-                            backgroundColor: "#a5ff16",
+                            backgroundColor: "#52b788",
                         }]}
 
                         inputStyle={[StyleSheet.row, {
@@ -151,7 +159,7 @@ export default class App extends Component {
                         }]}
                     />
                 </View>
-                <View style = {{flexDirection: 'row'}}>
+                <View style = {{flexDirection: 'row', marginBottom: 10}}>
                     <View style={[StyleSheet.row, {
                         marginLeft: 25,
                         marginTop: 10,
@@ -175,7 +183,7 @@ export default class App extends Component {
                     </View>
                 </View>
 
-            </ScrollView>
+            </View>
         })
     }
 
@@ -194,24 +202,21 @@ export default class App extends Component {
             <View
                 style={[StyleSheet.row, {
                     marginTop: 10,
-                    height: 1000
+                    height: '100%'
                 }]}>
-                <View>
-                    <Button color={"#0099ff"} title='Crear' onPress={() => this.setState({showCreate: true})}></Button>
-                </View>
                 <AlertInput
                     show={this.state.showCreate}
                     title={"Nombre de la lista"}
                     cancelText={"Cancelar"}
                     onCancel={()=>{this.setState({showCreate: false})}}
                     cancelStyle={[StyleSheet.row, {
-                        backgroundColor: "#ff3451",
+                        backgroundColor: "#d00000",
                     }]}
 
                     submitText={"Añadir"}
                     onSubmit={(text)=>{this.createList(text)}}
                     submitStyle={[StyleSheet.row, {
-                        backgroundColor: "#a5ff16",
+                        backgroundColor: "#52b788",
                     }]}
 
                     inputStyle={[StyleSheet.row, {

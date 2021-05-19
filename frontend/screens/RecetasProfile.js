@@ -42,12 +42,18 @@ export default class App extends Component {
         return (
             <SafeAreaView style={StyleSheet.container}>
                 <View style={StyleSheet.userInterfaceStyle}>
-                    <View style={[StyleSheet.row, {
-                        marginTop: 20,
-                        marginLeft: 15
-                    }]}>
-                        <Text style={{fontWeight: "bold"}}>Recetas</Text>
-                        <Text>{this.getRecetas(user)}</Text>
+                    <View style={{flexDirection: 'column', marginTop: 15, marginBottom: 20, marginLeft:10, marginRight:10}}>
+                        <View style={{flexDirection: 'row', marginBottom: 10, width: '100%'}}>
+                            <View style={{flexDirection: 'column', width: '50%'}}>
+                                <Text style={{fontWeight: "bold", marginBottom: 10}}>Lista de Recetas</Text>
+                            </View>
+                            <View style={{flexDirection: 'column', width: '50%'}}>
+                                <Button color={"#0099ff"} title='Crear' onPress={() => {this.props.navigation.navigate('CreateProfile', {usuario: this.state.usuarioLogeado, password : this.state.passwordUsuario })}}></Button>
+                            </View>
+                        </View>
+                        <View style={{flexDirection: 'row', backgroundColor: "#DCDCDC", borderColor: "#000000", borderWidth: 2}}>
+                            <View>{this.getRecetas(user)}</View>
+                        </View>
                     </View>
                 </View>
             </SafeAreaView>
@@ -95,18 +101,15 @@ export default class App extends Component {
 
     getRecetas = (user) => {
         return user.recetas.map(data => {
-            return <View>
-                <Text>{data}</Text>
-                <View style = {{flexDirection: 'row'}}>
-                    <View style={[StyleSheet.row, {
-                        marginLeft: 25,
-                        marginTop: 10,
-                        alignItems: 'center'
-                    }]}>
-                        <Button color={"#0099ff"} title='Crear' onPress={() => {this.props.navigation.navigate('Edit', {usuario: this.state.usuario, password : this.state.passwordUsuario })}}></Button>
+            return <View style={{flexDirection: 'column'}}>
+                <View style={{flexDirection: 'row', marginLeft: 10}}>
+                    <View style={{margin: 10}}>
+                        <Text>{data}</Text>
                     </View>
+                </View>
+                <View style = {{flexDirection: 'row', marginBottom: 10}}>
                     <View style={[StyleSheet.row, {
-                        marginLeft: 25,
+                        marginLeft: 20,
                         marginTop: 10,
                         alignItems: 'center'
                     }]}>

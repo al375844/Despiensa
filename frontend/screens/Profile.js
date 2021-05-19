@@ -82,16 +82,22 @@ export default class App extends Component {
                             <Caption style={StyleSheet.caption}>{user.correo}</Caption>
                         </View>
                         <View style={[StyleSheet.row, {
-                            marginLeft: 25,
+                            marginLeft: 15,
                             marginTop: 10
                         }]}>
                             <Button color={"#52b788"} title='Editar' onPress={() => {this.props.navigation.navigate('Edit', {usuario: this.state.usuario, password : this.state.passwordUsuario })}}></Button>
                         </View>
                         <View style={[StyleSheet.row, {
-                            marginLeft: 15,
+                            marginLeft: 10,
                             marginTop: 10
                         }]}>
                             <Button color={"#d00000"} title='Borrar' onPress={() => this.confirmDeleteUsuario()}></Button>
+                        </View>
+                        <View style={[StyleSheet.row, {
+                            marginLeft: 10,
+                            marginTop: 10
+                        }]}>
+                            <Button color={"#aaaaaa"} title='Salir' onPress={() => this.confirmaLogOut()}></Button>
                         </View>
                     </View>
                 </View>
@@ -155,6 +161,21 @@ export default class App extends Component {
             <View>
                 <Text>Loading profile...</Text>
             </View>
+        );
+    }
+
+    confirmaLogOut() {
+        Alert.alert(
+            '¿Seguro que quiere salir?',
+            'Una vez realizada la acción no podra volver atras.',
+            [
+                {
+                    text: 'Cancelar', onPress: () => console.log('Salir cancelado'), style: 'cancel',
+                },
+                {
+                    text: 'Aceptar', onPress: () => {this.props.navigation.navigate('Home'); console.log('Log out')}
+                }
+            ]
         );
     }
 
