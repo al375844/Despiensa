@@ -22,7 +22,7 @@ export default class App extends React.Component {
             usuarioLogeado: props.navigation.state.params.usuario,
             passwordUsuario: props.navigation.state.params.password,
             nombreLista: props.navigation.state.params.nombreLista,
-            products: [{ id: 1, name: 'Pan' }, { id: 2, name: 'Huevos' }, { id: 3, name: 'Cocacola' }, { id: 4, name: 'Leche' }],
+            products: [],
             nombreProducto: '',
             cantidad: '',
             show: false
@@ -50,14 +50,13 @@ export default class App extends React.Component {
                                         >
                                             <Body>
                                                 <Text style={{ color: p.gotten ? '#bbb' : '#000' }}>
-                                                    {p.name}
+                                                    {p.nombre}
                                                 </Text>
                                             </Body>
                                             <Right>
-                                                <CheckBox
-                                                    checked={p.gotten}
-                                                    onPress={this._handleProductPress.bind(this, p)}
-                                                />
+                                                <Text style={{ color: p.gotten ? '#bbb' : '#000' }}>
+                                                    {p.cantidad}
+                                                </Text>
                                             </Right>
                                         </ListItem>
                                     );
@@ -117,9 +116,27 @@ export default class App extends React.Component {
     addProduct(product) {
         let nombre = product[0]
         let cantidad = product[1]
-        console.log(nombre, cantidad)
+        console.log(nombre, cantidad, this.state.nombreLista, this.state.usuarioLogeado)
 
-        this.state.products.push()
+        this.state.products.push({nombre, cantidad})
+        console.log(this.state.products)
+
+        fetch(`http://192.168.1.38:3000/lists/addFood/${this.state.usuarioLogeado}`, {
+            method: 'PUT',
+            headers:{
+                'Accept' : 'application/json',
+                'Content-type' : 'application/json'
+            },
+            body:JSON.stringify({
+                nombreLista:this.state.nombreLista,
+                nombreAlimento:nombre,
+                cantidad:cantidad
+            })
+        }).then(response => response.json())
+            .then(setTimeout(() => {
+                this.setState({time: true, show: false})
+            }, 1000))
+            .catch(error => {console.log(error)});
     }
 
     _handleAddProductPress() {

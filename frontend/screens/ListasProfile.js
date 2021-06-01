@@ -22,10 +22,14 @@ export default class App extends Component {
         this.getUser();
     }
 
+    componentWillUnmount () {
+        clearTimeout()
+    }
+
     getUser = () => {
         const passwordUsuario = this.state.passwordUsuario;
         console.log(this.state.usuarioLogeado);
-        fetch(`http://192.168.1.40:3000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
+        fetch(`http://192.168.1.38:3000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
             method: 'GET',
             headers:{
                 'Accept' : 'application/json',
@@ -89,7 +93,7 @@ export default class App extends Component {
 
     deleteList = (nombreLista) => {
         const passwordUsuario = this.state.passwordUsuario;
-        const url = `http://192.168.1.40:3000/lists/deleteList/${this.state.usuarioLogeado}`;
+        const url = `http://192.168.1.38:3000/lists/deleteList/${this.state.usuarioLogeado}`;
 
         fetch(url, {
             method: 'PUT',
@@ -101,12 +105,13 @@ export default class App extends Component {
                 nombreLista: nombreLista
             })
         }).then(response => response.json())
-            .then(this.props.navigation.navigate('Profile', {usuario: this.state.usuarioLogeado, password:this.state.passwordUsuario}))
+            //.then(this.props.navigation.navigate('Profile', {usuario: this.state.usuarioLogeado, password:this.state.passwordUsuario}))
+            .then(setTimeout(this.getUser.bind(this), 100))
             .catch(error => {console.log(error)});
     }
 
     confirmEditList(nuevoNombreLista, nombreLista) {
-        const url = `http://192.168.1.40:3000/lists/updateList/${this.state.usuarioLogeado}`;
+        const url = `http://192.168.1.38:3000/lists/updateList/${this.state.usuarioLogeado}`;
 
         fetch(url, {
             method: 'PUT',
@@ -119,7 +124,9 @@ export default class App extends Component {
                 nuevoNombreLista: nuevoNombreLista
             })
         }).then(response => response.json())
-            .then(this.props.navigation.navigate('Profile', {usuario: this.state.usuarioLogeado, password:this.state.passwordUsuario}))
+            //.then(this.props.navigation.navigate('Profile', {usuario: this.state.usuarioLogeado, password:this.state.passwordUsuario}))
+            .then(this.setState({showEdit:false}))
+            .then(setTimeout(this.getUser.bind(this), 100))
             .catch(error => {console.log(error)});
     }
 
@@ -165,7 +172,7 @@ export default class App extends Component {
                         marginTop: 10,
                         alignItems: 'center'
                     }]}>
-                        <Button color={"#0099ff"} title='Añadir productos' onPress={() => {this.props.navigation.navigate('ShoppingList', {usuario: this.state.usuario, password : this.state.passwordUsuario,  nombreLista: data.nombreLista})}}></Button>
+                        <Button color={"#0099ff"} title='Añadir productos' onPress={() => {this.props.navigation.navigate('ShoppingList', {usuario: this.state.usuarioLogeado, password : this.state.passwordUsuario,  nombreLista: data.nombreLista})}}></Button>
                     </View>
                     <View style={[StyleSheet.row, {
                         marginLeft: 25,
@@ -232,8 +239,7 @@ export default class App extends Component {
     };
 
     createList(nombreLista) {
-        const url = `http://192.168.1.40:3000/lists/newList/${this.state.usuarioLogeado}/${nombreLista}`;
-
+        const url = `http://192.168.1.38:3000/lists/newList/${this.state.usuarioLogeado}/${nombreLista}`;
         fetch(url, {
             method: 'PUT',
             headers:{
@@ -241,7 +247,9 @@ export default class App extends Component {
                 'Content-type' : 'application/json'
             }
         }).then(response => response.json())
-            .then(this.props.navigation.navigate('Profile', {usuario: this.state.usuarioLogeado, password:this.state.passwordUsuario}))
+            //.then(this.props.navigation.navigate('Profile', {usuario: this.state.usuarioLogeado, password:this.state.passwordUsuario}))
+            .then(this.setState({showCreate:false}))
+            .then(setTimeout(this.getUser.bind(this), 100))
             .catch(error => {console.log(error)});
     }
 }

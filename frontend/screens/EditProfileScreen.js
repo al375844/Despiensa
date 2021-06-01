@@ -22,7 +22,7 @@ export default class App extends Component{
     }
 
     getUser = () => {
-        fetch(`http://192.168.1.40:3000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
+        fetch(`http://192.168.1.38:3000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
             method: 'GET',
             headers:{
                 'Accept' : 'application/json',
@@ -93,7 +93,7 @@ export default class App extends Component{
     }
 
     updateProfile = () => {
-        const url = `http://192.168.1.40:3000/users/modifyUser/${this.state.usuarioLogeado}`;
+        const url = `http://192.168.1.38:3000/users/modifyUser/${this.state.usuarioLogeado}`;
         fetch(url, {
             method: 'PUT',
             headers:{
