@@ -127,6 +127,45 @@ class List {
 
     }
 
+    async deleteFood(usuario,nombreAlimento) {
+        const db = getDB();
+
+        const cursor = await db.collection('food')
+            .find({"nombre": nombreAlimento});
+        const alimento = await cursor.next();
+        await db.collection('users')
+            .updateOne(
+                {
+                    "usuario": usuario
+                }, {
+                    $pull:
+                        {
+                            "listas.$[list].alimentos":
+                                {
+                                    "alimento": alimento._id,
+                                }
+                        }
+                },
+                {
+                    arrayFilters:
+                        [
+                            {
+                                "list.nombreLista": this.nombreLista
+                            }
+                        ]
+                }
+            )
+            .then((res) => {
+                if (res.matchedCount == 0) {
+                    throw [9, 'El alimento especificado no existe.'];
+                }
+                else {
+                    return res;
+                }
+            });
+
+    }
+
 }
 
 module.exports = List;
