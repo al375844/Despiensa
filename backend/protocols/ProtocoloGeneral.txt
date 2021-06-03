@@ -1,0 +1,5 @@
+Siempre devuelve _id, que puede ser o bien un id posible o bien 0.
+    |-> Si _id es 0: Ha habido un error.
+            |-> En dicho caso contiene un campo error con dos subcampos, tipo y descripción.
+    |-> Si _id es un valor distinto de 0: Todo ha ido bien.
+            |-> En dicho caso, devuelve el objeto recien insertado en la base de datos.
