@@ -12,7 +12,7 @@ router.put('/updateList/:usuario', listsController.updateList);
 
 router.put('/addFood/:usuario', listsController.addFood);
 
-router.put('/deleteFood/:usuario/:nombreLista', listsController.deleteFood);
+router.put('/deleteFood/:usuario/', listsController.deleteFood);
 
 router.put('/buyFood/:usuario/:nombreLista', listsController.buyFood);
 
