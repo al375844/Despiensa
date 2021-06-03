@@ -84,10 +84,114 @@ class Profile {
 
     async modifyProfile(nombreNuevo, apellidos, fechaNacimiento, alergias, intolerancias){
 
-        const db = getDB;
-        db.collection('users')
+        const db = getDB();
+        const resultado = await db.collection('users')
+            .findOne(
+                {
+                    perfiles:
+                        {
+                            $elemMatch:
+                                {
+                                    "nombrePerfil": this.nombrePerfil
+                                }
+                        }
+                }
+            )
+            .catch(err => {
+                throw [5, 'Error desconocido.'];
+            });
+
+        if(resultado==null){
+            throw [9, 'No existe el perfil .'];
+        }
+
+        var ISOfechaNacimiento = new Date(fechaNacimiento);
+
+        let arrayDeAlergias = alergias.split(',');
+        let arrayDeIntolerancias = intolerancias.split(',');
+
+        await db.collection('users')
+            .updateOne(
+                {
+                    "usuario" : this.usuario
+                },
+                {
+                    $set:
+                        {
+                            perfiles:
+                                {
+                                    $each: [
+                                        {
+                                            "nombrePerfil": nombreNuevo,
+                                            "apellidosPerfil": apellidos,
+                                            "fechaNacimientoPerfil": ISOfechaNacimiento,
+                                            "alergias": arrayDeAlergias,
+                                            "intolerancias": arrayDeIntolerancias
+                                        }
+                                    ],
+                                    $slice: 4
+                                }
+                        }
+                }
+            )
+            .then((res) => {
+                if(res.matchedCount == 0){
+                    throw [9, 'El usuario especificado no existe.'];
+                }
+            });
+
+        return db.collection('users')
+            .findOne({"usuario": this.usuario});
 
 
+
+    }
+
+    async deleteProfile(){
+        const db = getDB();
+        const resultado = await db.collection('users')
+            .updateOne(
+                {
+                    "usuario" : this.usuario
+                },
+                {
+                    $pull:
+                        {
+                            perfiles: {
+                                "nombrePerfil": this.nombrePerfil
+
+                            }
+                        }
+                }
+            ).then((res) => {
+                if(res.matchedCount == 0){
+                    throw [9, 'El usuario especificado no existe.'];
+                }
+            });
+    }
+
+    async getProfile(){
+        const db = getDB();
+        const resultado = await db.collection('users')
+            .findOne(
+                {
+                    usuario : this.usuario
+                },
+                {
+                    perfiles:
+                        {
+                            $elemMatch:
+                                {
+                                    nombrePerfil: this.nombrePerfil
+                                }
+                        }
+                }
+            )
+            .catch(err => {
+                throw [5, 'Error desconocido.'];
+            });
+
+        return resultado;
     }
 
 }

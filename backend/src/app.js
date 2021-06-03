@@ -17,6 +17,8 @@ const rootDir = require('../src/utils/path');
 const usersRoutes = require('./routes/usersRoutes');
 const profilesRoutes = require('./routes/profilesRoutes');
 const plansRoutes = require('./routes/plansRoutes');
+const listsRoutes = require('./routes/listsRoutes');
+const authRoutes = require('./routes/authRoutes');
 
 app.use(express.json());
 
@@ -26,6 +28,8 @@ app.use(express.json());
 app.use('/users', usersRoutes);
 app.use('/profiles', profilesRoutes);
 app.use('/plans', plansRoutes);
+app.use('/lists', listsRoutes);
+app.use('/auth', authRoutes);
 
 //Servimos utilizando express, los archivos css de forma estática
 app.use(express.static( path.join(rootDir, 'public') ));

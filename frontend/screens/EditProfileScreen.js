@@ -22,7 +22,7 @@ export default class App extends Component{
     }
 
     getUser = () => {
-        fetch(`http://192.168.1.110:3000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
+        fetch(`http://192.168.1.38:3000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
             method: 'GET',
             headers:{
                 'Accept' : 'application/json',
@@ -74,7 +74,7 @@ export default class App extends Component{
                     <Button style={styles.button} color={"#C66012"} title='Cambiar plan' onPress={() => {this.changePlan()}}></Button>
                 </View>
                 <View>
-                    <Button style={styles.button} title='Guardar' onPress={this.updateProfile}></Button>
+                    <Button style={styles.button} title='Guardar' onPress={() => {this.updateProfile()}}></Button>
                 </View>
             </View>
         );
@@ -89,14 +89,27 @@ export default class App extends Component{
     }
 
     changePlan = () => {
-        this.props.navigation.navigate('ChangePlan', {usuario: this.state.usuario, plan:this.state.plan, passwordUsuario:this.state.passwordUsuario});
+        this.props.navigation.navigate('ChangePlan', {usuario: this.state.usuario, password: this.state.passwordUsuario, plan:this.state.plan});
     }
 
     updateProfile = () => {
-        const url = `http://192.168.1.110:3000/users/modifyUser/${this.state.usuario}/${this.state.usuario}/${this.state.nombreUsuario}/${this.state.apellidosUsuario}/${this.state.correo}`;
+        const url = `http://192.168.1.38:3000/users/modifyUser/${this.state.usuarioLogeado}`;
         fetch(url, {
-            method: 'PUT'
-        }).then(respuesta => respuesta.json()).then(msj => console.log(msj));
+            method: 'PUT',
+            headers:{
+                'Accept' : 'application/json',
+                'Content-Type' : 'application/json'
+            },
+            body:JSON.stringify({
+                usuarioNuevo:this.state.usuario,
+                nombre:this.state.nombreUsuario,
+                apellidos:this.state.apellidosUsuario,
+                correo:this.state.correo,
+                password:this.state.passwordUsuario
+            })
+        }).then(respuesta => respuesta.json())
+            .then(msj => console.log(msj))
+            .then(this.props.navigation.navigate('Profile', {usuario: this.state.usuario, password:this.state.passwordUsuario}));
     }
 
     render() {

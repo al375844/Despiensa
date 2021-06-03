@@ -37,10 +37,10 @@ export default class App extends Component {
         const planName = "Gratuito";
         const {fechaNacimiento} = this.state;
 
-        console.log(`http://192.168.1.110:3000/users/newUser/${this.state.usuario}/${this.state.nombre}/${this.state.apellidos}/${this.state.correo}/${this.state.password}/${this.state.alergias}/${this.state.intolerancias}/${planName}/${this.state.fechaNacimiento}`)
+        console.log(`http://192.168.1.38:3000/users/newUser/${this.state.usuario}/${this.state.nombre}/${this.state.apellidos}/${this.state.correo}/${this.state.password}/${this.state.alergias}/${this.state.intolerancias}/${planName}/${this.state.fechaNacimiento}`)
 
         console.log(usuario, nombre, apellidos, correo, password, alergias, intolerancias, planName, fechaNacimiento);
-        const url = `http://192.168.1.110:3000/users/newUser`;
+        const url = `http://192.168.1.38:3000/users/newUser`;
 
         fetch(url,{
             method: 'POST',
@@ -104,7 +104,7 @@ export default class App extends Component {
                             <Input placeholder="Correo" onChangeText={correo => this.setState({correo})} />
                         </Item>
                         <Item>
-                            <Input placeholder="Password" onChangeText={password => this.setState({password})} />
+                            <Input placeholder="Password" secureTextEntry={true} onChangeText={password => this.setState({password})} />
                         </Item>
                         <Item>
                             <Input placeholder="Alergias" onChangeText={alergias => this.setState({alergias})} />

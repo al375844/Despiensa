@@ -8,19 +8,22 @@ export default class App extends Component {
 
         this.state = {
             usuarioLogeado: props.navigation.state.params.usuario,
-            passwordUsuario: props.navigation.state.params.passwordUsuario,
-            actualPlan: props.navigation.state.params.actualPlan,
+            passwordUsuario: props.navigation.state.params.password,
+            actualPlan: props.navigation.state.params.plan,
             savedPlans: undefined,
             planName: undefined,
         }
     }
 
     componentDidMount () {
-        this.getPlans();
+        setTimeout(() => {
+            this.getPlans();
+        }, 1000);
+
     }
 
     getPlans = () => {
-        fetch(`http://192.168.1.110:3000/plans/getPlans`, {
+        fetch(`http://192.168.1.38:3000/plans/getPlans`, {
             method: 'GET',
             headers:{
                 'Accept' : 'application/json',
@@ -45,10 +48,7 @@ export default class App extends Component {
 
         const width_proportion = '100%';
 
-        const {savedPlans} = this.state;
-        setTimeout(() => {
-            this.setPlan(savedPlans[0].nombre);
-        }, 1000);
+        console.log(this.state.planName);
 
         return(
             <View style={styles.view}>
@@ -58,7 +58,7 @@ export default class App extends Component {
                         style={{ height: 20, width: width_proportion }}
                         onValueChange={(itemValue) => this.setPlan(itemValue)}
                     >
-                        {savedPlans.map(obj =>
+                        {this.state.savedPlans.map(obj =>
                             {
                                 return (<Picker.Item label={obj.nombre} value={obj.nombre}/>)
                             }
@@ -96,8 +96,11 @@ export default class App extends Component {
 
     updatePlan = () => {
         const planName = this.state.planName;
+        console.log("Nombre plan: ", planName);
         const password = this.state.passwordUsuario;
-        const url = `http://192.168.1.110:3000/plans/modifyPlan/${this.state.usuarioLogeado}`;
+        console.log("Contraseña: ", password);
+        const url = `http://192.168.1.38:3000/plans/modifyPlan/${this.state.usuarioLogeado}`;
+        console.log("URI: ", url);
 
         fetch(url, {
             method: 'PUT',
@@ -112,7 +115,8 @@ export default class App extends Component {
             })
         }).then(respuesta => respuesta.json())
             .then(responseJson => {
-                if (responseJson._id === 0) {
+                console.log(responseJson);
+                if (responseJson._id === "0") {
                     alert(responseJson.error.message);
                 }
                 else {

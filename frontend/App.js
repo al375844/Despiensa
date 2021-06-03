@@ -7,8 +7,16 @@ import RegisterScreen from './screens/Register';
 import HomeScreen from './screens/Home';
 import LoginScreen from './screens/Login';
 import ProfileScreen from "./screens/Profile";
-import EditProfileScreen from "./screens/EditProfileScreen"
-import ChangePlanScreen from "./screens/ChangePlan"
+import EditProfileScreen from "./screens/EditProfileScreen";
+import ChangePlanScreen from "./screens/ChangePlan";
+import FriendsProfile from "./screens/FriendsProfile";
+import DespensaProfile from "./screens/DespensaProfile";
+import ListasProfile from "./screens/ListasProfile";
+import RecetasProfile from "./screens/RecetasProfile";
+import CreateProfilesScreen from "./screens/CreateProfilesScreen";
+import ShoppingListScreen from "./screens/ShoppingList";
+import AddProductScreen from "./screens/AddProduct"
+
 
 class HomeScreens extends React.Component {
   render() {
@@ -38,6 +46,27 @@ const AppNavigator = createStackNavigator({
   },
   ChangePlan: {
     screen: ChangePlanScreen
+  },
+  Friends: {
+    screen: FriendsProfile
+  },
+  Despensa: {
+    screen: DespensaProfile
+  },
+  Recetas: {
+    screen: RecetasProfile
+  },
+  Listas: {
+    screen: ListasProfile
+  },
+  CreateProfile: {
+    screen: CreateProfilesScreen
+  },
+  ShoppingList: {
+    screen: ShoppingListScreen
+  },
+  AddProduct: {
+    screen: AddProductScreen
   }
 });
 

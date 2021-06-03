@@ -202,6 +202,20 @@ class User {
             })
     }
 
+    async getUserName(username){
+
+        const db = getDB();
+        console.log(this.usuario)
+        return db.collection('users')
+            .findOne(
+                {
+                    usuario: username,
+                }
+            ).then( user => {
+                return user;
+            })
+    }
+
 }
 
 module.exports = User;

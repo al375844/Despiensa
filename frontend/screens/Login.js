@@ -19,7 +19,7 @@ export default class App extends React.Component{
         const {usuario} = this.state;
         const {password} = this.state;
 
-        fetch(`http://192.168.1.110:3000/users/getUser/${this.state.usuario}/${this.state.password}`, {
+        fetch(`http://192.168.1.38:3000/users/getUser/${this.state.usuario}/${this.state.password}`, {
             method: 'GET',
             headers:{
                 'Accept' : 'application/json',
@@ -58,7 +58,7 @@ export default class App extends React.Component{
                             <Input placeholder={"Username"} onChangeText={usuario => this.setState({usuario})}/>
                         </Item>
                         <Item>
-                            <Input placeholder={"Password"} onChangeText={password => this.setState({password})}/>
+                            <Input placeholder={"Password"} secureTextEntry={true} onChangeText={password => this.setState({password})}/>
                         </Item>
                         <Text></Text>
                         <Button full warning onPress={this.Login}>
