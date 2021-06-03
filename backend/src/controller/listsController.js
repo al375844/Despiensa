@@ -136,7 +136,7 @@ listsController.deleteFood = async(req, res, next) => {
 
     const lista = new List(nombreLista)
 
-    lista.deleteFood(usuario, nombreLista, nombreAlimento).catch(err => {
+    lista.deleteFood(usuario, nombreAlimento).catch(err => {
         console.log("Entramos en error.");
         //console.log(err);
         res.send(

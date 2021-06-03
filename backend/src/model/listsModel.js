@@ -125,7 +125,7 @@ class List {
 
     }
 
-    async deleteFood(user,list,food) {
+    async deleteFood(usuario,nombreAlimento) {
         const db = getDB();
 
         const cursor = await db.collection('food')
@@ -143,6 +143,14 @@ class List {
                                     "alimento": alimento._id,
                                 }
                         }
+                },
+                {
+                    arrayFilters:
+                        [
+                            {
+                                "list.nombreLista": this.nombreLista
+                            }
+                        ]
                 }
             )
             .then((res) => {
