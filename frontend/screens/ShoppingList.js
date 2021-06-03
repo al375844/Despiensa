@@ -121,7 +121,7 @@ export default class App extends React.Component {
         this.state.products.push({nombre, cantidad})
         console.log(this.state.products)
 
-        fetch(`http://192.168.1.38:3000/lists/addFood/${this.state.usuarioLogeado}`, {
+        fetch(`http://192.168.1.129:3000/lists/addFood/${this.state.usuarioLogeado}`, {
             method: 'PUT',
             headers:{
                 'Accept' : 'application/json',

@@ -20,10 +20,11 @@ export default class App extends Component {
             this.getPlans();
         }, 1000);
 
+
     }
 
     getPlans = () => {
-        fetch(`http://192.168.1.38:3000/plans/getPlans`, {
+        fetch(`http://192.168.1.129:3000/plans/getPlans`, {
             method: 'GET',
             headers:{
                 'Accept' : 'application/json',
@@ -33,6 +34,7 @@ export default class App extends Component {
             .then(plans => {
                 this.setState({
                     savedPlans: plans,
+                    planName: plans[0].nombre,
                 })
             })
             .catch(error => {console.log(error)});
@@ -48,7 +50,7 @@ export default class App extends Component {
 
         const width_proportion = '100%';
 
-        console.log(this.state.planName);
+        console.log("Nombre plan actual: " + this.state.planName);
 
         return(
             <View style={styles.view}>
@@ -99,7 +101,7 @@ export default class App extends Component {
         console.log("Nombre plan: ", planName);
         const password = this.state.passwordUsuario;
         console.log("Contraseña: ", password);
-        const url = `http://192.168.1.38:3000/plans/modifyPlan/${this.state.usuarioLogeado}`;
+        const url = `http://192.168.1.129:3000/plans/modifyPlan/${this.state.usuarioLogeado}`;
         console.log("URI: ", url);
 
         fetch(url, {

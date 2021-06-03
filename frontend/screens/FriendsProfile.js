@@ -22,7 +22,7 @@ export default class App extends Component {
     getUser = () => {
         const passwordUsuario = this.state.passwordUsuario;
         console.log(this.state.usuarioLogeado);
-        fetch(`http://192.168.1.38:3000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
+        fetch(`http://192.168.1.129:3000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
             method: 'GET',
             headers:{
                 'Accept' : 'application/json',
@@ -85,7 +85,7 @@ export default class App extends Component {
 
     deleteFriend = (nombrePerfil) => {
         const passwordUsuario = this.state.passwordUsuario;
-        const url = `http://192.168.1.38:3000/profiles/deleteProfile/${this.state.usuarioLogeado}/${nombrePerfil}`;
+        const url = `http://192.168.1.129:3000/profiles/deleteProfile/${this.state.usuarioLogeado}/${nombrePerfil}`;
 
         console.log(url);
         fetch(url, {
@@ -101,11 +101,12 @@ export default class App extends Component {
 
     getPerfiles = (user) => {
         return user.perfiles.map(data => {
+            let fechaCorrecta = new Date(data.fechaNacimientoPerfil).toLocaleDateString();
             return <View style={{flexDirection: 'row'}}>
                 <View style={{flexDirection: 'column', marginLeft: 5, marginBottom: 10}}>
                     <View style={{margin: 10}}>
                         <Text>{data.nombrePerfil} {data.apellidosPerfil}</Text>
-                        <Text>{data.fechaNacimientoPerfil}</Text>
+                        <Text>{fechaCorrecta}</Text>
                         <Text style={{fontWeight: "bold", marginTop: 5}}>Alergias</Text>
                         <Text>{this.getAlergias(data.alergias)}</Text>
                         <Text style={{fontWeight: "bold", marginTop: 5}}>Intolerancias</Text>
