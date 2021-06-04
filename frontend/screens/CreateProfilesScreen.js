@@ -13,10 +13,10 @@ class CreateProfilesScreen extends Component {
             confirmed: false,
             profilesData: [],
             textInputDisableStatus: true
-            
+
         }
     }
-    
+
     //====================================
     //FUNCIONES
     //====================================
@@ -25,7 +25,7 @@ class CreateProfilesScreen extends Component {
         for(let i=0; i<numProfiles; i++) {
             const profile = this.state.profilesData[i];
             console.log(profile, this.state.usuarioLogeado);
-            fetch('http://192.168.0.24:3000/profiles/newProfile', {
+            fetch('http://192.168.1.38:3000/profiles/newProfile', {
                 method: 'PUT',
                 headers:{
                     'Accept' : 'application/json',
@@ -82,7 +82,7 @@ class CreateProfilesScreen extends Component {
                 </View>
                 <View style={styles.btn}>
                     {this.state.confirmed ?
-                        <Button title='Crear perfiles' onPress={this.createProfiles}></Button> : <Text></Text>}
+                        <Button title='Crear perfiles' onPress={() => {this.createProfiles()}}></Button> : <Text></Text>}
                 </View>
             </View>
             </TouchableWithoutFeedback>

@@ -98,7 +98,7 @@ profilesController.modifyProfile = async(req, res, next) => {
 profilesController.deleteProfile = async(req, res, next) => {
     const usuario = req.params.usuario;
     const nombrePerfil = req.params.nombrePerfil
-    const profile = new Profile(usuario, nombrePerfil,"0","0","0","0");
+    let profile = new Profile(usuario, nombrePerfil,"0","0","0","0");
     profile.deleteProfile()
         .catch(err => {
             console.log("Entramos en error.");

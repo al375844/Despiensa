@@ -38,7 +38,7 @@ export default class App extends Component {
     getUser = () => {
         const passwordUsuario = this.state.passwordUsuario;
         console.log(this.state.usuarioLogeado);
-        fetch(`http://192.168.0.24:3000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
+        fetch(`http://192.168.1.38:3000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
             method: 'GET',
             headers:{
                 'Accept' : 'application/json',
@@ -66,7 +66,6 @@ export default class App extends Component {
 
     renderProfileScreen = (user) => {
         return (
-            <ScrollView>
             <SafeAreaView style={StyleSheet.container}>
                 <View style={StyleSheet.userInterfaceStyle}>
                     <View style={{flexDirection: 'row',marginTop: 15, marginLeft: 5}}>
@@ -83,16 +82,22 @@ export default class App extends Component {
                             <Caption style={StyleSheet.caption}>{user.correo}</Caption>
                         </View>
                         <View style={[StyleSheet.row, {
-                            marginLeft: 25,
+                            marginLeft: 15,
                             marginTop: 10
                         }]}>
                             <Button color={"#52b788"} title='Editar' onPress={() => {this.props.navigation.navigate('Edit', {usuario: this.state.usuario, password : this.state.passwordUsuario })}}></Button>
                         </View>
                         <View style={[StyleSheet.row, {
-                            marginLeft: 15,
+                            marginLeft: 10,
                             marginTop: 10
                         }]}>
                             <Button color={"#d00000"} title='Borrar' onPress={() => this.confirmDeleteUsuario()}></Button>
+                        </View>
+                        <View style={[StyleSheet.row, {
+                            marginLeft: 10,
+                            marginTop: 10
+                        }]}>
+                            <Button color={"#aaaaaa"} title='Salir' onPress={() => this.confirmaLogOut()}></Button>
                         </View>
                     </View>
                 </View>
@@ -102,7 +107,7 @@ export default class App extends Component {
                         marginLeft: 15
                     }]}>
                         <Text style={{fontWeight: "bold"}}>Nombre de usuario</Text>
-                        <Text>{user.nombreUsuario}</Text>
+                        <Text>{user.usuario}</Text>
                     </View>
                     <View style={[StyleSheet.row, {
                         marginTop: 20,
@@ -119,41 +124,35 @@ export default class App extends Component {
                         <Text>{user.n_recetas}</Text>
                     </View>
                     <View style={[StyleSheet.row, {
-                        marginTop: 20,
-                        marginLeft: 15
+                        marginLeft: 25,
+                        marginRight: 25,
+                        marginTop: 10
                     }]}>
-                        <Text style={{fontWeight: "bold"}}>Perfiles</Text>
-                        <Text>{this.getPerfiles(user)}</Text>
+                        <Button color={"#0099ff"} title='Perfiles' onPress={() => {this.props.navigation.navigate('Friends', {usuario: this.state.usuario, password : this.state.passwordUsuario })}}></Button>
                     </View>
                     <View style={[StyleSheet.row, {
-                        marginTop: 20,
-                        marginLeft: 15
+                        marginLeft: 25,
+                        marginRight: 25,
+                        marginTop: 10
                     }]}>
-                        <Text style={{fontWeight: "bold"}}>Listas</Text>
-                        <Text>{this.getListas(user)}</Text>
+                        <Button color={"#0099ff"} title='Listas' onPress={() => {this.props.navigation.navigate('Listas', {usuario: this.state.usuario, password : this.state.passwordUsuario })}}></Button>
                     </View>
                     <View style={[StyleSheet.row, {
-                        marginTop: 20,
-                        marginLeft: 15
+                        marginLeft: 25,
+                        marginRight: 25,
+                        marginTop: 10
                     }]}>
-                        <Text style={{fontWeight: "bold"}}>Despensa</Text>
-                        <Text>{this.getDespensa(user)}</Text>
+                        <Button color={"#0099ff"} title='Despensa' onPress={() => {this.props.navigation.navigate('Despensa', {usuario: this.state.usuario, password : this.state.passwordUsuario })}}></Button>
                     </View>
                     <View style={[StyleSheet.row, {
-                        marginTop: 20,
-                        marginLeft: 15
+                        marginLeft: 25,
+                        marginRight: 25,
+                        marginTop: 10
                     }]}>
-                        <Text style={{fontWeight: "bold"}}>Recetas</Text>
-                        <Text>{this.getRecetas(user)}</Text>
-                    </View>
-                    <View style={[StyleSheet.row, {
-                        margin: 20
-                    }]}>
-                        <Button title='Añadir perfil' onPress={() => {this.props.navigation.navigate('CreateProfiles', {usuario: this.state.usuarioLogeado, password:this.state.passwordUsuario})}}></Button>
+                        <Button color={"#0099ff"} title='Recetas' onPress={() => {this.props.navigation.navigate('Recetas', {usuario: this.state.usuario, password : this.state.passwordUsuario })}}></Button>
                     </View>
                 </View>
             </SafeAreaView>
-            </ScrollView>
         );
     };
 
@@ -162,6 +161,21 @@ export default class App extends Component {
             <View>
                 <Text>Loading profile...</Text>
             </View>
+        );
+    }
+
+    confirmaLogOut() {
+        Alert.alert(
+            '¿Seguro que quiere salir?',
+            'Una vez realizada la acción no podra volver atras.',
+            [
+                {
+                    text: 'Cancelar', onPress: () => console.log('Salir cancelado'), style: 'cancel',
+                },
+                {
+                    text: 'Aceptar', onPress: () => {this.props.navigation.navigate('Home'); console.log('Log out')}
+                }
+            ]
         );
     }
 
@@ -182,7 +196,7 @@ export default class App extends Component {
 
     deleteUsuario = () => {
         const passwordUsuario = this.state.passwordUsuario;
-        fetch(`http://192.168.0.24:3000/users/deleteUser/${this.state.usuarioLogeado}`, {
+        fetch(`http://192.168.1.38:3000/users/deleteUser/${this.state.usuarioLogeado}`, {
             method: 'DELETE',
             headers:{
                 'Accept' : 'application/json',

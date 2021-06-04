@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-//import RNPickerSelect from "react-native-picker-select";
+import {Picker} from '@react-native-picker/picker';
 import {Button, StyleSheet, Text, TextInput, View} from "react-native";
 
 export default class App extends Component {
@@ -8,18 +8,22 @@ export default class App extends Component {
 
         this.state = {
             usuarioLogeado: props.navigation.state.params.usuario,
-            actualPlan: props.navigation.state.params.actualPlan,
+            passwordUsuario: props.navigation.state.params.password,
+            actualPlan: props.navigation.state.params.plan,
             savedPlans: undefined,
             planName: undefined,
         }
     }
 
     componentDidMount () {
-        this.getPlans();
+        setTimeout(() => {
+            this.getPlans();
+        }, 1000);
+
     }
 
     getPlans = () => {
-        fetch(`http://192.168.0.24:3000/plans/getPlans`, {
+        fetch(`http://192.168.1.38:3000/plans/getPlans`, {
             method: 'GET',
             headers:{
                 'Accept' : 'application/json',
@@ -31,41 +35,40 @@ export default class App extends Component {
                     savedPlans: plans,
                 })
             })
-            .catch(error => {console.log(error); console.log('Peto al obtener planes')});
+            .catch(error => {console.log(error)});
+    }
+
+    setPlan = (plan) => {
+        this.setState({
+            planName: plan
+        })
     }
 
     renderChangePlan = () => {
 
-        const items = this.state.savedPlans.map(obj => (
-            {
-                label: obj.nombre,
-                value: obj.nombre,
-            }
-        ));
+        const width_proportion = '100%';
 
-        console.log('Termino con items');
-        console.log(items);
-
+        console.log(this.state.planName);
 
         return(
             <View style={styles.view}>
                 <View style={styles.container}>
-                    <RNPickerSelect
-                        placeholder={{
-                            label: 'Selecciona un plan...',
-                            value: null,
-                        }}
-                        onValueChange={(value) => {this.setState({
-                            planName: value,
-                        });}}
-                        items={items}
-                        value={this.state.planName}
-                    ></RNPickerSelect>
+                    <Picker
+                        selectedValue={this.state.planName}
+                        style={{ height: 20, width: width_proportion }}
+                        onValueChange={(itemValue) => this.setPlan(itemValue)}
+                    >
+                        {this.state.savedPlans.map(obj =>
+                            {
+                                return (<Picker.Item label={obj.nombre} value={obj.nombre}/>)
+                            }
+                        )}
+                    </Picker>
                 </View>
                 <View style={[StyleSheet.row, {
                     marginTop: 40
                 }]}>
-                    <Button style={styles.button} title='Cambiar plan' ></Button>
+                    <Button style={styles.button} title='Cambiar plan' onPress={() => {this.updatePlan()}}></Button>
                 </View>
             </View>
         );
@@ -92,11 +95,36 @@ export default class App extends Component {
     }
 
     updatePlan = () => {
-        const url = `http://192.168.0.24:3000/plans/modifyPlan/${this.state.usuarioLogeado}`;
+        const planName = this.state.planName;
+        console.log("Nombre plan: ", planName);
+        const password = this.state.passwordUsuario;
+        console.log("Contraseña: ", password);
+        const url = `http://192.168.1.38:3000/plans/modifyPlan/${this.state.usuarioLogeado}`;
+        console.log("URI: ", url);
+
         fetch(url, {
-            method: 'PUT'
+            method: 'PUT',
+            headers:{
+                'Accept' : 'application/json',
+                'Content-Type' : 'application/json'
+            },
+            body:JSON.stringify({
+                planName:planName,
+                password:password,
+
+            })
         }).then(respuesta => respuesta.json())
-            .then(msj => {console.log(msj); console.log('Peto al intentar cambiar plan');});
+            .then(responseJson => {
+                console.log(responseJson);
+                if (responseJson._id === "0") {
+                    alert(responseJson.error.message);
+                }
+                else {
+                    alert("Plan cambiado");
+                    this.props.navigation.navigate('Edit', {usuario: this.state.usuarioLogeado, password:this.state.passwordUsuario});
+                }
+            })
+            .catch(error => {console.log(error)})
     }
 
 };

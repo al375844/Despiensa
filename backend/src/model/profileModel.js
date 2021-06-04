@@ -175,11 +175,14 @@ class Profile {
         const resultado = await db.collection('users')
             .findOne(
                 {
+                    usuario : this.usuario
+                },
+                {
                     perfiles:
                         {
                             $elemMatch:
                                 {
-                                    "nombrePerfil": this.nombrePerfil
+                                    nombrePerfil: this.nombrePerfil
                                 }
                         }
                 }
