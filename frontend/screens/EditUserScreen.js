@@ -7,23 +7,22 @@ export default class App extends Component{
         super(props);
         this.state = {
             usuarioLogeado: props.navigation.state.params.usuario,
-            nombrePerfil: props.navigation.state.params.perfil,
             user: null,
             usuario: '',
             nombreUsuario:'',
             apellidosUsuario:'',
             correo:'',
+            passwordUsuario: props.navigation.state.params.password,
             plan:'',
         }
     }
 
     componentDidMount () {
-        this.getProfile();
+        this.getUser();
     }
 
-    getProfile = () => {
-        console.log(`http://${ipv4}:3000/profiles/getProfile/${this.state.usuarioLogeado}/${this.state.nombrePerfil}`);
-        fetch(`http://${ipv4}:3000/profiles/getProfile/${this.state.usuarioLogeado}/${this.state.nombrePerfil}`, {
+    getUser = () => {
+        fetch(`http://${ipv4}:3000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
             method: 'GET',
             headers:{
                 'Accept' : 'application/json',
@@ -31,7 +30,15 @@ export default class App extends Component{
             }
         }).then(response => response.json())
             .then(user => {
-                console.log(user);
+                this.setState({
+                    user: user,
+                    usuario: user.usuario,
+                    nombreUsuario: user.nombreUsuario,
+                    apellidosUsuario: user.apellidosUsuario,
+                    correo: user.correo,
+                    password: user.password,
+                    plan: user.plan
+                })
             })
             .catch(error => {console.log(error)});
     }

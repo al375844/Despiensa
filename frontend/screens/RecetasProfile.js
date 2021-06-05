@@ -22,7 +22,7 @@ export default class App extends Component {
     getUser = () => {
         const passwordUsuario = this.state.passwordUsuario;
         console.log(this.state.usuarioLogeado);
-        fetch(`http://192.168.1.38:3000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
+        fetch(`http://${ipv4}:3000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
             method: 'GET',
             headers:{
                 'Accept' : 'application/json',
@@ -85,7 +85,7 @@ export default class App extends Component {
 
     delete = () => {
         const passwordUsuario = this.state.passwordUsuario;
-        fetch(`http://192.168.1.38:3000/users/deleteUser/${this.state.usuarioLogeado}`, {
+        fetch(`http://${ipv4}:3000/users/deleteUser/${this.state.usuarioLogeado}`, {
             method: 'DELETE',
             headers:{
                 'Accept' : 'application/json',
