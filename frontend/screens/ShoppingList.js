@@ -49,14 +49,16 @@ export default class App extends React.Component {
                                             onPress={this._handleProductPress.bind(this, p)}
                                         >
                                             <Body>
-                                                <Text style={{ color: p.gotten ? '#bbb' : '#000' }}>
-                                                    {p.nombre}
+                                                <Text style={{ color: p.gotten ? '#bbb' : '#000'}}>
+                                                    {p.nombre}                                       {p.cantidad}
                                                 </Text>
                                             </Body>
                                             <Right>
-                                                <Text style={{ color: p.gotten ? '#bbb' : '#000' }}>
-                                                    {p.cantidad}
-                                                </Text>
+                                                <Icon
+                                                    ios="ios-remove"
+                                                    android="md-remove"
+                                                    style={{backgroundColor: 'red', color:"#fff", borderRadius: 50}}
+                                                    onPress={() => this.deleteProduct(p.nombre, p.cantidad)}/>
                                             </Right>
                                         </ListItem>
                                     );
@@ -121,7 +123,7 @@ export default class App extends React.Component {
         this.state.products.push({nombre, cantidad})
         console.log(this.state.products)
 
-        fetch(`http://192.168.1.129:3000/lists/addFood/${this.state.usuarioLogeado}`, {
+        fetch(`http://${ipv4}:3000/lists/addFood/${this.state.usuarioLogeado}`, {
             method: 'PUT',
             headers:{
                 'Accept' : 'application/json',
@@ -139,26 +141,62 @@ export default class App extends React.Component {
             .catch(error => {console.log(error)});
     }
 
-    _handleAddProductPress() {
-        this.props.navigation.navigate('AddProduct', {
-            addProduct: product => {
-                this.setState({
-                    products: this.state.products.concat(product)
-                });
+    deleteProduct(nombre, cantidad){
+        let i;
+        let cont = 0;
+        for (i=0; i < this.state.products.length; i++){
+            if (this.state.products[i].nombre === nombre){
+                break;
+            }
+            cont++;
+        }
+
+        this.state.products.splice(cont, 1);
+        console.log(this.state.products)
+
+        fetch(`http://${ipv4}:3000/lists/deleteFood/${this.state.usuarioLogeado}`, {
+            method: 'PUT',
+            headers:{
+                'Accept' : 'application/json',
+                'Content-type' : 'application/json'
             },
-            deleteProduct: product => {
-                this.setState({
-                    products: this.state.products.filter(p => p.id !== product.id)
-                });
-            },
-            productsInList: this.state.products
-        });
+            body:JSON.stringify({
+                nombreLista:this.state.nombreLista,
+                nombreAlimento:nombre
+            })
+        }).then(response => response.json())
+            .then(setTimeout(() => {
+                this.setState({time: true})
+            }, 1000))
+            .catch(error => {console.log(error)});
     }
 
     _handleClearPress() {
         Alert.alert('Clear all items?', null, [
             { text: 'Cancel' },
-            { text: 'Ok', onPress: () => this.setState({ products: [] }) }
+            { text: 'Ok', onPress: () => this.deleteAllProducts() }
         ]);
+    }
+
+    deleteAllProducts(){
+        let i;
+        for (i = 0; i < this.state.products.length; i++) {
+            console.log(this.state.products[i].nombre)
+            fetch(`http://${ipv4}:3000/lists/deleteFood/${this.state.usuarioLogeado}`, {
+                method: 'PUT',
+                headers:{
+                    'Accept' : 'application/json',
+                    'Content-type' : 'application/json'
+                },
+                body:JSON.stringify({
+                    nombreLista:this.state.nombreLista,
+                    nombreAlimento:this.state.products[i].nombre
+                })
+            }).then(response => response.json())
+                .catch(error => {console.log(error)});
+        }
+        setTimeout(() => {
+            this.setState({time: true, products: []})
+        }, 1000)
     }
 }

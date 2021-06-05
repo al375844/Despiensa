@@ -22,7 +22,7 @@ export default class App extends Component {
     getUser = () => {
         const passwordUsuario = this.state.passwordUsuario;
         console.log(this.state.usuarioLogeado);
-        fetch(`http://192.168.1.129:3000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
+        fetch(`http://${ipv4}:3000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
             method: 'GET',
             headers:{
                 'Accept' : 'application/json',
@@ -85,7 +85,7 @@ export default class App extends Component {
 
     deleteFriend = (nombrePerfil) => {
         const passwordUsuario = this.state.passwordUsuario;
-        const url = `http://192.168.1.129:3000/profiles/deleteProfile/${this.state.usuarioLogeado}/${nombrePerfil}`;
+        const url = `http://${ipv4}:3000/profiles/deleteProfile/${this.state.usuarioLogeado}/${nombrePerfil}`;
 
         console.log(url);
         fetch(url, {
@@ -116,7 +116,7 @@ export default class App extends Component {
                 <View style = {{flexDirection: 'column', marginLeft: 60}}>
                     <View style = {{flexDirection: 'row'}}>
                         <View style={{flexDirection: 'column', marginTop: 10}}>
-                            <Button color={"#52b788"} title='Editar' onPress={() => {this.props.navigation.navigate('Edit', {usuario: this.state.usuario, password : this.state.passwordUsuario })}}></Button>
+                            <Button color={"#52b788"} title='Editar' onPress={() => {this.props.navigation.navigate('EditProfile', {usuario: this.state.usuarioLogeado, perfil: data.nombrePerfil})}}></Button>
                         </View>
                         <View style={{flexDirection: 'column', marginLeft: 25, marginTop: 10}}>
                             <Button color={"#d00000"} title='Borrar' onPress={() => this.confirmDeleteFriend(data.nombrePerfil)}></Button>

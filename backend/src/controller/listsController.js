@@ -131,17 +131,21 @@ listsController.addFood = async(req, res, next) => {
 listsController.deleteFood = async(req, res, next) => {
 
     const usuario = req.params.usuario;
-    const nombreLista = req.params.nombreLista;
+    const nombreLista = req.body.nombreLista;
+    const nombreAlimento = req.body.nombreAlimento;
 
-    res.send(
-        {
-            "_id": "0",
-            "error": {
-                "type" : 0,
-                "message" : "No implementada"
-            }
-        }
-    );
+    const lista = new List(nombreLista)
+
+    lista.deleteFood(usuario, nombreAlimento)
+        .then(result => {
+        console.log("Entramos en result.");
+        //console.log(result);
+        res.send({
+            "nombreLista": nombreLista
+        })
+    }).catch(e => {
+        throw e;
+    });
 }
 
 listsController.buyFood = async(req, res, next) => {

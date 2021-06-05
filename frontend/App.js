@@ -2,11 +2,13 @@ import React from 'react';
 import {Text, View} from 'react-native';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
+import Global from './Global'
 
 import RegisterScreen from './screens/Register';
 import HomeScreen from './screens/Home';
 import LoginScreen from './screens/Login';
 import ProfileScreen from "./screens/Profile";
+import EditUserScreen from "./screens/EditUserScreen";
 import EditProfileScreen from "./screens/EditProfileScreen";
 import ChangePlanScreen from "./screens/ChangePlan";
 import FriendsProfile from "./screens/FriendsProfile";
@@ -42,6 +44,9 @@ const AppNavigator = createStackNavigator({
     screen: ProfileScreen
   },
   Edit: {
+    screen: EditUserScreen
+  },
+  EditProfile: {
     screen: EditProfileScreen
   },
   ChangePlan: {

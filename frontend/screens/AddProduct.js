@@ -183,4 +183,20 @@ export default class App extends React.Component {
         );
     }
 
+   /* _handleAddProductPress() {
+        this.props.navigation.navigate('AddProduct', {
+            addProduct: product => {
+                this.setState({
+                    products: this.state.products.concat(product)
+                });
+            },
+            deleteProduct: product => {
+                this.setState({
+                    products: this.state.products.filter(p => p.id !== product.id)
+                });
+            },
+            productsInList: this.state.products
+        });
+    }*/
+
 }

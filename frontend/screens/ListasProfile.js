@@ -29,7 +29,7 @@ export default class App extends Component {
     getUser = () => {
         const passwordUsuario = this.state.passwordUsuario;
         console.log(this.state.usuarioLogeado);
-        fetch(`http://192.168.1.129:3000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
+        fetch(`http://${ipv4}:3000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
             method: 'GET',
             headers:{
                 'Accept' : 'application/json',
@@ -93,7 +93,7 @@ export default class App extends Component {
 
     deleteList = (nombreLista) => {
         const passwordUsuario = this.state.passwordUsuario;
-        const url = `http://192.168.1.38:3000/lists/deleteList/${this.state.usuarioLogeado}`;
+        const url = `http://${ipv4}:3000/lists/deleteList/${this.state.usuarioLogeado}`;
 
         fetch(url, {
             method: 'PUT',
@@ -111,7 +111,7 @@ export default class App extends Component {
     }
 
     confirmEditList(nuevoNombreLista, nombreLista) {
-        const url = `http://192.168.1.129:3000/lists/updateList/${this.state.usuarioLogeado}`;
+        const url = `http://${ipv4}:3000/lists/updateList/${this.state.usuarioLogeado}`;
 
         fetch(url, {
             method: 'PUT',
@@ -239,7 +239,7 @@ export default class App extends Component {
     };
 
     createList(nombreLista) {
-        const url = `http://192.168.1.129:3000/lists/newList/${this.state.usuarioLogeado}/${nombreLista}`;
+        const url = `http://${ipv4}:3000/lists/newList/${this.state.usuarioLogeado}/${nombreLista}`;
         fetch(url, {
             method: 'PUT',
             headers:{

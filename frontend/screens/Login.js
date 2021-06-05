@@ -1,7 +1,6 @@
 import React from "react";
 import {AppLoading} from "expo/build/removed.web";
 import {Header, Text, Input, Item, Content, Container, Form, Footer, Button} from "native-base";
-import * as Font from 'expo-font';
 import {Ionicons} from '@expo/vector-icons';
 
 export default class App extends React.Component{
@@ -19,7 +18,7 @@ export default class App extends React.Component{
         const {usuario} = this.state;
         const {password} = this.state;
 
-        fetch(`http://192.168.1.129:3000/users/getUser/${this.state.usuario}/${this.state.password}`, {
+        fetch(`http://${ipv4}:3000/users/getUser/${this.state.usuario}/${this.state.password}`, {
             method: 'GET',
             headers:{
                 'Accept' : 'application/json',
@@ -40,11 +39,7 @@ export default class App extends React.Component{
     }
 
     async componentDidMount() {
-        await Font.loadAsync({
-            Roboto: require('native-base/Fonts/Roboto.ttf'),
-            Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
-            ...Ionicons.font,
-        });
+        console.log(ipv4);
         this.setState({isReady: true});
     }
 
@@ -70,4 +65,6 @@ export default class App extends React.Component{
             </Container>
         );
     }
+
+
 }
