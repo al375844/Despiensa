@@ -12,8 +12,9 @@ export default class App extends Component{
             usuario: '',
             nombreUsuario:'',
             apellidosUsuario:'',
-            correo:'',
-            plan:'',
+            fechaNacimiento:'',
+            alergias:'',
+            intolerancias:'',
         }
     }
 
@@ -52,19 +53,16 @@ export default class App extends Component{
                         onChangeText={apellidos => this.setState({apellidosUsuario: apellidos})}></TextInput>
                 </View>
                 <View>
-                    <Text>Correo</Text>
-                    <TextInput
-                        placeholder={user.correo}
-                        onChangeText={correo => this.setState({correo: correo})}></TextInput>
+                    <Text>Fecha Nacimiento</Text>
+                    <TextInput style={styles.input} placeholder="mes/dia/año" onChangeText={fechaNacimiento => user.fechaNacimiento = fechaNacimiento}></TextInput>
                 </View>
-                <View style={[StyleSheet.row, {
-                    marginBottom: 20
-                }]}>
-                    <Text>Plan</Text>
-                    <TextInput
-                        placeholder={user.plan}
-                        editable={false}></TextInput>
-                    <Button style={styles.button} color={"#C66012"} title='Cambiar plan' onPress={() => {this.changePlan()}}></Button>
+                <View>
+                    <Text>Alergias</Text>
+                    <TextInput style={styles.input} onChangeText={alergias => user.alergias = alergias}></TextInput>
+                </View>
+                <View>
+                    <Text>Intolerancias</Text>
+                    <TextInput style={styles.input} onChangeText={intolerancias => user.intolerancias = intolerancias}></TextInput>
                 </View>
                 <View>
                     <Button style={styles.button} title='Guardar' onPress={() => {this.updateProfile()}}></Button>
