@@ -37,10 +37,10 @@ export default class App extends Component {
         const planName = "Gratuito";
         const {fechaNacimiento} = this.state;
 
-        console.log(`http://192.168.1.129:3000/users/newUser/${this.state.usuario}/${this.state.nombre}/${this.state.apellidos}/${this.state.correo}/${this.state.password}/${this.state.alergias}/${this.state.intolerancias}/${planName}/${this.state.fechaNacimiento}`)
+        console.log(`http://${ipv4}:3000/users/newUser/${this.state.usuario}/${this.state.nombre}/${this.state.apellidos}/${this.state.correo}/${this.state.password}/${this.state.alergias}/${this.state.intolerancias}/${planName}/${this.state.fechaNacimiento}`)
 
         console.log(usuario, nombre, apellidos, correo, password, alergias, intolerancias, planName, fechaNacimiento);
-        const url = `http://192.168.1.129:3000/users/newUser`;
+        const url = `http://${ipv4}:3000/users/newUser`;
 
         fetch(url,{
             method: 'POST',
@@ -116,7 +116,7 @@ export default class App extends Component {
                             <Input placeholder="PlanName" value={"Gratuito"} disabled/>
                         </Item>*/}
                         <Item>
-                            <Input placeholder="Fecha Nacimiento {mm/dd/aaaa}" onChangeText={fechaNacimiento => this.setState({fechaNacimiento})} />
+                            <Input placeholder="Fecha Nacimiento {mm-dd-aaaa}" onChangeText={fechaNacimiento => this.setState({fechaNacimiento})} />
                         </Item>
                         <Text></Text>
                         <Button full warning color={"#C66012"} onPress={() => {this.Register()}} >

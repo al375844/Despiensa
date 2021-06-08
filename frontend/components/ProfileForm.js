@@ -33,7 +33,7 @@ const ProfileForm = props => {
             </View>
             <View>
                 <Text>Fecha Nacimiento</Text>
-                <TextInput style={styles.input} placeholder="mes/dia/año" onChangeText={fechaNacimiento => user.fechaNacimiento = fechaNacimiento}></TextInput>
+                <TextInput style={styles.input} placeholder="mm-dd-aaaa" onChangeText={fechaNacimiento => user.fechaNacimiento = fechaNacimiento}></TextInput>
             </View>
             <View>
                 <Text>Alergias</Text>
