@@ -123,7 +123,7 @@ export default class App extends React.Component {
         this.state.products.push({nombre, cantidad})
         console.log(this.state.products)
 
-        fetch(`http://192.168.1.38:3000/lists/addFood/${this.state.usuarioLogeado}`, {
+        fetch(`http://${ipv4}:3000/lists/addFood/${this.state.usuarioLogeado}`, {
             method: 'PUT',
             headers:{
                 'Accept' : 'application/json',
@@ -154,7 +154,7 @@ export default class App extends React.Component {
         this.state.products.splice(cont, 1);
         console.log(this.state.products)
 
-        fetch(`http://192.168.1.38:3000/lists/deleteFood/${this.state.usuarioLogeado}`, {
+        fetch(`http://${ipv4}:3000/lists/deleteFood/${this.state.usuarioLogeado}`, {
             method: 'PUT',
             headers:{
                 'Accept' : 'application/json',
@@ -182,7 +182,7 @@ export default class App extends React.Component {
         let i;
         for (i = 0; i < this.state.products.length; i++) {
             console.log(this.state.products[i].nombre)
-            fetch(`http://192.168.1.38:3000/lists/deleteFood/${this.state.usuarioLogeado}`, {
+            fetch(`http://${ipv4}:3000/lists/deleteFood/${this.state.usuarioLogeado}`, {
                 method: 'PUT',
                 headers:{
                     'Accept' : 'application/json',

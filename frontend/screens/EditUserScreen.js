@@ -7,23 +7,24 @@ export default class App extends Component{
         super(props);
         this.state = {
             usuarioLogeado: props.navigation.state.params.usuario,
-            nombrePerfil: props.navigation.state.params.perfil,
             user: null,
             usuario: '',
             nombreUsuario:'',
             apellidosUsuario:'',
             correo:'',
+            passwordUsuario: props.navigation.state.params.password,
             plan:'',
+            savedPlans:undefined,
         }
     }
 
     componentDidMount () {
-        this.getProfile();
+        this.getUser();
     }
 
-    getProfile = () => {
-        console.log(`http://${ipv4}:3000/profiles/getProfile/${this.state.usuarioLogeado}/${this.state.nombrePerfil}`);
-        fetch(`http://${ipv4}:3000/profiles/getProfile/${this.state.usuarioLogeado}/${this.state.nombrePerfil}`, {
+    getUser = () => {
+        let user_aux;
+        fetch(`http://${ipv4}:3000/users/getUser/${this.state.usuarioLogeado}/${this.state.passwordUsuario}`, {
             method: 'GET',
             headers:{
                 'Accept' : 'application/json',
@@ -31,12 +32,46 @@ export default class App extends Component{
             }
         }).then(response => response.json())
             .then(user => {
-                console.log(user);
+                user_aux = user;
+                this.setState({
+                    user: user,
+                    usuario: user.usuario,
+                    nombreUsuario: user.nombreUsuario,
+                    apellidosUsuario: user.apellidosUsuario,
+                    correo: user.correo,
+                    password: user.password,
+                })
             })
             .catch(error => {console.log(error)});
+
+        fetch(`http://${ipv4}:3000/plans/getPlans`, {
+            method: 'GET',
+            headers:{
+                'Accept' : 'application/json',
+                'Content-type' : 'application/json'
+            }
+        }).then(response => response.json())
+            .then(plans => {
+                let plan_number;
+                for (const plan in plans) {
+                    if(user_aux.plan == plans[plan]._id){
+                        console.log(plans[plan].nombre);
+                        plan_number = plan;
+                        break;
+                    }
+                }
+                this.setState({
+                    savedPlans: plans,
+                    plan: plans[plan_number].nombre,
+                })
+            })
+            .catch(error => {console.log(error)});
+
+
     }
 
     renderEditProfile = (user) => {
+        console.log("Plan: " + this.state.plan);
         return(
             <View style={styles.view}>
                 <View>
@@ -62,7 +97,7 @@ export default class App extends Component{
                 }]}>
                     <Text>Plan</Text>
                     <TextInput
-                        placeholder={user.plan}
+                        placeholder={this.state.plan}
                         editable={false}></TextInput>
                     <Button style={styles.button} color={"#C66012"} title='Cambiar plan' onPress={() => {this.changePlan()}}></Button>
                 </View>
@@ -107,6 +142,8 @@ export default class App extends Component{
 
     render() {
         const user = this.state.user;
+        console.log(this.state.savedPlans);
+
         return(
             <View>
                 {/* Comprobamos que user no sea null */}
