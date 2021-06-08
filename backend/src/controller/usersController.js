@@ -161,7 +161,7 @@ usersController.deleteUser = async(req, res, next) => {
 usersController.getUser = async(req, res, next) => {
     
     const usuario = req.params.usuario;
-    const password = req.body.password;
+    const password = req.params.password;
 
     let user = new User(usuario, "0", "0", "0", "0", "0", "0", "0", "0");
     user.getUser(password)

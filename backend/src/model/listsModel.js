@@ -20,22 +20,22 @@ class List {
                 },
                 {
                     $push:
-                    {
-                        listas: 
                         {
-                            $each: [
+                            listas:
                                 {
-                                    "nombreLista": this.nombreLista,
-                                    "alimentos": [
+                                    $each: [
                                         {
-                                            "alimento": nada._id,
-                                            "cantidad": 0
+                                            "nombreLista": this.nombreLista,
+                                            "alimentos": [
+                                                {
+                                                    "alimento": nada._id,
+                                                    "cantidad": 0
+                                                }
+                                            ]
                                         }
                                     ]
                                 }
-                            ]
-                        }  
-                    }
+                        }
                 }
             );
     }
@@ -51,12 +51,12 @@ class List {
                 },
                 {
                     $pull:
-                    {
-                        listas:
                         {
-                            nombreLista: this.nombreLista
+                            listas:
+                                {
+                                    nombreLista: this.nombreLista
+                                }
                         }
-                    }
                 }
             );
 
@@ -65,7 +65,7 @@ class List {
     async updateList(usuario, nombreNuevoLista){
 
         const db = getDB();
-        
+
         await db.collection('users')
             .updateOne(
                 {
@@ -73,17 +73,17 @@ class List {
                 },
                 {
                     $set:
-                    {
-                        "listas.$[item].nombreLista": nombreNuevoLista
-                    }
+                        {
+                            "listas.$[item].nombreLista": nombreNuevoLista
+                        }
                 },
                 {
                     arrayFilters:
-                    [
-                        {
-                            "item.nombreLista": this.nombreLista
-                        }
-                    ]
+                        [
+                            {
+                                "item.nombreLista": this.nombreLista
+                            }
+                        ]
                 }
             )
 
@@ -104,26 +104,65 @@ class List {
                 },
                 {
                     $addToSet:
-                    {
-                        "listas.$[list].alimentos":
                         {
-                            "alimento": alimento._id,
-                            "cantidad": parseInt(cantidad)
+                            "listas.$[list].alimentos":
+                                {
+                                    "alimento": alimento._id,
+                                    "cantidad": parseInt(cantidad)
+                                }
                         }
-                    }
                 },
                 {
                     arrayFilters:
-                    [
-                        {
-                            "list.nombreLista": this.nombreLista
-                        }
-                    ]
+                        [
+                            {
+                                "list.nombreLista": this.nombreLista
+                            }
+                        ]
                 }
             )
             .catch(err => {
                 console.log(err);
             })
+
+    }
+
+    async deleteFood(usuario,nombreAlimento) {
+        const db = getDB();
+
+        const cursor = await db.collection('food')
+            .find({"nombre": nombreAlimento});
+        const alimento = await cursor.next();
+        await db.collection('users')
+            .updateOne(
+                {
+                    "usuario": usuario
+                }, {
+                    $pull:
+                        {
+                            "listas.$[list].alimentos":
+                                {
+                                    "alimento": alimento._id,
+                                }
+                        }
+                },
+                {
+                    arrayFilters:
+                        [
+                            {
+                                "list.nombreLista": this.nombreLista
+                            }
+                        ]
+                }
+            )
+            .then((res) => {
+                if (res.matchedCount == 0) {
+                    throw [9, 'El alimento especificado no existe.'];
+                }
+                else {
+                    return res;
+                }
+            });
 
     }
 
